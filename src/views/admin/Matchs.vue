@@ -1,0 +1,30 @@
+<template>
+    <div>
+      <div class="flex flex-wrap">
+        <div class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
+          <card-match />
+        </div>
+        <div class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
+            <card-match />
+        </div>
+        <div class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
+            <card-match />
+        </div>
+        <div class="w-full xl:w-4/12 px-4">
+          <card-bar-chart />
+        </div>
+      </div>
+      
+    </div>
+  </template>
+  <script>
+  
+  import CardMatch from "@/components/Cards/CardMatch.vue";
+  export default {
+    name: "dashboard-page",
+    components: {
+      CardMatch,
+    },
+  };
+  </script>
+  
