@@ -1,9 +1,10 @@
 <template>
   <nav
-    class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
+    style="border-radius: 1rem"
+    class="md:left-0 md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
   >
     <div
-      class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto"
+      class="bg-BlueGray-100 md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto1"
     >
       <!-- Toggler -->
       <button
@@ -15,10 +16,19 @@
       </button>
       <!-- Brand -->
       <router-link
-        class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+        class="md:block text-left md:pb-2  mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-1"
         to="/"
       >
-        PlanStadium
+      <span 
+          class="w-13 h-13 text-sm bg-white inline-flex items-center justify-center rounded-full px-01"
+        >
+      <img
+            alt="..."
+            style="margin-right: 3px;"
+            :src="image"
+          />
+         <p style="margin-left: 3px; font-size: 16px; color:#47b839;">PlanStadium</p>
+      </span>
       </router-link>
       <!-- User -->
       <ul class="md:hidden items-center flex flex-wrap list-none">
@@ -31,33 +41,11 @@
       </ul>
       <!-- Collapse -->
       <div
-        class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded"
+        class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative lmm md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded"
         v-bind:class="collapseShow"
       >
         <!-- Collapse header -->
-        <div
-          class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200"
-        >
-          <div class="flex flex-wrap">
-            <div class="w-6/12">
-              <router-link
-                class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                to="/"
-              >
-                PlanStadium
-              </router-link>
-            </div>
-            <div class="w-6/12 flex justify-end">
-              <button
-                type="button"
-                class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-                v-on:click="toggleCollapseShow('hidden')"
-              >
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-        </div>
+
         <!-- Form -->
         <form class="mt-6 mb-4 md:hidden">
           <div class="mb-3 pt-0">
@@ -70,31 +58,36 @@
         </form>
 
         <!-- Divider -->
-        <hr class="my-4 md:min-w-full" />
+        <hr style="margin-top: 0.3rem;" class="my-4 md:min-w-full" />
         <!-- Heading -->
         <!-- Navigation -->
-<!--ACCUIEL-->
+        <!--ACCUIEL-->
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center">
+          <li class="items-center" >
             <router-link
               to="/admin/dashboard"
               v-slot="{ href, navigate, isActive }"
             >
-              <a
+              <a 
+                style="font-family: inherit,serif;font-size: 15px;"
                 :href="href"
                 @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
+                class="text-xs py-3 block"
                 :class="[
-                  isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
+                  isActive 
+                    ? 'box-sidebar hover:text-red-600 '
                     : 'text-blueGray-700 hover:text-blueGray-500',
                 ]"
               >
-              <i
-                  class="fa fa-home mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
-                Accuiel
+                <span  
+                class="material-symbols-outlined"
+                @click="navigate"
+                :class="[
+                  isActive 
+                    ? 'icon-sidebar-click '
+                    : 'icon-sidebar',
+                ]" > home </span>
+                 Accuiel
               </a>
             </router-link>
           </li>
@@ -104,26 +97,30 @@
               v-slot="{ href, navigate, isActive }"
             >
               <a
+              style="font-family: inherit,serif;font-size: 15px;"
                 :href="href"
                 @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
+                class="text-xs py-3 block"
                 :class="[
                   isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
+                  ? 'box-sidebar hover:text-red-600 '
                     : 'text-blueGray-700 hover:text-blueGray-500',
                 ]"
               >
-              <i
-                  class="fa fa-address-book mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
+                <span 
+                 class="material-symbols-outlined"
+                 @click="navigate"
+                :class="[
+                  isActive 
+                    ? 'icon-sidebar-click '
+                    : 'icon-sidebar',
+                ]" > group_add </span>
                 Gestion des admins
               </a>
             </router-link>
           </li>
 
-<!--Planning-->
-
+          <!--Planning-->
 
           <li class="items-center">
             <router-link
@@ -131,20 +128,25 @@
               v-slot="{ href, navigate, isActive }"
             >
               <a
+              style="font-family: inherit,serif;font-size: 15px;"
                 :href="href"
                 @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
+                class="text-xs py-3 block"
                 :class="[
                   isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
+                    ? 'box-sidebar hover:text-red-600 '
                     : 'text-blueGray-700 hover:text-blueGray-500',
                 ]"
               >
-                <i
-                  class="fas fa-calendar mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
-              Planning
+                <span 
+                 class="material-symbols-outlined"
+                 @click="navigate"
+                :class="[
+                  isActive 
+                    ? 'icon-sidebar-click '
+                    : 'icon-sidebar',
+                ]"> calendar_month </span>
+                Planning
               </a>
             </router-link>
           </li>
@@ -156,61 +158,80 @@
               v-slot="{ href, navigate, isActive }"
             >
               <a
+              style="font-family: inherit,serif;font-size: 15px;"
                 :href="href"
                 @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
+                class="text-xs py-3 block"
                 :class="[
                   isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
+                    ? 'box-sidebar hover:text-red-600 '
                     : 'text-blueGray-700 hover:text-blueGray-500',
                 ]"
               >
-                <i
-                  class="fas fa-table mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
+                <span class="material-symbols-outlined"
+                @click="navigate"
+                :class="[
+                  isActive 
+                    ? 'icon-sidebar-click '
+                    : 'icon-sidebar',
+                ]">
+                  free_cancellation
+                </span>
                 Liste des demandes
               </a>
-            </router-link>
+            </router-link> 
           </li>
           <li class="items-center">
-            <router-link to="/admin/competition" v-slot="{ href, navigate, isActive }">
+            <router-link
+              to="/admin/competition"
+              v-slot="{ href, navigate, isActive }"
+            >
               <a
+              style="font-family: inherit,serif;font-size: 15px;"
                 :href="href"
                 @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
+                class="text-xs py-3 block"
                 :class="[
                   isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
+                    ? 'box-sidebar hover:text-red-600 '
                     : 'text-blueGray-700 hover:text-blueGray-500',
                 ]"
               >
-                <i
-                class="fa fa-network-wired mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
-              Competitions
+                <span class="material-symbols-outlined"
+                @click="navigate"
+                :class="[
+                  isActive 
+                    ? 'icon-sidebar-click '
+                    : 'icon-sidebar',
+                ]"> lan </span>
+                Competitions
               </a>
             </router-link>
           </li>
 
-          
           <li class="items-center">
-            <router-link to="/admin/events" v-slot="{ href, navigate, isActive }">
+            <router-link
+              to="/admin/events"
+              v-slot="{ href, navigate, isActive }"
+            >
               <a
+              style="font-family: inherit,serif;font-size: 15px;"
                 :href="href"
                 @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
+                class="text-xs py-3 block"
                 :class="[
                   isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
+                    ? 'box-sidebar hover:text-red-600 '
                     : 'text-blueGray-700 hover:text-blueGray-500',
                 ]"
               >
-                <i
-                  class="fa fa-calendar-plus mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
+                <span class="material-symbols-outlined"
+                @click="navigate"
+                :class="[
+                  isActive 
+                    ? 'icon-sidebar-click '
+                    : 'icon-sidebar',
+                ]"> event_available </span>
                 Evenements
               </a>
             </router-link>
@@ -218,119 +239,153 @@
           <!--Equipe-->
           <li class="items-center">
             <router-link
-              to="/admin/equipes"
+              to="/admin/equipe"
               v-slot="{ href, navigate, isActive }"
             >
               <a
+              style="font-family: inherit,serif;font-size: 15px;"
                 :href="href"
                 @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
+                class="text-xs py-3 block"
                 :class="[
                   isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
+                    ? 'box-sidebar hover:text-red-600 '
                     : 'text-blueGray-700 hover:text-blueGray-500',
                 ]"
               >
-                <i
-                  class="fas fa-users mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
-               Equipes
-              </a>
-            </router-link>
-          </li>
-
-
-          <li class="items-center">
-            <router-link
-              to="/admin/stes"
-              v-slot="{ href, navigate, isActive }"
-            >
-              <a
-                :href="href"
+                <span class="material-symbols-outlined"
                 @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
                 :class="[
-                  isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
-                    : 'text-blueGray-700 hover:text-blueGray-500',
-                ]"
-              >
-                <i
-                  class="fas fa-tools mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
-                Societes de maintenance
+                  isActive 
+                    ? 'icon-sidebar-click '
+                    : 'icon-sidebar',
+                ]"> diversity_2 </span>
+                Equipes
               </a>
             </router-link>
           </li>
 
           <li class="items-center">
-            <router-link
-              to="/admin/maps"
-              v-slot="{ href, navigate, isActive }"
-            >
+            <router-link to="/admin/ste" v-slot="{ href, navigate, isActive }">
               <a
+              style="font-family: inherit,serif;font-size: 15px;"
                 :href="href"
                 @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
+                class="text-xs py-3 block"
                 :class="[
                   isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
+                    ? 'box-sidebar hover:text-red-600 '
                     : 'text-blueGray-700 hover:text-blueGray-500',
                 ]"
               >
-                <i
-                  class="fas fa-hockey-puck   mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
+                <span class="material-symbols-outlined"
+                @click="navigate"
+                :class="[
+                  isActive 
+                    ? 'icon-sidebar-click '
+                    : 'icon-sidebar',
+                ]"> engineering </span>
+                Stes de maintenance
+              </a>
+            </router-link>
+          </li>
+
+          <li class="items-center">
+            <router-link
+              to="/admin/stades"
+              v-slot="{ href, navigate, isActive }"
+            >
+              <a
+              style="font-family: inherit,serif;font-size: 15px;"
+                :href="href"
+                @click="navigate"
+                class="text-xs py-3 block"
+                :class="[
+                  isActive
+                    ? 'box-sidebar hover:text-red-600 '
+                    : 'text-blueGray-700 hover:text-blueGray-500',
+                ]"
+              >
+                <span class="material-symbols-outlined"
+                  @click="navigate"
+                :class="[
+                  isActive 
+                    ? 'icon-sidebar-click '
+                    : 'icon-sidebar',
+                ]"> stadium </span>
                 Stades
               </a>
             </router-link>
           </li>
-          
-        </ul>
-        
-        <!-- Navigation -->
 
-        <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-          
+        <!-- Navigation -->
           <li class="items-center">
             <router-link
-              class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
               to="/profile"
+              v-slot="{ href, navigate, isActive }"
             >
-              <i class="fas fa-user-circle text-blueGray-300 mr-2 text-sm"></i>
-              Profile 
-            </router-link>
-          </li>
-          
-          <li class="items-center">
-            <router-link
-              class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-              to="/auth/login"
-            >
-              <i class="fas fa-fingerprint text-blueGray-300 mr-2 text-sm"></i>
-              Login
-            </router-link>
-          </li>
-      
-          <li class="items-center">
-            <router-link to="/admin/settings" v-slot="{ href, navigate, isActive }">
               <a
+              style="font-family: inherit,serif;font-size: 15px;"
                 :href="href"
                 @click="navigate"
-                class="text-xs uppercase py-3 font-bold block"
+                class="text-xs py-3 block"
                 :class="[
                   isActive
-                    ? 'text-emerald-500 hover:text-emerald-600'
+                    ? 'box-sidebar hover:text-red-600 '
                     : 'text-blueGray-700 hover:text-blueGray-500',
                 ]"
               >
-                <i
-                class="fas fa-bars mr-2 text-sm"
-                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
-                ></i>
+              <span class="material-symbols-outlined"
+              @click="navigate"
+                :class="[
+                  isActive 
+                    ? 'icon-sidebar-click '
+                    : 'icon-sidebar',
+                ]"> account_circle </span>
+              Profile</a>
+            </router-link>
+          </li>
+
+          <!-- <li class="items-center">
+            <router-link
+               style="font-family: inherit,serif;font-size: 15px;"
+              class="text-blueGray-700 hover:text-blueGray-300 py-3 block"
+              to="/auth/login"
+            >
+              <span class="material-symbols-outlined"
+              @click="navigate"
+                :class="[
+                  isActive 
+                    ? 'icon-sidebar-click '
+                    : 'icon-sidebar',
+                ]"> logout </span>
+              Logout
+            </router-link>
+          </li> -->
+
+          <li class="items-center">
+            <router-link
+              to="/admin/settings"
+              v-slot="{ href, navigate, isActive }"
+            >
+              <a
+                 style="font-family: inherit,serif;font-size: 15px;"
+                :href="href"
+                @click="navigate"
+                class="text-xs py-3 block"
+                :class="[
+                  isActive
+                    ? 'box-sidebar hover:text-red-600 '
+                    : 'text-blueGray-700 hover:text-blueGray-500',
+                ]"
+              >
+                <span class="material-symbols-outlined"
+                @click="navigate"
+                :class="[
+                  isActive 
+                    ? 'icon-sidebar-click '
+                    : 'icon-sidebar',
+                ]"> settings </span>
                 Paramètres
               </a>
             </router-link>
@@ -346,10 +401,13 @@
 import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
 import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
 
+import image from "@/assets/img/photo.png";
+
 export default {
   data() {
     return {
       collapseShow: "hidden",
+      image,
     };
   },
   methods: {
@@ -360,6 +418,7 @@ export default {
   components: {
     NotificationDropdown,
     UserDropdown,
+   
   },
 };
 </script>

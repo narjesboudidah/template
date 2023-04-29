@@ -1,22 +1,25 @@
 <template>
   <div
-    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
+    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded" style="
+      border-radius: 1rem;"
   >
     <div class="rounded-t mb-0 px-4 py-3 border-0">
       <div class="flex flex-wrap items-center">
         <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-          <h3 class="font-semibold text-base text-blueGray-700">
-            Social traffic
+          <h3 class="font-semibold text-base text-blueGray-700 ">
+            Traveaux
           </h3>
         </div>
+    
         <div
           class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
         >
           <button
-            class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            class=" icon-sidebar-click"
             type="button"
+            style="padding-right: 0.7rem; padding-left: 0.7rem"
           >
-            See all
+          voir tous
           </button>
         </div>
       </div>
@@ -27,34 +30,36 @@
         <thead class="thead-light">
           <tr>
             <th
-              class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-left"
             >
-              Referral
+              Projet
             </th>
             <th
-              class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap  text-left"
             >
-              Visitors
+              ste
             </th>
             <th
-              class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px"
-            ></th>
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-left min-w-140-px"
+            >
+            Avancement
+          </th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap px-6 align-middle  border border-solid border-blueGray-50 py-3 font-bold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
-              Facebook
+              Projet1
             </th>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
-              1,480
+              VL
             </td>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
               <div class="flex items-center">
                 <span class="mr-2">60%</span>
@@ -73,17 +78,17 @@
           </tr>
           <tr>
             <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left text-left"
             >
-              Facebook
+              Projet 2
             </th>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
-              5,480
+              Ste2
             </td>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
               <div class="flex items-center">
                 <span class="mr-2">70%</span>
@@ -102,17 +107,17 @@
           </tr>
           <tr>
             <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left text-left"
             >
-              Google
+              Projet3
             </th>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
-              4,807
+              VL
             </td>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
               <div class="flex items-center">
                 <span class="mr-2">80%</span>
@@ -131,17 +136,17 @@
           </tr>
           <tr>
             <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
-              Instagram
+             Projet4
             </th>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
-              3,678
+              Ste 4
             </td>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
               <div class="flex items-center">
                 <span class="mr-2">75%</span>
@@ -160,17 +165,17 @@
           </tr>
           <tr>
             <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left text-left"
             >
-              twitter
+              Projet5
             </th>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
-              2,645
+              VL
             </td>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
               <div class="flex items-center">
                 <span class="mr-2">30%</span>

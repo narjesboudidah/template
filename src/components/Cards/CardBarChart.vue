@@ -1,14 +1,15 @@
 <template>
   <div
-    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
+    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded" style="
+      border-radius: 1rem;"
   >
     <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
       <div class="flex flex-wrap items-center">
         <div class="relative w-full max-w-full flex-grow flex-1">
-          <h6 class="uppercase text-blueGray-400 mb-1 text-xs font-semibold">
+          <h6 class="font-semibold text-blueGray-500 text-xss">
             Performance
           </h6>
-          <h2 class="text-blueGray-700 text-xl font-semibold">
+          <h2 class="font-semibold text-base text-blueGray-700">
             Total demandes
           </h2>
         </div>
@@ -41,7 +42,7 @@ export default {
           datasets: [
             {
               label: new Date().getFullYear(),
-              backgroundColor: "#ed64a6",
+              backgroundColor: "#17ad37",
               borderColor: "#ed64a6",
               data: [30, 78, 56, 34, 100, 45, 13],
               fill: false,

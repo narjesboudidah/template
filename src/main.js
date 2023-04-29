@@ -13,7 +13,7 @@ import App from "@/App.vue";
 // layouts
 
 import Admin from "@/layouts/Admin.vue";
-import Auth from "@/layouts/Auth.vue";
+import Forms from "@/layouts/Forms.vue";
 
 // views for Admin layout
 
@@ -25,17 +25,24 @@ import GestionAdmins from "@/views/admin/GestionAdmins.vue";
 import ListeDemande from "@/views/admin/ListeDemande.vue";
 import Competition from "@/views/admin/Competition.vue";
 import Matchs from "@/views/admin/Matchs.vue";
+import Stades from "@/views/admin/Stades.vue";
+import Stade from "@/views/admin/Stade.vue";
+import Equipe from "@/views/admin/Equipe.vue";
+import AdminForm from "@/views/admin/AdminForm.vue";
+import CompetitionForm from "@/views/admin/CompetitionForm.vue";
+import EquipeForm from "@/views/admin/EquipeForm.vue";
+import SteForm from "@/views/admin/SteForm.vue";
+import StadeForm from "@/views/admin/StadeForm.vue";
+import MatchForm from "@/views/admin/MatchForm.vue";
+import SocieteMaintenance from "@/views/admin/SocieteMaintenance.vue";
 // views for Auth layout
 
-import Login from "@/views/auth/Login.vue";
+import Login from "@/views/Login.vue";
 // views without layouts
 
-import Landing from "@/views/Landing.vue";
 import Profile from "@/views/Profile.vue";
-import Index from "@/views/Index.vue";
 
 // routes
-
 const routes = [
   {
     path: "/admin",
@@ -71,26 +78,65 @@ const routes = [
         path: "/admin/users",
         component: GestionAdmins,
       },
+      
       {
         path: "/admin/maps",
         component: Maps,
       },
-    ],
-  },
-  {
-    path: "/auth",
-    redirect: "/auth/login",
-    component: Auth,
-    children: [
       {
-        path: "/auth/login",
-        component: Login,
+        path: "/admin/stades",
+        component: Stades,
+      },
+      {
+        path: "/admin/stades/stade",
+        component: Stade,
+      },
+      {
+        path: "/admin/equipe",
+        component:Equipe,
+      },
+      {
+        path: "/admin/ste",
+        component: SocieteMaintenance,
       },
     ],
   },
+  {path: "/form",
+    redirect: "/admin/dashboard",
+    component: Forms,
+    children: [
+      {
+        path: "/form/AjoutAdmin",
+        component: AdminForm,
+      },
+      {
+        path: "/form/AjoutCompetition",
+        component: CompetitionForm,
+      },
+      {
+        path: "/form/AjoutEquipe",
+        component: EquipeForm
+      },
+      {
+        path: "/form/AjoutSte",
+        component: SteForm
+      },
+      {
+        path: "/form/AjoutStade",
+        component: StadeForm
+      },
+      {
+        path: "/form/AjoutMatch",
+        component: MatchForm
+      },
+
+    
+    ]
+    },
+ 
   {
-    path: "/landing",
-    component: Landing,
+    path: "/logout",
+    component: Login,
   },
   {
     path: "/profile",
@@ -98,7 +144,7 @@ const routes = [
   },
   {
     path: "/",
-    component: Index,
+    component: Login,
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },
 ];

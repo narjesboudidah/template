@@ -67,6 +67,18 @@
                 <div class="w-full lg:w-4/12 px-4 lg:order-1">
                   <div class="flex justify-center py-4 lg:pt-4 pt-8">
                     <div class="mr-4 p-3 text-center">
+                      <div
+                  class="w-full lg:w-4/12 lg:order-3 lg:text-right lg:self-center"
+                >
+                  <div style="margin-right=40rem;" class="py-6 px-3 mt-32 sm:mt-0">
+                    <button
+                      class="bg-emerald-500 active:bg-emerald-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                    >
+                      Connect
+                    </button>
+                  </div>
+                </div>
                       <span
                         class="text-xl font-bold block uppercase tracking-wide text-blueGray-600"
                       >
@@ -148,8 +160,6 @@
   </div>
 </template>
 <script>
-import Navbar from "@/components/Navbars/AuthNavbar.vue";
-import FooterComponent from "@/components/Footers/Footer.vue";
 
 import team2 from "@/assets/img/team-2-800x800.jpg";
 
@@ -160,8 +170,7 @@ export default {
     };
   },
   components: {
-    Navbar,
-    FooterComponent,
+   
   },
 };
 </script>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navbar />
     <div class="relative pt-16 pb-32 min-h-screen-75">
       <div
         class="absolute top-0 w-full h-full bg-center bg-cover"
@@ -92,16 +91,12 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbars/AuthNavbar.vue";
 import photo from "@/assets/img/photo.png";
 export default {
   data(){
     return{
       photo,
     };
-  },
-  components: {
-    Navbar,
   },
 };
 </script>

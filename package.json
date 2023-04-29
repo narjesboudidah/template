@@ -1,9 +1,6 @@
 {
   "name": "vue-notus",
-  "homepage": "https://demos.creative-tim.com/vue-notus/",
   "version": "1.1.0",
-  "description": "Vue Notus - A free Tailwind CSS and VueJS UI Kit and Admin by Creative Tim.",
-  "repository": "https://github.com/creativetimofficial/vue-notus",
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -24,7 +21,6 @@
     "core-js": "3.9.1",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
-    "tailwindcss": "2.0.4",
     "vue": "3.0.7",
     "vue-router": "4.0.5"
   },
@@ -38,6 +34,7 @@
     "eslint": "7.22.0",
     "eslint-plugin-vue": "7.7.0",
     "postcss": "8.2.8",
+    "tailwindcss": "^3.3.2",
     "vue-template-compiler": "2.6.12"
   },
   "eslintConfig": {

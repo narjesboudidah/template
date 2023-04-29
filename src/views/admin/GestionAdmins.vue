@@ -3,9 +3,6 @@
       <div class="w-full mb-12 px-4">
         <card-tableA />
       </div>
-      <div class="w-full mb-12 px-4">
-        <card-tableA color="dark" />
-      </div>
     </div>
   </template>
   <script>
