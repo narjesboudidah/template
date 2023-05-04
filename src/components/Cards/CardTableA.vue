@@ -14,7 +14,7 @@
         <div
           class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
         >
-          <button
+          <button v-if=" role == 'admin'"
             class="icon-sidebar-click"
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
@@ -258,6 +258,7 @@ export default {
   data() {
     return {
       bootstrap,
+      role : "admin"
     };
   },
 

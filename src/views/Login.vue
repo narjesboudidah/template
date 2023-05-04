@@ -47,6 +47,7 @@
                       type="email" 
                       class="border-0 px-3 py-3 placeholder-kaki  bg-blueGray-700 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
+                      v-model="form.email"
                     />
                   </div>
 
@@ -61,6 +62,7 @@
                       type="password"
                       class="border-0 px-3 py-3 placeholder-kaki bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
+                      v-model="form.password"
                     />
                   </div>
                   <div>
@@ -76,6 +78,7 @@
                       class="text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
                       style="background-color: #77a30b;"
+                      v-on:click="submit()"
                     >
                       Log In
                     </button>
@@ -91,13 +94,36 @@
 </template>
 
 <script>
+import axios from "axios";
+// import { useRouter } from "vue-router";
 import photo from "@/assets/img/photo.png";
+// const router = useRouter();
 export default {
   data(){
     return{
+      form: {
+        email: "",
+        password: ""
+      },  
       photo,
+      user:{}
     };
   },
+  methods: {
+    submit: async function() {
+      await axios.post("http://localhost:8000/api/login",this.form).then(async (result) => {
+        this.user = result.data.user;
+        localStorage.setItem("userid", this.user.id);
+        const user  = localStorage.getItem("userid");
+        if (result.status != 201){
+          console.log("error");
+          return;
+        }
+        window.location.href = "/admin/dashboard";
+        console.log(user);
+      }).catch(err => console.log(err.message))
+    }
+  } 
 };
 </script>
 
