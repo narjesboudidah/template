@@ -1,18 +1,16 @@
 <template>
     <div class="flex flex-wrap mt-4">
       <div class="w-full mb-12 px-4">
-        <card-planning/>
+        <card-Traveaux />
       </div>
-      
     </div>
   </template>
   <script>
-  import CardPlanning from "@/components/Cards/CardPlanning.vue";
+  import CardTraveaux from "@/components/Cards/CardTraveaux.vue";
   
   export default {
     components: {
-        CardPlanning,
+      CardTraveaux,
     },
   };
   </script>
-  

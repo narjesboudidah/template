@@ -63,6 +63,7 @@
         <!-- Navigation -->
         <!--ACCUIEL-->
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+          <!--Accuiel-->
           <li class="items-center" >
             <router-link
               to="/admin/dashboard"
@@ -91,6 +92,7 @@
               </a>
             </router-link>
           </li>
+          <!--Gestion des admins-->
           <li class="items-center">
             <router-link
               to="/admin/users"
@@ -121,7 +123,6 @@
           </li>
 
           <!--Planning-->
-
           <li class="items-center">
             <router-link
               to="/admin/planning"
@@ -181,6 +182,8 @@
               </a>
             </router-link> 
           </li>
+
+          <!--Competitions-->
           <li class="items-center">
             <router-link
               to="/admin/competition"
@@ -209,6 +212,7 @@
             </router-link>
           </li>
 
+          <!--Evenements-->
           <li class="items-center">
             <router-link
               to="/admin/events"
@@ -236,6 +240,36 @@
               </a>
             </router-link>
           </li>
+
+          <!--Traveaux-->
+          <li class="items-center">
+            <router-link
+              to="/admin/maintenance"
+              v-slot="{ href, navigate, isActive }"
+            >
+              <a
+              style="font-family: inherit,serif;font-size: 15px;"
+                :href="href"
+                @click="navigate"
+                class="text-xs py-3 block"
+                :class="[
+                  isActive
+                    ? 'box-sidebar hover:text-red-600 '
+                    : 'text-blueGray-700 hover:text-blueGray-500',
+                ]"
+              >
+                <span class="material-symbols-outlined"
+                @click="navigate"
+                :class="[
+                  isActive 
+                    ? 'icon-sidebar-click '
+                    : 'icon-sidebar',
+                ]"> engineering </span>
+                Traveaux
+              </a>
+            </router-link>
+          </li>
+
           <!--Equipe-->
           <li class="items-center">
             <router-link
@@ -265,6 +299,7 @@
             </router-link>
           </li>
 
+          <!--Stes de maintenance-->
           <li class="items-center">
             <router-link to="/admin/ste" v-slot="{ href, navigate, isActive }">
               <a
@@ -290,6 +325,7 @@
             </router-link>
           </li>
 
+           <!-- Stades -->
           <li class="items-center">
             <router-link
               to="/admin/stades"
@@ -317,52 +353,8 @@
               </a>
             </router-link>
           </li>
-
-        <!-- Navigation -->
-          <li class="items-center">
-            <router-link
-              to="/profile"
-              v-slot="{ href, navigate, isActive }"
-            >
-              <a
-              style="font-family: inherit,serif;font-size: 15px;"
-                :href="href"
-                @click="navigate"
-                class="text-xs py-3 block"
-                :class="[
-                  isActive
-                    ? 'box-sidebar hover:text-red-600 '
-                    : 'text-blueGray-700 hover:text-blueGray-500',
-                ]"
-              >
-              <span class="material-symbols-outlined"
-              @click="navigate"
-                :class="[
-                  isActive 
-                    ? 'icon-sidebar-click '
-                    : 'icon-sidebar',
-                ]"> account_circle </span>
-              Profile</a>
-            </router-link>
-          </li>
-
-          <!-- <li class="items-center">
-            <router-link
-               style="font-family: inherit,serif;font-size: 15px;"
-              class="text-blueGray-700 hover:text-blueGray-300 py-3 block"
-              to="/auth/login"
-            >
-              <span class="material-symbols-outlined"
-              @click="navigate"
-                :class="[
-                  isActive 
-                    ? 'icon-sidebar-click '
-                    : 'icon-sidebar',
-                ]"> logout </span>
-              Logout
-            </router-link>
-          </li> -->
-
+          
+          <!-- Paramètres -->
           <li class="items-center">
             <router-link
               to="/admin/settings"

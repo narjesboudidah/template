@@ -26,7 +26,7 @@
               name="nom-admin"
               placeholder="Nom de l'admin"
               required
-              class="border-2 border-blueGray-100 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+              class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
             />
           </div>
           <div class="w-full lg:w-6/12 px-4 mb-3">
@@ -95,6 +95,22 @@
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
             />
           </div>
+          <div class="w-full lg:w-6/12 px-4 mb-3">
+            <label
+              class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+              for="mot-de-passe"
+            >
+              Mot de passe :
+            </label>
+            <input
+              type="password"
+              id="mot-de-passe"
+              name="mot-de-passe"
+              placeholder="Mot de passe"
+              required
+              class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+            />
+          </div>
         </div>
         <hr class="mt-6 border-b-1 border-blueGray-300" />
 
@@ -148,36 +164,36 @@
           Permission de l'admin
         </h6>
         <div>
-        <div>Checked names: {{ checkedNames }}</div>
-        <div class="mt-2 space-y-2" style="display: flex">
+        <div>Permissions : {{ checkedNames }}</div>
+        <div class="mt-2 space-y-2" style="display: flex;">
           <div class="flex items-center ml-3 mr-1">
             <input
               type="checkbox"
-              id="jack"
-              value="Jack"
+              id="ajouter-stade"
+              value="Ajouter stade"
               v-model="checkedNames"
             />
-            <label for="jack">Jack</label>
+            <label class="ml-3 mr-1" for="ajouter-stade">Ajouter stade</label>
           </div>
 
           <div class="flex items-center ml-3 mr-1">
             <input
               type="checkbox"
-              id="john"
-              value="John"
+              id="modifier-role"
+              value="Modifier role"
               v-model="checkedNames"
             />
-            <label class="ml-3 mr-1" for="john">John</label>
+            <label class="ml-3 mr-1" for="modifier-role">Modifier role</label>
           </div>
 
           <div class="flex items-center ml-3 mr-1">
             <input
               type="checkbox"
-              id="mike"
-              value="Mike"
+              id="supprimer-event"
+              value="Supprimer Event"
               v-model="checkedNames"
             />
-            <label for="mike">Mike</label>
+            <label class="ml-3 mr-1" for="supprimer-event">Supprimer Event</label>
           </div>
         </div>
         </div>
@@ -192,7 +208,7 @@
         </button>
 
         <button
-          class="boutton-annuler bg-blueGray-500 text-blueGray-400 active:bg-red-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear"
+          class="boutton-annuler bg-blueGray-300 text-blueGray-400 active:bg-red-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear"
           type="button"
           style="padding-right: 0.7rem; padding-left: 0.7rem"
         >

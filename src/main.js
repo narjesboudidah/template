@@ -19,6 +19,8 @@ import Forms from "@/layouts/Forms.vue";
 
 import Dashboard from "@/views/admin/Dashboard.vue";
 import Settings from "@/views/admin/Settings.vue";
+import Role from "@/views/admin/Role.vue";
+import Permission from "@/views/admin/Permission.vue";
 import Tables from "@/views/admin/Tables.vue";
 import Maps from "@/views/admin/Maps.vue";
 import GestionAdmins from "@/views/admin/GestionAdmins.vue";
@@ -27,6 +29,9 @@ import Competition from "@/views/admin/Competition.vue";
 import Matchs from "@/views/admin/Matchs.vue";
 import Stades from "@/views/admin/Stades.vue";
 import Stade from "@/views/admin/Stade.vue";
+import Events from "@/views/admin/Events.vue";
+import Maintenance from "@/views/admin/Maintenance.vue";
+import Planning from "@/views/admin/Planning.vue";
 import Equipe from "@/views/admin/Equipe.vue";
 import AdminForm from "@/views/admin/AdminForm.vue";
 import CompetitionForm from "@/views/admin/CompetitionForm.vue";
@@ -34,6 +39,13 @@ import EquipeForm from "@/views/admin/EquipeForm.vue";
 import SteForm from "@/views/admin/SteForm.vue";
 import StadeForm from "@/views/admin/StadeForm.vue";
 import MatchForm from "@/views/admin/MatchForm.vue";
+import EventForm from "@/views/admin/EventForm.vue";
+import PermissionForm from "@/views/admin/PermissionForm.vue";
+import RoleForm from "@/views/admin/RoleForm.vue";
+import Historique from "@/views/admin/Historique.vue";
+import HistoriqueDemande from "@/views/admin/HistoriqueDemande.vue";
+import HistoriqueN from "@/views/admin/HistoriqueN.vue";
+import MaintenanceForm from "@/views/admin/MaintenanceForm.vue";
 import SocieteMaintenance from "@/views/admin/SocieteMaintenance.vue";
 // views for Auth layout
 
@@ -56,6 +68,14 @@ const routes = [
       {
         path: "/admin/settings",
         component: Settings,
+      },
+      {
+        path: "/admin/settings/role",
+        component: Role,
+      },
+      {
+        path: "/admin/settings/permission",
+        component: Permission,
       },
       {
         path: "/admin/tables",
@@ -99,6 +119,18 @@ const routes = [
         path: "/admin/ste",
         component: SocieteMaintenance,
       },
+      {
+        path: "/admin/events",
+        component: Events,
+      },
+      {
+        path: "/admin/maintenance",
+        component: Maintenance,
+      },
+      {
+        path: "/admin/planning",
+        component: Planning,
+      },
     ],
   },
   {path: "/form",
@@ -129,13 +161,41 @@ const routes = [
         path: "/form/AjoutMatch",
         component: MatchForm
       },
+      {
+        path: "/form/AjoutEvent",
+        component: EventForm
+      },
+      {
+        path: "/form/AjoutMaintenance",
+        component: MaintenanceForm
+      },
+      {
+        path: "/form/HistoriqueDemande",
+        component: HistoriqueDemande,
+      },
+      {
+        path: "/form/HistoriqueN",
+        component: HistoriqueN,
+      },
+      {
+        path: "/form/historique",
+        component: Historique,
+      },
+      {
+        path: "/form/Role",
+        component: RoleForm,
+      },
+      {
+        path: "/form/Permission",
+        component: PermissionForm,
+      },
 
     
     ]
     },
  
   {
-    path: "/logout",
+    path: "/login",
     component: Login,
   },
   {

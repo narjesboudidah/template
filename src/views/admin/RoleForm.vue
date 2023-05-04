@@ -1,17 +1,17 @@
 <template>
     <div class="flex flex-wrap mt-4">
       <div class="w-full mb-12 px-4">
-        <card-planning/>
+        <card-form-role/>
       </div>
       
     </div>
   </template>
   <script>
-  import CardPlanning from "@/components/Cards/CardPlanning.vue";
+  import CardFormRole from "@/components/Cards/Forms/CardFormRole.vue";
   
   export default {
     components: {
-        CardPlanning,
+        CardFormRole,
     },
   };
   </script>

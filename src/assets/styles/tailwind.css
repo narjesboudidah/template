@@ -1421,6 +1421,7 @@ select {
   background-color: rgba(226, 232, 240, var(--tw-bg-opacity));
 }
 
+
 .bg-blueGray-600 {
   --tw-bg-opacity: 1;
   background-color: rgba(71, 85, 105, var(--tw-bg-opacity));
@@ -2432,6 +2433,9 @@ select {
 .mt-3 {
   margin-top: 0.75rem;
 }
+.mt-33 {
+  margin-top: 2rem;
+}
 
 .mr-3 {
   margin-right: 0.75rem;
@@ -3437,6 +3441,15 @@ select {
   border-radius: 0.5rem;
   box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
   margin-right: 0.7rem !important;
+}
+.icon-profile {
+  color: #47b839;
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.119);
+  margin-right: 66rem;
+  margin-top: 2rem;
 }
 .icon-sidebar-click1 {
   font-weight: 600;
@@ -4499,6 +4512,80 @@ select {
   padding: 10px;
 }
 
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  display: inline-block;
+  position: relative;
+}
+
+.menu li a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+}
+
+.has-submenu:hover .submenu {
+  display: block;
+}
+
+.checkbox-list {
+  max-height: 13rem;
+  background-color: white;
+  margin-top: 0.1rem;
+  padding: 1rem;
+  overflow-y: auto;
+  border-radius: 1rem;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.checkbox-item label {
+  margin-left: 1rem;
+}
 
 
 
+
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+thead {
+  background-color: #ccc;
+}
+
+th {
+  padding: 10px;
+  text-align: center;
+}
+
+td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+td.not-current-month {
+  color: #ccc;
+}

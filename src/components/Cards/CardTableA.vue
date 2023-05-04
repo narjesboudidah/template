@@ -19,13 +19,13 @@
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
           >
-          <router-link
+            <router-link
               to="/form/AjoutAdmin"
-              v-slot="{href,navigate, isActive }"
+              v-slot="{ href, navigate, isActive }"
             >
               <a
-                 style="font-family: inherit,serif;font-size: 15px;"
-                :href=href
+                style="font-family: inherit, serif; font-size: 15px"
+                :href="href"
                 @click="navigate"
                 class=""
                 :class="[
@@ -34,8 +34,8 @@
                     : 'hover:text-blueGray-500',
                 ]"
               >
-            <i class="fas fa-plus mr-2"></i> Ajouter admin
-            </a>
+                <i class="fas fa-plus mr-2"></i> Ajouter admin
+              </a>
             </router-link>
           </button>
         </div>
@@ -75,7 +75,7 @@
         </thead>
         <tbody>
           <tr>
-            <td 
+            <td
               class="px-7 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
               <img
@@ -83,22 +83,22 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3 "> Argon Design System </span>
+              <span class="ml-3"> {{ nom }} </span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              MohamedEtoile@gmail.com
+              {{ email }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-pink-400 text-xss text-center p-4"
             >
-              Admin_Equipe
+              {{ Admin }}
             </td>
             <td
               class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-            2014-05-02 14:12
+              {{ creation }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
@@ -118,7 +118,7 @@
             </td>
           </tr>
           <tr>
-            <td 
+            <td
               class="px-7 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
               <img
@@ -126,22 +126,22 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3 "> Argon Design System </span>
+              <span class="ml-3"> {{ nom }} </span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              MohamedEtoile@gmail.com
+              {{ email }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-indigo-600 text-xss text-center p-4"
             >
-              Admin_Ste
+              {{ Admin }}
             </td>
             <td
               class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-            2014-05-02 14:12
+              {{ creation }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
@@ -161,7 +161,7 @@
             </td>
           </tr>
           <tr>
-            <td 
+            <td
               class="px-7 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
               <img
@@ -169,22 +169,22 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3 "> Argon Design System </span>
+              <span class="ml-3"> {{ nom }} </span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              MohamedEtoile@gmail.com
+              {{ email }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-pink-400 text-xss text-center p-4"
             >
-              Admin_Equipe
+              {{ Admin }}
             </td>
             <td
               class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-            2014-05-02 14:12
+              {{ creation }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
@@ -204,7 +204,7 @@
             </td>
           </tr>
           <tr>
-            <td 
+            <td
               class="px-7 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
               <img
@@ -212,22 +212,22 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3 "> Argon Design System </span>
+              <span class="ml-3"> {{ nom }} </span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              MohamedEtoile@gmail.com
+              {{ email }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-indigo-600 text-xss text-center p-4"
             >
-              Admin_Ste
+              {{ Admin }}
             </td>
             <td
               class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-            2014-05-02 14:12
+              {{ creation }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
@@ -253,28 +253,11 @@
 </template>
 <script>
 import bootstrap from "@/assets/img/bootstrap.jpg";
-import angular from "@/assets/img/angular.jpg";
-import sketch from "@/assets/img/sketch.jpg";
-import react from "@/assets/img/react.jpg";
-import vue from "@/assets/img/react.jpg";
-
-import team1 from "@/assets/img/team-1-800x800.jpg";
-import team2 from "@/assets/img/team-2-800x800.jpg";
-import team3 from "@/assets/img/team-3-800x800.jpg";
-import team4 from "@/assets/img/team-4-470x470.png";
 
 export default {
   data() {
     return {
       bootstrap,
-      angular,
-      sketch,
-      react,
-      vue,
-      team1,
-      team2,
-      team3,
-      team4,
     };
   },
 
@@ -285,6 +268,33 @@ export default {
         // The value must match one of these strings
         return ["light", "dark"].indexOf(value) !== -1;
       },
+    },
+
+    nom: {
+      type: String,
+      default: "Argon Design System",
+    },
+    email: {
+      type: String,
+      default: "MohamedEtoile@gmail.com",
+    },
+
+    statArrow: {
+      default: "up",
+      validator: function (value) {
+        // The value must match one of these strings
+        return ["up", "down"].indexOf(value) !== -1;
+      },
+    },
+    Admin: {
+      type: String,
+      default: "Admin_equipe",
+    },
+    // can be any of the background color utilities
+    // from tailwindcss
+    creation: {
+      type: String,
+      default: "2014-05-02 14:12",
     },
   },
 };

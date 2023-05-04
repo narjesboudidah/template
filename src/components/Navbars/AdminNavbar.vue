@@ -3,7 +3,8 @@
   <nav
     class="shadow-none navbar navbar-main navbar-expand-lg border-radius-xl position-absolute px-4 mx-0 w-100 z-index-2 absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
   >
-    <div style="margin-top:1rem;"
+    <div
+      style="margin-top: 1rem"
       class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
     >
       <!-- Brand -->
@@ -33,14 +34,26 @@
       </form>
       <!-- User -->
       <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
-        <span style="color: white" class="material-symbols-outlined">
-          person
-        </span>
-        <span style="color: white; padding-left: 0.5rem;" class="material-symbols-outlined">
-          settings
-        </span>
+        <router-link to="/profile">
+          <a>
+            <span style="color: white" class="material-symbols-outlined">
+              person
+            </span>
+          </a>
+        </router-link>
+
+        <router-link to="/admin/settings">
+          <a>
+            <span
+              style="color: white; padding-left: 0.5rem"
+              class="material-symbols-outlined"
+            >
+              settings
+            </span>
+          </a>
+        </router-link>
         <span
-          style="color: white; padding-left: 0.5rem;"
+          style="color: white; padding-left: 0.5rem"
           class="material-symbols-outlined"
         >
           notifications

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded" style="
+    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded" style=" max-height: 28.4rem;
       border-radius: 1rem;"
   >
     <div class="rounded-t mb-0 px-4 py-3 border-0">
@@ -32,12 +32,12 @@
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-left"
             >
-              Projet
+              Ste
             </th>
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap  text-left"
             >
-              ste
+              Stade
             </th>
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-left min-w-140-px"
