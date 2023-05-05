@@ -86,7 +86,7 @@
           <tr>
             <td
               style="margin-right: 2rem"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
+              class="px-6   border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
               <img
                 :src="bootstrap"
@@ -121,120 +121,7 @@
               urgent
             </td>
           </tr>
-          <tr>
-            <td
-              style="margin-right: 2rem"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
-            >
-              <img
-                :src="bootstrap"
-                class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
-              />
-              <span class="ml-3"> Moez </span>
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              stade
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-            >
-              04-05-2023
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-            >
-              05-05-2023
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              -nouveaux escaliers / nouveaux gason
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-bold text-xss whitespace-nowrap text-center text-red-600"
-            >
-              urgent
-            </td>
-          </tr>
-          <tr>
-            <td
-              style="margin-right: 2rem"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
-            >
-              <img
-                :src="bootstrap"
-                class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
-              />
-              <span class="ml-3"> Moez </span>
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              stade
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-            >
-              04-05-2023
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-            >
-              05-05-2023
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              -nouveaux escaliers / nouveaux gason
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-bold text-xss whitespace-nowrap text-center text-red-600"
-            >
-              urgent
-            </td>
-          </tr>
-          <tr>
-            <td
-              style="margin-right: 2rem"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
-            >
-              <img
-                :src="bootstrap"
-                class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
-              />
-              <span class="ml-3"> Moez </span>
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              stade
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-            >
-              04-05-2023
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-            >
-              05-05-2023
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              -nouveaux escaliers / nouveaux gason
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-bold text-xss whitespace-nowrap text-center text-red-600"
-            >
-              urgent
-            </td>
-          </tr>
+         
         </tbody>
       </table>
     </div>

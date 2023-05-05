@@ -28,7 +28,7 @@ import ListeDemande from "@/views/admin/ListeDemande.vue";
 import Competition from "@/views/admin/Competition.vue";
 import Matchs from "@/views/admin/Matchs.vue";
 import Stades from "@/views/admin/Stades.vue";
-import Stade from "@/views/admin/Stade.vue";
+import Stade from "@/views/Stade.vue";
 import Events from "@/views/admin/Events.vue";
 import Maintenance from "@/views/admin/Maintenance.vue";
 import Planning from "@/views/admin/Planning.vue";
@@ -47,11 +47,9 @@ import HistoriqueDemande from "@/views/admin/HistoriqueDemande.vue";
 import HistoriqueN from "@/views/admin/HistoriqueN.vue";
 import MaintenanceForm from "@/views/admin/MaintenanceForm.vue";
 import SocieteMaintenance from "@/views/admin/SocieteMaintenance.vue";
-// views for Auth layout
+
 
 import Login from "@/views/Login.vue";
-// views without layouts
-
 import Profile from "@/views/Profile.vue";
 
 // routes
@@ -106,10 +104,6 @@ const routes = [
       {
         path: "/admin/stades",
         component: Stades,
-      },
-      {
-        path: "/admin/stades/stade",
-        component: Stade,
       },
       {
         path: "/admin/equipe",
@@ -188,6 +182,10 @@ const routes = [
       {
         path: "/form/Permission",
         component: PermissionForm,
+      },
+      {
+        path: "/form/stade",
+        component: Stade,
       },
 
     

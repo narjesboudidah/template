@@ -60,24 +60,8 @@
             class="bg-white-500 text-blueGray-700 active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
           > 
-          <router-link
-              to="/form/AjoutStade"
-              v-slot="{href,navigate, isActive }"
-            >
-              <a
-                 style="font-family: inherit,serif;font-size: 15px;"
-                :href=href
-                @click="navigate"
-                class=""
-                :class="[
-                  isActive
-                    ? 'box-sidebar hover:text-red-600 '
-                    : 'hover:text-blueGray-500',
-                ]"
-              >
             <i class="fas fa-plus"></i>
-              </a>
-              </router-link>
+
           </button>
           <button
             class="bg-white-500 text-blueGray-700 active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -92,10 +76,27 @@
             <i class="fa fa-ban"></i>
           </button>
           <button
+          
             class="bg-white-500 text-blueGray-700 active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
-          >
+          > <router-link
+              to="/form/stade"
+              v-slot="{ href, navigate, isActive }"
+            >
+              <a
+                 style="font-family: inherit,serif;font-size: 15px;"
+                :href="href"
+                @click="navigate"
+                class=""
+                :class="[
+                  isActive
+                    ? 'box-sidebar hover:text-red-600 '
+                    : 'hover:text-blueGray-500',
+                ]"
+              >
             <i class="fa fa-list"></i>
+            </a>
+            </router-link>
           </button>
         </div>
       </div>

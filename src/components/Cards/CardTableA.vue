@@ -73,164 +73,37 @@
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
+        <tbody v-if="admins && admins.length">
+          <!--admin instance in table admins with key admin_id-->
+          <tr v-for="admin in admins" :key="admin.id">
             <td
-              class="px-7 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
+              class="px-7  border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
               <img
                 :src="bootstrap"
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3"> {{ nom }} </span>
+              <!--prendre le nom et le prenom du BD -->
+              <span class="ml-3"> {{ admin.prenom +" "+admin .nom }} </span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              {{ email }}
+              {{ admin.email }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-pink-400 text-xss text-center p-4"
             >
-              {{ Admin }}
+              {{ admin.role || "Should MySQL LEFT JOIN the role" }}
             </td>
             <td
               class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              {{ creation }}
+              {{ admin.telephone }}
             </td>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
-            >
-              <button
-                class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-              >
-                <i class="fas fa-pen"></i>
-              </button>
-              <button
-                class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-              >
-                <i class="fa fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td
-              class="px-7 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
-            >
-              <img
-                :src="bootstrap"
-                class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
-              />
-              <span class="ml-3"> {{ nom }} </span>
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              {{ email }}
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-indigo-600 text-xss text-center p-4"
-            >
-              {{ Admin }}
-            </td>
-            <td
-              class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              {{ creation }}
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
-            >
-              <button
-                class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-              >
-                <i class="fas fa-pen"></i>
-              </button>
-              <button
-                class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-              >
-                <i class="fa fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td
-              class="px-7 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
-            >
-              <img
-                :src="bootstrap"
-                class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
-              />
-              <span class="ml-3"> {{ nom }} </span>
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              {{ email }}
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-pink-400 text-xss text-center p-4"
-            >
-              {{ Admin }}
-            </td>
-            <td
-              class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              {{ creation }}
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
-            >
-              <button
-                class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-              >
-                <i class="fas fa-pen"></i>
-              </button>
-              <button
-                class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-              >
-                <i class="fa fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td
-              class="px-7 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
-            >
-              <img
-                :src="bootstrap"
-                class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
-              />
-              <span class="ml-3"> {{ nom }} </span>
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              {{ email }}
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-indigo-600 text-xss text-center p-4"
-            >
-              {{ Admin }}
-            </td>
-            <td
-              class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              {{ creation }}
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
+              class="border-t-0  border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
             >
               <button
                 class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -253,12 +126,13 @@
 </template>
 <script>
 import bootstrap from "@/assets/img/bootstrap.jpg";
-
+import axios from "axios";
 export default {
   data() {
     return {
       bootstrap,
-      role : "admin"
+      //empty array
+      admins:[]
     };
   },
 
@@ -270,33 +144,20 @@ export default {
         return ["light", "dark"].indexOf(value) !== -1;
       },
     },
-
-    nom: {
-      type: String,
-      default: "Argon Design System",
-    },
-    email: {
-      type: String,
-      default: "MohamedEtoile@gmail.com",
-    },
-
-    statArrow: {
-      default: "up",
-      validator: function (value) {
-        // The value must match one of these strings
-        return ["up", "down"].indexOf(value) !== -1;
-      },
-    },
-    Admin: {
-      type: String,
-      default: "Admin_equipe",
-    },
-    // can be any of the background color utilities
-    // from tailwindcss
-    creation: {
-      type: String,
-      default: "2014-05-02 14:12",
-    },
+    mounted() {
+    this.getUsers(this);
   },
+
+  methods: {
+    getUsers() {
+      axios({
+        url: "http://localhost:8000/api/users",
+        method: "GET"
+      }).then((response) => {
+        this.admins = response.data.data;
+      });
+    }
+  },
+}
 };
 </script>

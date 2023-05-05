@@ -1,21 +1,23 @@
 <template>
     <div>
       <main class="profile-page">
-        <section class="relative block h-500-px">
+        <section class="relative block h-350-px">
           <div
             class="absolute top-0 w-full h-full bg-center bg-cover"
             style="
               background-image: url('https://images.pexels.com/photos/46792/the-ball-stadion-football-the-pitch-46792.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+              border-radius: 1rem;
             "
           >
             <span
               id="blackOverlay"
               class="w-full h-full absolute opacity-50 bg-black"
+              style="border-radius: 1rem;"
             ></span>
           </div>
           <div
             class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
-            style="transform: translateZ(0)"
+            style="transform: translateZ(0);border-radius: 1rem;"
           >
             <svg
               class="absolute bottom-0 overflow-hidden"
@@ -33,13 +35,11 @@
             </svg>
           </div>
         </section>
-        <section class="relative py-17 bg-blueGray-200" >
+        <section class="relative py-17 ">
           <div class="container mx-auto px-4">
             <div
               class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64"
-            >
-              
-                
+            >   
                 <div class="flex flex-wrap justify-center">
                   <div class="items-center flex flex-wrap">
                     <div class=" object-cover">

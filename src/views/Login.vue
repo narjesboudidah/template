@@ -94,10 +94,11 @@
 </template>
 
 <script>
+// axios imported to link front with back 
 import axios from "axios";
-// import { useRouter } from "vue-router";
+//import { useRouter } from "vue-router";
 import photo from "@/assets/img/photo.png";
-// const router = useRouter();
+//const router = useRouter();
 export default {
   data(){
     return{
@@ -110,18 +111,26 @@ export default {
     };
   },
   methods: {
+    //async to make synchronisation 
     submit: async function() {
+      //await for waiting the user write the coordinate and link with the back 
       await axios.post("http://localhost:8000/api/login",this.form).then(async (result) => {
         this.user = result.data.user;
+        console.log('====================================');
+        console.log(result.data);
+        console.log('====================================');
+        //make userid to define the user 
         localStorage.setItem("userid", this.user.id);
+        //stocke the user.id in a localstorage to not need to authentificate again 
         const user  = localStorage.getItem("userid");
         if (result.status != 201){
           console.log("error");
           return;
         }
-        window.location.href = "/admin/dashboard";
+        //after writing the email and pass we need to access to the dashboard
+       window.location.href = "/admin/dashboard";
         console.log(user);
-      }).catch(err => console.log(err.message))
+      }).catch(err => console.log(err.message));
     }
   } 
 };
