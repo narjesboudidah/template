@@ -54,15 +54,9 @@
                       class="w-full md:w-5/12 ml-auto mr-auto px-4"
                     >
                       <div class="md:pr-12">
-                        <h3 class="text-3xl font-semibold">Olympique de Radès</h3>
+                        <h3 class="text-3xl font-semibold">{{ stade.nom }}</h3>
                         <p class="mt-4 text-lg leading-relaxed text-blueGray-700">
-                          Le stade olympique de Radès (arabe : الملعب الأولمبي
-                          برادس) ou stade olympique Hammadi-Agrebi de Radès (arabe
-                          : الملعب الأولمبي حمادي العقربي برادس) est un stade
-                          situé à Radès, dans la banlieue sud-est de Tunis
-                          (Tunisie), au cœur d'un complexe sportif situé à une
-                          dizaine de kilomètres du centre-ville de la capitale
-                          tunisienne.
+                          {{ stade.description }}
                         </p>
                         <ul class="list-none mt-6">
                           <li class="py-2">
@@ -75,8 +69,8 @@
                                 </span>
                               </div>
                               <div>
-                                <h4 class="text-blueGray-700">
-                                  Directeur Général : Mouhamed Hamed
+                                <h4 class="text-blueGray-700">  
+                                  Directeur Général : {{ stade.proprietaire }}
                                 </h4>
                               </div>
                             </div>
@@ -92,7 +86,7 @@
                               </div>
                               <div>
                                 <h4 class="text-blueGray-700 text-l">
-                                  Phone : +216 77 777 777
+                                  Phone : {{ stade.telephone }}
                                 </h4>
                               </div>
                             </div>
@@ -107,7 +101,7 @@
                                 </span>
                               </div>
                               <div>
-                                <h4 class="text-blueGray-700">Pays : Tunisie</h4>
+                                <h4 class="text-blueGray-700">Pays : {{ stade.pays }}</h4>
                               </div>
                             </div>
                           </li>
@@ -121,7 +115,7 @@
                                 </span>
                               </div>
                               <div>
-                                <h4 class="text-blueGray-700">Capacite : 5000</h4>
+                                <h4 class="text-blueGray-700">Capacite : {{ stade.capacite || '00'}}</h4>
                               </div>
                             </div>
                           </li>
@@ -136,7 +130,7 @@
                               </div>
                               <div>
                                 <h4 class="text-blueGray-700 text-l">
-                                  Surface : 200
+                                  Surface : {{ stade.surface || '00' }}
                                 </h4>
                               </div>
                             </div>
@@ -151,7 +145,7 @@
                                 </span>
                               </div>
                               <div>
-                                <h4 class="text-blueGray-700">Matchs : 50</h4>
+                                <h4 class="text-blueGray-700">Matchs : 00</h4>
                               </div>
                             </div>
                           </li>
@@ -168,14 +162,29 @@
   </template>
   <script>
   import team2 from "@/assets/img/stadium.jpg";
-  
+  import axios from "axios";
   export default {
     data() {
       return {
         team2,
+        stade :{},
       };
     },
     components: {},
+    methods: {
+      async getStade() {
+        let id = this.$route.params.id;
+        let token = localStorage.getItem("userToken");
+        await axios.get(`http://127.0.0.1:8000/api/stade/${id}`,{headers: {
+          'Authorization': `Bearer ${token}`
+        }}).then((response) => {
+          this.stade = response.data.data;
+        }).catch(err => console.log(err))
+      }
+    }, 
+    mounted() {
+      this.getStade();
+    }
   };
   </script>
   

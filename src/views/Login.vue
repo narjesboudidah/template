@@ -106,8 +106,7 @@ export default {
         email: "",
         password: ""
       },  
-      photo,
-      user:{}
+      photo
     };
   },
   methods: {
@@ -115,20 +114,16 @@ export default {
     submit: async function() {
       //await for waiting the user write the coordinate and link with the back 
       await axios.post("http://localhost:8000/api/login",this.form).then(async (result) => {
-        this.user = result.data.user;
-        console.log('====================================');
-        console.log(result.data);
-        console.log('====================================');
         //make userid to define the user 
-        localStorage.setItem("userid", this.user.id);
+        localStorage.setItem("userToken", result.data.token);
         //stocke the user.id in a localstorage to not need to authentificate again 
-        const user  = localStorage.getItem("userid");
+        const user  = localStorage.getItem("userToken");
         if (result.status != 201){
           console.log("error");
           return;
         }
+        this.$router.push("/admin/dashboard");
         //after writing the email and pass we need to access to the dashboard
-       window.location.href = "/admin/dashboard";
         console.log(user);
       }).catch(err => console.log(err.message));
     }

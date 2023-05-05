@@ -55,6 +55,11 @@ import Profile from "@/views/Profile.vue";
 // routes
 const routes = [
   {
+    path: "/",
+    redirect: "/admin/dashboard",
+    component: Dashboard,
+  },
+  {
     path: "/admin",
     redirect: "/admin/dashboard",
     component: Admin,
@@ -184,7 +189,7 @@ const routes = [
         component: PermissionForm,
       },
       {
-        path: "/form/stade",
+        path: "/form/stade/:id",
         component: Stade,
       },
 
@@ -201,7 +206,7 @@ const routes = [
     component: Profile,
   },
   {
-    path: "/",
+    path: "/login",
     component: Login,
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },

@@ -32,5 +32,10 @@ export default {
     CardSocialTraffic,
     CardMaintenance,
   },
+  mounted() {
+      if (!localStorage.getItem("userToken")) {
+        this.$router.push("/login");
+      }
+    },
 };
 </script>
