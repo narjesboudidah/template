@@ -70,22 +70,6 @@
             <div class="w-full lg:w-6/12 px-4 mb-3">
               <label
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                for="proprietaire-stade"
-              >
-                Propriétaire de l'équipe :
-              </label>
-              <input
-                type="text"
-                id="proprietaire-stade"
-                name="proprietaire-stade"
-                placeholder="Propriétaire de l'équipe"
-                required
-                class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-              />
-            </div>
-            <div class="w-full lg:w-6/12 px-4 mb-3">
-              <label
-                class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                 for="logo"
               >
                 Logo de l'équipe :
