@@ -14,7 +14,8 @@
         <div
           class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
         >
-          <button v-if=" role == 'admin'"
+        <!--v-if=" role == 'admin'"-->
+          <button 
             class="icon-sidebar-click"
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
@@ -126,38 +127,31 @@
 </template>
 <script>
 import bootstrap from "@/assets/img/bootstrap.jpg";
-import axios from "axios";
+// import axios from "axios";
 export default {
-  data() {
-    return {
+    props:{
+      admins: {
+      type: [],
+  }},
+    data() {
+      return{
       bootstrap,
-      //empty array
-      admins:[]
-    };
-  },
+    }},
 
-  props: {
-    color: {
-      default: "light",
-      validator: function (value) {
-        // The value must match one of these strings
-        return ["light", "dark"].indexOf(value) !== -1;
-      },
-    },
     mounted() {
-    this.getUsers(this);
+    this.getUsers();
   },
 
   methods: {
     getUsers() {
-      axios({
-        url: "http://localhost:8000/api/users",
-        method: "GET"
-      }).then((response) => {
-        this.admins = response.data.data;
-      });
+      // axios({
+      //   url: "http://localhost:8000/api/users",
+      //   method: "GET"
+      // }).then((response) => {
+      //   this.admins = response.data.data;
+      // })
+      console.log("to do later");
     }
-  },
-}
+  }
 };
 </script>
