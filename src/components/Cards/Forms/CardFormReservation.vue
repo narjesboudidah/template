@@ -15,38 +15,38 @@
           <div class="flex flex-wrap">
             <div class="w-full lg:w-6/12 px-4 mb-3">
               <label
-                for="date-debut-competition"
+                for="date-debut-Event"
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
               >
-                Date début:
+                Heure début:
               </label>
               <input
-                type="date"
-                id="date-debut-competition"
-                name="date-debut-competition"
-                placeholder="Date début de compétition"
+                type="time"
+                id="heure-debut-Event"
+                name="heure-debut-Event"
+                placeholder="heure-debut-event"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-                aria-describedby="date-debut-competition-helper"
+                aria-describedby="Heure-debut-Event-helper"
                 min="{{ new Date().toISOString().slice(0, 10) }}"
               />
             </div>
   
             <div class="w-full lg:w-6/12 px-4 mb-3">
               <label
-                for="date-fin-competition"
+                for="Heure-fin-Event"
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
               >
-                Date fin:
+                Heure fin:
               </label>
               <input
-                type="date"
-                id="date-fin-competition"
-                name="date-fin-competition"
-                placeholder="Date fin de compétition"
+                type="time"
+                id="Heure-fin-Event"
+                name="Heure-fin-Event"
+                placeholder="Heure fin de event"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-                aria-describedby="date-fin-competition-helper"
+                aria-describedby="Heure-fin-Event-helper"
                 min="{{ new Date().toISOString().slice(0, 10) }}"
                 onchange="validateDate()"
               />
@@ -222,8 +222,8 @@
     },
     methods: {
       validateDate() {
-        const startDateInput = document.querySelector("#date-debut-competition");
-        const endDateInput = document.querySelector("#date-fin-competition");
+        const startDateInput = document.querySelector("#date-debut-Event");
+        const endDateInput = document.querySelector("#date-fin-Event");
         const startDate = new Date(startDateInput.value);
         const endDate = new Date(endDateInput.value);
   
