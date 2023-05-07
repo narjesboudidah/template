@@ -35,21 +35,27 @@
         <div class="flex flex-wrap justify-center">
           
           <button
-            class="bg-white-500 text-black-200 active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            class="bg-white-500 text-black-200 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
           >
             <i class="fas fa-pen"></i>
           </button>
           <button
-            class="bg-white-500 text-black-200 active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            class="bg-white-500 text-black-200 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
           >
             <i class="fa fa-ban"></i>
           </button>
+          <button
+            class="bg-white-500 text-black-200 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button"
+          >
+            <i class="fa fa-list"></i>
+          </button>
+        </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 <script>
 import logoRealMadrid from "@/assets/img/Real-Madrid.png";

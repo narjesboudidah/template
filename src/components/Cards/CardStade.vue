@@ -57,20 +57,20 @@
       <div class="mt-50 py-3 border-t border-blueGray-200 text-center">
         <div class="flex flex-wrap justify-center">
           <button
-            class="bg-white-500 text-blueGray-700 active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            class="bg-white-500 text-blueGray-700 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
           >
             <i class="fas fa-pen"></i>
           </button>
           <button
-            class="bg-white-500 text-blueGray-700 active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            class="bg-white-500 text-blueGray-700 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
           >
             <i class="fa fa-ban"></i>
           </button>
           <button
           
-            class="bg-white-500 text-blueGray-700 active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            class="bg-white-500 text-blueGray-700 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
           >
               <a
