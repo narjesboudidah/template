@@ -1,9 +1,9 @@
 <template>
     <div>
+      <div class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
+        <card-ajout-stade/>
+      </div>
       <div v-if="stades.length" class="flex flex-wrap">
-        <div class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
-          <card-ajout-stade/>
-        </div>
         <div v-for="stade in stades" :key="stade.id" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
           <card-stade :stade="stade"/>
         </div>
