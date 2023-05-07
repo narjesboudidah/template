@@ -21,6 +21,7 @@
                 Nom du stade :
               </label>
               <input
+                v-model="this.form.nom"
                 type="text"
                 id="nom-stade"
                 name="nom-stade"
@@ -37,6 +38,7 @@
                 Pays du stade :
               </label>
               <input
+                v-model="this.form.pays"
                 type="text"
                 id="pays-stade"
                 name="pays-stade"
@@ -53,6 +55,7 @@
                 Adresse du stade :
               </label>
               <input
+                v-model="this.form.adresse"
                 type="text"
                 id="adresse-stade"
                 name="adresse-stade"
@@ -69,6 +72,7 @@
                 Capacité du stade :
               </label>
               <input
+                v-model="this.form.capacite"
                 type="number"
                 id="capacite-stade"
                 name="capacite-stade"
@@ -83,30 +87,14 @@
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                 for="longitude-stade"
               >
-                Longitude du stade :
+                surface du stade :
               </label>
               <input
+                v-model="this.form.surface"
                 type="number"
-                id="longitude_stade"
-                name="longitude_stade"
+                id="surface_stade"
+                name="surface_stade"
                 placeholder="Longitude du stade"
-                required
-                min="1"
-                class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-              />
-            </div>
-            <div class="w-full lg:w-6/12 px-4 mb-3">
-              <label
-                class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                for="latitude-stade"
-              >
-                Latitude du stade :
-              </label>
-              <input
-                type="number"
-                id="latitude-stade"
-                name="latitude-stade"
-                placeholder="Latitude du stade"
                 required
                 min="1"
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
@@ -120,6 +108,7 @@
                 Propriétaire du stade :
               </label>
               <input
+                v-model="this.form.proprietaire"
                 type="text"
                 id="proprietaire-stade"
                 name="proprietaire-stade"
@@ -136,6 +125,7 @@
                 Téléphone :
               </label>
               <input
+                v-model="this.form.telephone"
                 type="tel"
                 id="telephone"
                 name="telephone"
@@ -158,7 +148,6 @@
                 id="image"
                 name="image"
                 accept="image/*"
-                required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               />
             </div>
@@ -170,6 +159,7 @@
                 Description du stade :
               </label>
               <textarea
+                v-model="this.form.description"
                 id="description-stade"
                 name="description-stade"
                 placeholder="Description du stade"
@@ -185,6 +175,7 @@
                 Date dernier travaux :
               </label>
               <input
+                v-model="this.form.date_dernier_travaux"
                 type="date"
                 id="date-dernier-travaux"
                 name="date-dernier-travaux"
@@ -192,15 +183,29 @@
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               />
             </div>
+            <div class="w-full lg:w-6/12 px-4 mb-3">
+              <label
+                class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                for="date-dernier-travaux"
+              >
+               Etat :
+              </label>
+              <select v-model="this.form.etat" class="w-full">
+                <option>disponible</option>
+                <option>reserver</option>
+                <option>en maintenance</option>
+              </select>
+            </div>
           </div>
         </form>
         <div
-          class="relative w-full px-4 max-w-full flex-grow flex-1 text-center"
+          class="relative w-full px-4 max-w-full flex-grow flex-1 text-center mt-8"
         >
           <button
             class=" boutton-click active:bg-blueGray-600 font-bold   text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear "
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
+            v-on:click="submit()"
            >
           confirmer
         </button>
@@ -217,3 +222,40 @@
       </div>
     </div>
   </template>
+
+<script>
+import axios from "axios";
+export default {
+  data() {
+      return{
+        form : {
+          nom: "",
+          pays: "",
+          proprietaire: "",
+          telephone : "",
+          adresse : "",
+          etat: "disponible",
+          description: "",
+          capacite : 0,
+          surface : 0,
+          date_dernier_travaux : ""
+        }
+    }},
+    methods: {
+    submit: async function() {
+      let token = localStorage.getItem("userToken");
+      console.log(this.form);
+      await axios.post("http://127.0.0.1:8000/api/stades",this.form,{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((result) => {
+        if (result.status != 201){
+          console.log("error");
+          return;
+        }
+        
+        console.log(result.data);
+      }).catch(err => console.log(err.message));
+    }
+  } 
+}
+</script>
