@@ -1,7 +1,7 @@
 <template>
     <div
       class="cadre-pointu relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16"
-      style="border-radius: 1rem; height: 21rem"
+      style="border-radius: 1rem; height: 23rem"
     >
       <div class="text-center justify-center mt-16">
         <router-link 
@@ -21,11 +21,11 @@
             <img
               alt="..."
               :src="gearlogo"
-              style="border: 0.5rem solid #fff; margin-left: 10rem"
+              style="border: 0.5rem solid #fff; margin-left: 8rem"
             />
   
             <h3
-              class="text-xl font-arial leading-normal mb-2 text-blueGray-700 mb-2"
+              class="text-xl font-arial leading-normal text-blueGray-700 mb-22"
             >
               Ajouter Compétition
             </h3>

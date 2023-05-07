@@ -2,7 +2,7 @@
   <div
     style="border-radius: 1rem; max-height: 31.7rem"
     class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
-    :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']"
+    :class="[color === 'light' ? 'bg-white' : 'bg-blueGray-50 text-white']"
   >
     <div class="rounded-t mb-0 px-4 py-3 border-0">
       <div class="flex flex-wrap items-center">
@@ -14,8 +14,8 @@
         <div
           class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
         >
-        <!--v-if=" role == 'admin'"-->
-          <button 
+      
+          <button   v-if=" role == 'admin'"
             class="icon-sidebar-click"
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
