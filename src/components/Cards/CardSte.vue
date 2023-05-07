@@ -20,7 +20,7 @@
           <h3
             class="text-xl font-arial leading-normal mb-2 text-blueGray-700 mb-2"
           >
-            StadeProMaintenance
+            {{ ste.nom }}
           </h3>
           <div class="mb-2 text-xs text-blueGray-600 mt-25">
             <i class="fa fa-user mr-2 text-sm"></i>
@@ -28,11 +28,11 @@
           </div>
           <div class="mb-2 text-xs text-blueGray-600 mt-25">
             <i style="transform: rotate(90deg);" class="fa fa-phone mr-2 text-sm"></i>
-            +216 77777777
+            +216 {{ ste.tel }}
           </div>
           <div class="mb-2 text-xs text-blueGray-600 mt-25">
             <i class="fas fa-map-marker-alt mr-2 text-lg"></i>
-            52 AV HEDI NOUIRA 99351 ARIANA-VILLE.
+            {{ ste.adresse }}
           </div>
         </div>
         <div class="mt-50 py-3 border-t border-blueGray-200 text-center">
@@ -64,11 +64,20 @@
   import gearlogo from "@/assets/img/maintenance.png";
   
   export default {
+    props: {
+    ste: {
+      type: Object,
+  }}, 
     data() {
       return {
         gearlogo,
+        url: `/form/ste/${this.props?.ste?.id}`
       };
     },
+  methods: {
+    toSte() {
+      this.$router.push(`/form/ste/${this.$props.ste?.id}`)
+    }
+  }
   };
   </script>
-  

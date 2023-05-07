@@ -9,7 +9,7 @@
           <div class="relative">
             <img
               alt="..."
-              :src="logoRealMadrid"
+              :src="equipelogo"
               class="shadow-xl rounded-full h-auto align-middle absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
               style="border: 0.5rem solid #fff"
             />
@@ -20,15 +20,15 @@
         <h3 
           class="text-xl font-arial leading-normal mb-2 text-blueGray-700 mb-2"
         >
-          Real Madrid
+          {{ equipe.nom_equipe }}
         </h3>
         <div class="mb-2 text-xs text-blueGray-600 mt-25">
           <i class="fa fa-user mr-2 text-sm"></i>
-          Florentino Perez
+          hh
         </div>
         <div class="mb-2 text-xs text-blueGray-600 mt-25">
           <i class="fas fa-map-marker-alt mr-2 text-lg"></i>
-          Avenida de las Fuerzas Armadas 402 - 28055 Madrid.
+          {{ equipe.adresse }}
         </div>
       </div>
       <div class="mt-50 py-3 border-t border-blueGray-200 text-center">
@@ -58,13 +58,24 @@
     </div>
 </template>
 <script>
-import logoRealMadrid from "@/assets/img/Real-Madrid.png";
+import equipelogo from "@/assets/img/Real-Madrid.png";
 
 export default {
+  props: {
+    equipe: {
+      type: Object,
+  }}, 
   data() {
     return {
-      logoRealMadrid,
-    };
+      equipelogo,
+      url: `/form/equipe/${this.props?.equipe?.id}`
+    }
   },
+  methods: {
+    toEquipe() {
+      this.$router.push(`/form/equipe/${this.$props.equipe?.id}`)
+    }
+  }
+  
 };
 </script>
