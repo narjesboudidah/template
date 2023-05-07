@@ -2425,6 +2425,9 @@ select {
 .mb-2 {
   margin-bottom: 0.5rem;
 }
+.mb-22 {
+  margin-bottom: 1rem;
+}
 
 .ml-2 {
   margin-left: 0.5rem;
@@ -4509,7 +4512,7 @@ select {
 }
 .cadre-pointu {border: 2px dashed  rgba(51, 65, 85);
   position: relative;
-  padding: 10px;
+  padding: 20px;
 }
 
 .menu {

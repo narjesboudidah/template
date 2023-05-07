@@ -20,7 +20,7 @@
             <img
               alt="..."
               :src="gearlogo"
-              style="border: 0.5rem solid #fff; margin-left: 10rem"
+              style="border: 0.5rem solid #fff; margin-left: 8rem"
             />
   
             <h3
