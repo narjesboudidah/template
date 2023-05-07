@@ -20,11 +20,11 @@
             <h3
               class="text-xl font-arial leading-normal mb-2 text-blueGray-700 mb-2"
             >
-              Championnat de Tunisie de football
+              {{ competition.nom }}
             </h3>
             <div class="mb-2 text-xs text-blueGray-600 mt-25">
               <i class="fa fa-clock mr-2 text-sm"></i>
-              De 04-02-2023 A 10-02-2023
+              De {{ competition.date_debut }} A {{ competition.date_fin }}
             </div>
           </div>
           <div class="flex justify-center py-4 lg:pt-4 pt-8">
@@ -101,10 +101,20 @@
 import team2 from "@/assets/img/Fifa.png";
 
 export default {
+  props: {
+    competition: {
+      type: Object,
+  }}, 
   data() {
     return {
       team2,
+      url: `/form/competition/${this.props?.competition?.id}`
     };
   },
+  methods: {
+    toStade() {
+      this.$router.push(`/form/competition/${this.$props.competition?.id}`)
+    }
+  }
 };
 </script>

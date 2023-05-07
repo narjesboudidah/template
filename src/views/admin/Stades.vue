@@ -8,7 +8,6 @@
           <card-stade :stade="stade"/>
         </div>
       </div>
-      
     </div>
   </template>
   <script>
