@@ -204,7 +204,7 @@ export default {
       return{
         form : {
           nom: "",
-          annee: 2000,
+          annee: 2023,
           date_debut: "",
           date_fin: "",
           type_competition : "",
@@ -218,7 +218,7 @@ export default {
     submit: async function() {
       let token = localStorage.getItem("userToken");
       console.log(this.form);
-      await axios.post("http://127.0.0.1:8000/api/competitions",this.form,{headers: {
+      await axios.post("http://127.0.0.1:8000/api/Competitions",this.form,{headers: {
         'Authorization': `Bearer ${token}`
       }}).then((result) => {
         if (result.status != 201){
