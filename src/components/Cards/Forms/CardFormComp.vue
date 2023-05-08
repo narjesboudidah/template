@@ -21,6 +21,7 @@
                 Nom du compétition :
               </label>
               <input
+                v-model="this.form.nom"
                 type="text"
                 id="nom-competition"
                 name="nom-competition"
@@ -36,7 +37,7 @@
               >
                 Année du compétition :
               </label>
-              <input
+              <input  v-model="this.form.annee"
                 type="number"
                 id="annee-competition"
                 name="annee-competition"
@@ -49,13 +50,13 @@
             </div>
   
             <div class="w-full lg:w-6/12 px-4 mb-3">
-              <label
+              <label  
                 for="date-debut-competition"
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
               >
                 Date début de compétition :
               </label>
-              <input
+              <input v-model="this.form.date_debut"
                 type="date"
                 id="date-debut-competition"
                 name="date-debut-competition"
@@ -74,7 +75,7 @@
               >
                 Date fin de compétition :
               </label>
-              <input
+              <input v-model="this.form.date_fin"
                 type="date"
                 id="date-fin-competition"
                 name="date-fin-competition"
@@ -94,7 +95,7 @@
               >
                 Type de compétition :
               </label>
-              <select
+              <select v-model="this.form.type_competition"
                 id="type-competition"
                 name="type-competition"
                 required
@@ -122,7 +123,7 @@
               >
                 Catégorie de compétition :
               </label>
-              <select
+              <select v-model="this.form.categorie"
                 id="categorie-competition"
                 name="categorie-competition"
                 required
@@ -144,7 +145,7 @@
               >
                 Organisateur du compétition :
               </label>
-              <input
+              <input v-model="this.form.organisateur"
                 type="text"
                 id="organisateur-competition"
                 name="organisateur-competition"
@@ -162,6 +163,7 @@
                 Description du compétition :
               </label>
               <textarea
+                v-model="this.form.description"
                 id="description-competition"
                 name="description-competition"
                 placeholder="Description du compétition"
@@ -178,6 +180,7 @@
             class=" boutton-click active:bg-blueGray-600 font-bold   text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear "
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
+            v-on:click="submit()"
            >
           confirmer
         </button>
@@ -195,6 +198,39 @@
     </div>
   </template>
   <script>
+import axios from "axios";
+export default {
+  data() {
+      return{
+        form : {
+          nom: "",
+          annee: 2000,
+          date_debut: "",
+          date_fin: "",
+          type_competition : "",
+          categorie: "",
+          organisateur: "",
+          description : "",
+        }
+    }},
+
+    methods: {
+    submit: async function() {
+      let token = localStorage.getItem("userToken");
+      console.log(this.form);
+      await axios.post("http://127.0.0.1:8000/api/competitions",this.form,{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((result) => {
+        if (result.status != 201){
+          console.log("error");
+          return;
+        }
+        
+        console.log(result.data);
+      }).catch(err => console.log(err.message));
+    }
+  } 
+}
   // eslint-disable-next-line no-unused-vars
   function validateDate() {
     const startDateInput = document.querySelector("#date-debut-competition");
