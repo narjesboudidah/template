@@ -22,7 +22,8 @@
               >
                 Nom de la Société de maintenance :
               </label>
-              <input
+              <input 
+                v-model="this.form.nom"
                 type="text"
                 id="-nom-societe-maintenance"
                 name="nom-societe-maintenance"
@@ -38,7 +39,7 @@
               >
                 Adresse de la Société de maintenance :
               </label>
-              <input
+              <input  v-model="this.form.adresse"
                 type="text"
                 id="adresse-societe-maintenance"
                 name="adresse-societe-maintenance"
@@ -54,7 +55,7 @@
               >
                 Téléphone :
               </label>
-              <input
+              <input  v-model="this.form.tel"
                 type="tel"
                 id="telephone"
                 name="telephone"
@@ -65,7 +66,7 @@
               />
             </div>
   
-            <div class="w-full lg:w-6/12 px-4 mb-3">
+            <!--div class="w-full lg:w-6/12 px-4 mb-3">
               <label
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                 for="logo"
@@ -80,7 +81,7 @@
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               />
-            </div>
+            </div>-->
             <div class="w-full lg:w-6/12 px-4 mb-3">
               <label
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
@@ -88,7 +89,7 @@
               >
                 Email de la Société de maintenance :
               </label>
-              <input
+              <input  v-model="this.form.email"
                 type="email"
                 id="email-societe-maintenance"
                 name="email-societe-maintenance"
@@ -104,7 +105,7 @@
               >
                 Description de Ste :
               </label>
-              <textarea
+              <textarea  v-model="this.form.description"
                 id="description-ste"
                 name="description-ste"
                 placeholder="Description de ste"
@@ -121,6 +122,7 @@
             class=" boutton-click active:bg-blueGray-600 font-bold   text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear "
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
+            v-on:click="submit()"
            >
           confirmer
         </button>
@@ -137,3 +139,34 @@
       </div>
     </div>
   </template>
+  <script>
+  import axios from "axios";
+  export default {
+    data() {
+        return{
+          form : {
+            nom: "",
+            adresse: "",
+            tel: "",
+            email: "",
+            description: "",
+          }
+      }},
+      methods: {
+      submit: async function() {
+        let token = localStorage.getItem("userToken");
+        console.log(this.form);
+        await axios.post("http://127.0.0.1:8000/api/societeMaintenances",this.form,{headers: {
+          'Authorization': `Bearer ${token}`
+        }}).then((result) => {
+          if (result.status != 201){
+            console.log("error");
+            return;
+          }
+          
+          console.log(result.data);
+        }).catch(err => console.log(err.message));
+      }
+    } 
+  }
+  </script>
