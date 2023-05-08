@@ -43,11 +43,11 @@
         
         <div class="mb-2 text-xs text-blueGray-600 mt-25">
           <i class="fa fa-clock mr-2 text-sm"></i>
-          De 04-02-2023 A 10-02-2023
+          {{ match.date }} : {{ match.heure_debut }}
         </div>
         <div class="mb-2 text-xs text-blueGray-600 mt-25">
           <i class="fas fa-map-marker-alt mr-2 text-sm"></i>
-          Los Angeles, California
+          nom stade
         </div>
       </div>
       <div class="mt-50 py-3 border-t border-blueGray-200 text-center">
@@ -74,11 +74,21 @@ import team2 from "@/assets/img/CA.jpg";
 import team3 from "@/assets/img/est.jpg";
 
 export default {
+  props: {
+    match: {
+      type: Object,
+  }}, 
   data() {
     return {
       team2,
       team3,
+      url: `/form/match/${this.props?.match?.id}`
     };
   },
+  methods: {
+    toMatch() {
+      this.$router.push(`/form/match/${this.$props.match?.id}`)
+    }
+  }
 };
 </script>
