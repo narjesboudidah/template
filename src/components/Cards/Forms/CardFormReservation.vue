@@ -14,6 +14,21 @@
           </h6>
           <div class="flex flex-wrap">
             <div class="w-full lg:w-6/12 px-4 mb-3">
+                    <label
+                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                      for="nom-match"
+                    >
+                      Note
+                    </label>
+                    <input
+                      type="text"
+                      id="nom-match"
+                      name="nom-match"
+                      placeholder="Ecrire nom du stade preferer"
+                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+                    />
+                  </div>
+            <div class="w-full lg:w-6/12 px-4 mb-3">
               <label
                 for="date-debut-Event"
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
@@ -28,7 +43,6 @@
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
                 aria-describedby="Heure-debut-Event-helper"
-                min="{{ new Date().toISOString().slice(0, 10) }}"
               />
             </div>
   
@@ -47,8 +61,6 @@
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
                 aria-describedby="Heure-fin-Event-helper"
-                min="{{ new Date().toISOString().slice(0, 10) }}"
-                onchange="validateDate()"
               />
             </div>
             <div class="w-full lg:w-6/12 px-4 mb-3">
@@ -93,22 +105,6 @@
                   <div class="w-full lg:w-6/12 px-4 mb-3">
                     <label
                       class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                      for="heure-match"
-                    >
-                      Heure du Match :
-                    </label>
-                    <input
-                      type="time"
-                      id="heure-match"
-                      name="heure-match"
-                      placeholder="Heure du match"
-                      required
-                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-                    />
-                  </div>
-                  <div class="w-full lg:w-6/12 px-4 mb-3">
-                    <label
-                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                       for="type-match"
                     >
                       Type du Match :
@@ -136,37 +132,12 @@
                       </label>
                     </div>
                   </div>
-  
-                  <div class="w-full lg:w-6/12 px-4 mb-3">
-                    <label
-                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                      for="nom-equipe1"
-                    >
-                      Nom de l'équipe 1 :
-                    </label>
-                    <select
-                      id="nom-equipe1"
-                      name="nom-equipe1"
-                      required
-                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-                      v-model="selectedTeam"
-                    >
-                      <option value="">Choisissez une équipe</option>
-                      <option
-                        v-for="team in teams"
-                        :key="team.id"
-                        :value="team.nom"
-                      >
-                        {{ team.nom }}
-                      </option>
-                    </select>
-                  </div>
                   <div class="w-full lg:w-6/12 px-4 mb-3">
                     <label
                       class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                       for="nom-equipe2"
                     >
-                      Nom de l'équipe 2 :
+                      Nom de l'équipe adversaire:
                     </label>
                     <select
                       id="nom-equipe2"

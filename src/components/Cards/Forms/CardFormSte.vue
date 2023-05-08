@@ -100,14 +100,14 @@
             <div class="w-full lg:w-6/12 px-4 mb-3">
               <label
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                for="description-stade"
+                for="description-ste"
               >
                 Description de Ste :
               </label>
               <textarea
-                id="description-stade"
-                name="description-stade"
-                placeholder="Description de l'équipe"
+                id="description-ste"
+                name="description-ste"
+                placeholder="Description de ste"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               ></textarea>
