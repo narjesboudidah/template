@@ -16,14 +16,15 @@
             <div class="w-full lg:w-6/12 px-4 mb-3">
               <label
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                for="nom-stade"
+                for="nom-equipe"
               >
                 Nom de l'équipe :
               </label>
               <input
+                v-model="this.form.nom_equipe"
                 type="text"
-                id="nom-stade"
-                name="nom-stade"
+                id="nom-equipe"
+                name="nom-equipe"
                 placeholder="Nom de l'équipe"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
@@ -37,6 +38,7 @@
                 Pays de l'équipe :
               </label>
               <select
+                v-model="this.form.pays"
                 id="pays-equipe"
                 name="pays-equipe"
                 required
@@ -59,6 +61,7 @@
                 Adresse de l'équipe :
               </label>
               <input
+                v-model="this.form.adresse"
                 type="text"
                 id="adresse-stade"
                 name="adresse-stade"
@@ -91,6 +94,7 @@
                 Description de l'équipe :
               </label>
               <textarea
+                v-model="this.form.description"
                 id="description-stade"
                 name="description-stade"
                 placeholder="Description de l'équipe"
@@ -106,6 +110,7 @@
                 Type d'équipe :
               </label>
               <select
+                v-model="this.form.type_equipe"
                 id="type-equipe"
                 name="type-equipe"
                 required
@@ -125,6 +130,7 @@
                 Site Web de l'équipe :
               </label>
               <input
+                v-model="this.form.site_web"
                 type="text"
                 id="site-web-equipe"
                 name="site-web-equipe"
@@ -158,3 +164,35 @@
       </div>
     </div>
   </template>
+  <script>
+  import axios from "axios";
+  export default {
+    data() {
+        return{
+          form : {
+            nom_equipe: "",
+            pays: "",
+            adresse: "",
+            description : "",
+            type_equipe : "",
+            site_web: ""
+          }
+      }},
+      methods: {
+      submit: async function() {
+        let token = localStorage.getItem("userToken");
+        console.log(this.form);
+        await axios.post("http://127.0.0.1:8000/api/equipes",this.form,{headers: {
+          'Authorization': `Bearer ${token}`
+        }}).then((result) => {
+          if (result.status != 201){
+            console.log("error");
+            return;
+          }
+          
+          console.log(result.data);
+        }).catch(err => console.log(err.message));
+      }
+    } 
+  }
+  </script>
