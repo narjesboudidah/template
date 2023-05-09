@@ -30,6 +30,7 @@ import Matchs from "@/views/admin/Matchs.vue";
 import Stades from "@/views/admin/Stades.vue";
 import Stade from "@/views/Stade.vue";
 import EquipeProfile from "@/views/EquipeProfile.vue";
+import SteProfile from "@/views/SteProfile.vue";
 import Events from "@/views/admin/Events.vue";
 import Maintenance from "@/views/admin/Maintenance.vue";
 import Planning from "@/views/admin/Planning.vue";
@@ -196,6 +197,10 @@ const routes = [
       {
         path: "/form/EquipeProfile/:id",
         component: EquipeProfile,
+      },
+      {
+        path: "/form/SteProfile/:id",
+        component: SteProfile,
       },
 
     
