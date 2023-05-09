@@ -50,7 +50,17 @@
             class="bg-white-500 text-black-200 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
           >
+          <a
+                 style="font-family: inherit,serif;font-size: 15px;"
+                @click="toEquipe()"
+                :class="[
+                  isActive
+                    ? 'box-sidebar hover:text-red-600 '
+                    : 'hover:text-blueGray-500',
+                ]"
+              >
             <i class="fa fa-list"></i>
+            </a>
           </button>
         </div>
         </div>
@@ -68,12 +78,12 @@ export default {
   data() {
     return {
       equipelogo,
-      url: `/form/equipe/${this.props?.equipe?.id}`
+      url: `/form/EquipeProfile/${this.props?.equipe?.id}`
     }
   },
   methods: {
     toEquipe() {
-      this.$router.push(`/form/equipe/${this.$props.equipe?.id}`)
+      this.$router.push(`/form/EquipeProfile/${this.$props.equipe?.id}`)
     }
   }
   
