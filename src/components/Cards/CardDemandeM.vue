@@ -174,7 +174,7 @@ export default {
         
       // })
     },
-    async accepter(id) {
+    async accepter(id)  {
       let token = localStorage.getItem("userToken");
       await axios.get(`http://127.0.0.1:8000/api/maintenance/accepter/${id}`,{headers: {
         'Authorization': `Bearer ${token}`
