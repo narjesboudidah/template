@@ -47,7 +47,7 @@ import HistoriqueDemande from "@/views/admin/HistoriqueDemande.vue";
 import HistoriqueN from "@/views/admin/HistoriqueN.vue";
 import MaintenanceForm from "@/views/admin/MaintenanceForm.vue";
 import SocieteMaintenance from "@/views/admin/SocieteMaintenance.vue";
-
+import ReservationForm from "@/views/admin/ReservationForm.vue";
 
 import Login from "@/views/Login.vue";
 import Profile from "@/views/Profile.vue";
@@ -192,7 +192,10 @@ const routes = [
         path: "/form/stade/:id",
         component: Stade,
       },
-
+      {
+        path: "/form/FaireReservation",
+        component: ReservationForm,
+      },
     
     ]
     },

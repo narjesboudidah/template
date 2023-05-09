@@ -88,7 +88,7 @@
                     ? 'icon-sidebar-click '
                     : 'icon-sidebar',
                 ]" > home </span>
-                 Accuiel
+                 Accueil
               </a>
             </router-link>
           </li>

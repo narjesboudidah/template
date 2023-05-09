@@ -14,13 +14,13 @@
           </h6>
           <div class="flex flex-wrap">
             <div class="w-full lg:w-6/12 px-4 mb-3">
-                    <label
+                    <label 
                       class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                       for="nom-match"
                     >
                       Note
                     </label>
-                    <input
+                    <input v-model="this.form.note"
                       type="text"
                       id="nom-match"
                       name="nom-match"
@@ -28,39 +28,75 @@
                       class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
                     />
                   </div>
-            <div class="w-full lg:w-6/12 px-4 mb-3">
+                  <div class="w-full lg:w-6/12 px-4 mb-3">
               <label
-                for="date-debut-Event"
+                for="date-debut"
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
               >
-                Heure début:
+                Date début:
               </label>
-              <input
-                type="time"
-                id="heure-debut-Event"
-                name="heure-debut-Event"
-                placeholder="heure-debut-event"
+              <input v-model="this.form.date_debut"
+                type="date"
+                id="date-debut"
+                name="date-debut"
+                placeholder="date-debut"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-                aria-describedby="Heure-debut-Event-helper"
+                aria-describedby="date-debut-helper"
               />
             </div>
   
             <div class="w-full lg:w-6/12 px-4 mb-3">
               <label
-                for="Heure-fin-Event"
+                for="date-fin"
+                class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+              >
+                Date fin:
+              </label>
+              <input  v-model="this.form.date_fin"
+                type="date"
+                id="date-fin"
+                name="date-fin"
+                placeholder="date-fin"
+                required
+                class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+                aria-describedby="date-fin-helper"
+              />
+            </div>
+  
+            <div class="w-full lg:w-6/12 px-4 mb-3">
+              <label
+                for="heure-debut"
+                class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+              >
+                Heure début:
+              </label>
+              <input v-model="this.form.heure_debut"
+                type="time"
+                id="heure-debut"
+                name="heure-debut"
+                placeholder="heure-debut"
+                required
+                class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+                aria-describedby="Heure-debut-helper"
+              />
+            </div>
+  
+            <div class="w-full lg:w-6/12 px-4 mb-3">
+              <label
+                for="Heure-fin"
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
               >
                 Heure fin:
               </label>
-              <input
+              <input v-model="this.form.heure_fin"
                 type="time"
-                id="Heure-fin-Event"
-                name="Heure-fin-Event"
+                id="Heure-fin"
+                name="Heure-fin"
                 placeholder="Heure fin de event"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-                aria-describedby="Heure-fin-Event-helper"
+                aria-describedby="Heure-fin-helper"
               />
             </div>
             <div class="w-full lg:w-6/12 px-4 mb-3">
@@ -71,16 +107,17 @@
                 Type réservation :
               </label>
               <select
+                v-model="this.form.typeReservation"
                 id="typeReservation"
                 name="typeReservation"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               >
-                <option value="" disabled selected>Entraînement</option>
-                <option value="1">Match</option>
-                <option value="2">Evénements spéciaux</option>
+                <option>Entraînement</option>
+                <option>Match</option>
+                <option>Evénements spéciaux</option>
               </select>
-              <div v-if="typeReservation === 'Match'">
+              <div v-if="this.form.typeReservation === 'Match'">
                 <h6
                   class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase"
                 >
@@ -94,7 +131,7 @@
                     >
                       Nom du Match :
                     </label>
-                    <input
+                    <input v-model="this.form.nom_match"
                       type="text"
                       id="nom-match"
                       name="nom-match"
@@ -109,28 +146,17 @@
                     >
                       Type du Match :
                     </label>
-                    <div class="flex justify-between">
-                      <label class="inline-flex items-center">
-                        <input
-                          type="radio"
-                          class="form-radio"
-                          name="type-match"
-                          value="national"
-                          required
-                        />
-                        <span class="ml-2">National</span>
-                      </label>
-                      <label class="inline-flex items-center">
-                        <input
-                          type="radio"
-                          class="form-radio"
-                          name="type-match"
-                          value="international"
-                          required
-                        />
-                        <span class="ml-2">International</span>
-                      </label>
-                    </div>
+
+                    <select
+                v-model="this.form.type_match"
+                id="type_match"
+                name="type_match"
+                required
+                class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+              >
+                <option>National</option>
+                <option>International</option>
+              </select>
                   </div>
                   <div class="w-full lg:w-6/12 px-4 mb-3">
                     <label
@@ -139,21 +165,19 @@
                     >
                       Nom de l'équipe adversaire:
                     </label>
-                    <select
+                    <select v-model="this.form.nom_equipe2"
                       id="nom-equipe2"
                       name="nom-equipe2"
                       required
                       class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-                      v-model="selectedTeam"
                     >
                       <option value="">Choisissez une équipe</option>
                       <option
-                        v-for="team in teams"
+                        v-for="team in this.equipes"
                         :key="team.id"
-                        :value="team.nom"
-                      >
-                        {{ team.nom }}
-                      </option>
+                        :value="team.nom_equipe"
+                        :label="team.nom_equipe"
+                      />
                     </select>
                   </div>
                 </div>
@@ -185,16 +209,28 @@
     </div>
   </template>
   <script>
+  import axios from "axios";
   export default {
     data() {
       return {
-        typeReservation: "",
-      };
+        form : {
+          note: "",
+          date_debut:"",
+          date_fin:"",
+          heure_debut : "",
+          heure_fin : "",
+          typeReservation: "",
+          type_match : "",
+          nom_match: "",
+          nom_equipe2 : ""
+        },
+        equipes : []
+      }
     },
     methods: {
       validateDate() {
-        const startDateInput = document.querySelector("#date-debut-Event");
-        const endDateInput = document.querySelector("#date-fin-Event");
+        const startDateInput = document.querySelector("#date-debut");
+        const endDateInput = document.querySelector("#date-fin");
         const startDate = new Date(startDateInput.value);
         const endDate = new Date(endDateInput.value);
   
@@ -206,6 +242,18 @@
           endDateInput.setCustomValidity("");
         }
       },
+      async getEquipes () {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/equipes",{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.equipes = response.data.data;
+        console.log(this.equipes);
+      }).catch(err => console.log(err))
+    }
     },
+  mounted() {
+    this.getEquipes();
+  }
   };
   </script>

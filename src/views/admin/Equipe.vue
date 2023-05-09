@@ -41,7 +41,6 @@
       }}).then((response) => {
         this.equipes = response.data.data;
       }).catch(err => console.log(err))
-      console.log('equipes' , this.equipes);
     }
   },
   mounted() {
