@@ -1,17 +1,17 @@
 <template>
     <div class="flex flex-wrap mt-4">
       <div class="w-full mb-12 px-4">
-        <card-test-equipe/>
+        <card-historique-demande/>
       </div>
       
     </div>
   </template>
   <script>
-  import CardTestEquipe from "@/components/Cards/CardTestEquipe.vue";
+  import CardHistoriqueDemande from "@/components/Cards/Historiques/CardHistoriqueDemande.vue";
   
   export default {
     components: {
-      CardTestEquipe,
+        CardHistoriqueDemande,
     },
   };
   </script>

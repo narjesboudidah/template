@@ -1,17 +1,17 @@
 <template>
     <div class="flex flex-wrap mt-4">
       <div class="w-full mb-12 px-4">
-        <card-test-ste/>
+        <card-historique/>
       </div>
       
     </div>
   </template>
   <script>
-  import CardTestSte from "@/components/Cards/CardTestSte.vue";
+  import CardHistorique from "@/components/Cards/Historiques/CardHistorique.vue";
   
   export default {
     components: {
-        CardTestSte,
+        CardHistorique,
     },
   };
   </script>

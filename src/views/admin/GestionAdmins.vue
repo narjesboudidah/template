@@ -1,16 +1,16 @@
 <template>
     <div class="flex flex-wrap mt-4">
       <div class="w-full mb-12 px-4">
-        <card-tableA />
+        <card-table-admin />
       </div>
     </div>
   </template>
   <script>
-  import CardTableA from "@/components/Cards/CardTableA.vue";
+  import CardTableAdmin from "@/components/Cards/Lists/CardTableAdmin.vue";
   
   export default {
     components: {
-      CardTableA,
+      CardTableAdmin,
     },
   };
   </script>

@@ -7,7 +7,7 @@
       <div class="flex flex-wrap items-center">
         <div class="relative w-full px-4 max-w-full flex-grow flex-1">
           <h3 class="font-semibold text-base text-blueGray-700">
-            Liste des Traveaux
+            Liste des Travaux
           </h3>
         </div>
         <div
@@ -38,7 +38,7 @@
                     : 'hover:text-blueGray-500',
                 ]"
               >
-                <i class="fas fa-plus mr-2"></i> Ajouter Traveau
+                <i class="fas fa-plus mr-2"></i> Ajouter Travaux
               </a>
             </router-link>
           </button>

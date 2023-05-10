@@ -100,12 +100,12 @@ export default {
   data() {
     return {
       stadeimg,
-      url: `/form/stade/${this.props?.stade?.id}`
+      url: `/profile/stade/${this.props?.stade?.id}`
     }
   },
   methods: {
     toStade() {
-      this.$router.push(`/form/stade/${this.$props.stade?.id}`)
+      this.$router.push(`/profile/stade/${this.$props.stade?.id}`)
     }
   }
 };

@@ -6,7 +6,7 @@
     </div>
   </template>
   <script>
-  import CardListeRole from "@/components/Cards/CardListeRole.vue";
+  import CardListeRole from "@/components/Cards/Lists/CardListeRole.vue";
   
   export default {
     components: {

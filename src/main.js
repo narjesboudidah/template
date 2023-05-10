@@ -14,12 +14,14 @@ import App from "@/App.vue";
 
 import Admin from "@/layouts/Admin.vue";
 import Forms from "@/layouts/Forms.vue";
+import Profiles from "@/layouts/Profiles.vue";
 
 // views for Admin layout
 
 import Dashboard from "@/views/admin/Dashboard.vue";
 import Settings from "@/views/admin/Settings.vue";
 import Role from "@/views/admin/Role.vue";
+import SocieteMaintenance from "@/views/admin/SocieteMaintenance.vue";
 import Permission from "@/views/admin/Permission.vue";
 import Tables from "@/views/admin/Tables.vue";
 import Maps from "@/views/admin/Maps.vue";
@@ -27,32 +29,38 @@ import GestionAdmins from "@/views/admin/GestionAdmins.vue";
 import ListeDemande from "@/views/admin/ListeDemande.vue";
 import Competition from "@/views/admin/Competition.vue";
 import Matchs from "@/views/admin/Matchs.vue";
-import Stades from "@/views/admin/Stades.vue";
-import Stade from "@/views/Stade.vue";
-import EquipeProfile from "@/views/EquipeProfile.vue";
-import SteProfile from "@/views/SteProfile.vue";
 import Events from "@/views/admin/Events.vue";
 import Maintenance from "@/views/admin/Maintenance.vue";
 import Planning from "@/views/admin/Planning.vue";
 import Equipe from "@/views/admin/Equipe.vue";
-import AdminForm from "@/views/admin/AdminForm.vue";
-import CompetitionForm from "@/views/admin/CompetitionForm.vue";
-import EquipeForm from "@/views/admin/EquipeForm.vue";
-import SteForm from "@/views/admin/SteForm.vue";
-import StadeForm from "@/views/admin/StadeForm.vue";
-import MatchForm from "@/views/admin/MatchForm.vue";
-import EventForm from "@/views/admin/EventForm.vue";
-import PermissionForm from "@/views/admin/PermissionForm.vue";
-import RoleForm from "@/views/admin/RoleForm.vue";
-import Historique from "@/views/admin/Historique.vue";
-import HistoriqueDemande from "@/views/admin/HistoriqueDemande.vue";
-import HistoriqueN from "@/views/admin/HistoriqueN.vue";
-import MaintenanceForm from "@/views/admin/MaintenanceForm.vue";
-import SocieteMaintenance from "@/views/admin/SocieteMaintenance.vue";
-import ReservationForm from "@/views/admin/ReservationForm.vue";
+import Stades from "@/views/admin/Stades.vue";
 
+//***Historiques***/
+import Historique from "@/views/admin/Historiques/Historique.vue";
+import HistoriqueDemande from "@/views/admin/Historiques/HistoriqueDemande.vue";
+import HistoriqueN from "@/views/admin/Historiques/HistoriqueN.vue";
+
+//***Forms***/
+import MaintenanceForm from "@/views/admin/Forms/MaintenanceForm.vue";
+import ReservationForm from "@/views/admin/Forms/ReservationForm.vue";
+import AdminForm from "@/views/admin/Forms/AdminForm.vue";
+import CompetitionForm from "@/views/admin/Forms/CompetitionForm.vue";
+import EquipeForm from "@/views/admin/Forms/EquipeForm.vue";
+import SteForm from "@/views/admin/Forms/SteForm.vue";
+import StadeForm from "@/views/admin/Forms/StadeForm.vue";
+import MatchForm from "@/views/admin/Forms/MatchForm.vue";
+import EventForm from "@/views/admin/Forms/EventForm.vue";
+import PermissionForm from "@/views/admin/Forms/PermissionForm.vue";
+import RoleForm from "@/views/admin/Forms/RoleForm.vue";
+
+//*** Profiles ***/
+import Profile from "@/views/admin/Profiles/Profile.vue";
+import StadeProfile from "@/views/admin/Profiles/StadeProfile.vue";
+import EquipeProfile from "@/views/admin/Profiles/EquipeProfile.vue";
+import SteProfile from "@/views/admin/Profiles/SteProfile.vue";
+
+//******Login ******/
 import Login from "@/views/Login.vue";
-import Profile from "@/views/Profile.vue";
 
 // routes
 const routes = [
@@ -82,7 +90,7 @@ const routes = [
         path: "/admin/settings/permission",
         component: Permission,
       },
-      {
+     {
         path: "/admin/tables",
         component: Tables,
       },
@@ -132,9 +140,13 @@ const routes = [
         path: "/admin/planning",
         component: Planning,
       },
+      {
+        path: "/admin/profile",
+        component: Profile,
+      },
     ],
   },
-  {path: "/form",
+  { path: "/form",
     redirect: "/admin/dashboard",
     component: Forms,
     children: [
@@ -170,6 +182,19 @@ const routes = [
         path: "/form/AjoutMaintenance",
         component: MaintenanceForm
       },
+   
+      {
+        path: "/form/AjoutRole",
+        component: RoleForm,
+      },
+      {
+        path: "/form/AjoutPermission",
+        component: PermissionForm,
+      },
+      {
+        path: "/form/FaireReservation",
+        component: ReservationForm,
+      },
       {
         path: "/form/HistoriqueDemande",
         component: HistoriqueDemande,
@@ -177,48 +202,39 @@ const routes = [
       {
         path: "/form/HistoriqueN",
         component: HistoriqueN,
-      },
-      {
+      },  {
         path: "/form/historique",
         component: Historique,
       },
+     
+    ]},
+      
+  {
+    path: "/profile",
+    redirect: "/admin/dashboard",
+    component: Profiles,
+    children: [
       {
-        path: "/form/Role",
-        component: RoleForm,
+        path: "/profile/stade/:id",
+        component: StadeProfile,
       },
       {
-        path: "/form/Permission",
-        component: PermissionForm,
-      },
-      {
-        path: "/form/stade/:id",
-        component: Stade,
-      },
-      {
-        path: "/form/FaireReservation",
-        component: ReservationForm,
-      },
-      {
-        path: "/form/EquipeProfile/:id",
+        path: "/profile/EquipeProfile/:id",
         component: EquipeProfile,
       },
       {
-        path: "/form/SteProfile/:id",
+        path: "/profile/SteProfile/:id",
         component: SteProfile,
       },
-
-    
+      {
+        path: "/profile/admin",
+        component: Profile,
+      },
     ]
-    
   },
-  {
-    path: "/login",
-    component: Login,
-  },
-  {
-    path: "/profile",
-    component: Profile,
-  },
+  
+ 
+  //*** Logout***/
   {
     path: "/login",
     component: Login,

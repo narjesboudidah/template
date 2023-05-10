@@ -1,17 +1,17 @@
 <template>
   <div class="flex flex-wrap mt-4">
     <div class="w-full mb-12 px-4">
-      <card-test-stade/>
+      <card-profile-stade/>
     </div>
     
   </div>
 </template>
 <script>
-import CardTestStade from "@/components/Cards/CardTestStade.vue";
+import CardProfileStade from "@/components/Cards/Profiles/CardProfileStade.vue";
 
 export default {
   components: {
-    CardTestStade,
+    CardProfileStade,
   },
 };
 </script>

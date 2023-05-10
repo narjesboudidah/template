@@ -10,7 +10,7 @@
     <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
       <div>
         <!-- Profile -->
-        <router-link to="/profile" v-slot="{ href, navigate, isActive }">
+        <router-link to="/profile/admin" v-slot="{ href, navigate, isActive }">
           <a
             style="font-family: inherit, serif; font-size: 15px"
             :href="href"

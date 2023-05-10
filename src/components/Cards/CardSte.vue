@@ -81,12 +81,12 @@
     data() {
       return {
         gearlogo,
-        url: `/form/SteProfile/${this.props?.ste?.id}`
+        url: `/profile/SteProfile/${this.props?.ste?.id}`
       };
     },
   methods: {
     toSte() {
-      this.$router.push(`/form/SteProfile/${this.$props.ste?.id}`)
+      this.$router.push(`/profile/SteProfile/${this.$props.ste?.id}`)
     }
   }
   };

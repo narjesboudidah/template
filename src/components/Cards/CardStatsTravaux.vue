@@ -18,8 +18,26 @@
             class=" icon-sidebar-click"
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
+           >
+           <router-link
+              to="/admin/Maintenance"
+              v-slot="{ href, navigate, isActive }"
+            >
+              <a
+                 style="font-family: inherit,serif;font-size: 15px;"
+                :href="href"
+                @click="navigate"
+                class=""
+                :class="[
+                  isActive
+                    ? 'box-sidebar hover:text-red-600 '
+                    : 'hover:text-blueGray-500',
+                ]"
+              
           >
           voir tous
+          </a>
+           </router-link>
           </button>
         </div>
       </div>

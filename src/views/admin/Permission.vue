@@ -6,7 +6,7 @@
     </div>
   </template>
   <script>
-  import CardListePermission from "@/components/Cards/CardListePermission.vue";
+  import CardListePermission from "@/components/Cards/Lists/CardListePermission.vue";
   
   export default {
     components: {

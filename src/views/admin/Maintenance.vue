@@ -1,16 +1,16 @@
 <template>
     <div class="flex flex-wrap mt-4">
       <div class="w-full mb-12 px-4">
-        <card-Traveaux />
+        <card-travaux />
       </div>
     </div>
   </template>
   <script>
-  import CardTraveaux from "@/components/Cards/CardTraveaux.vue";
+  import CardTravaux from "@/components/Cards/CardTravaux.vue";
   
   export default {
     components: {
-      CardTraveaux,
+      CardTravaux,
     },
   };
   </script>

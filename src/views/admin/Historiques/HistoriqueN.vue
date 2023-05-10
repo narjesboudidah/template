@@ -7,7 +7,7 @@
     </div>
   </template>
   <script>
-  import CardHistoriqueN from "@/components/Cards/CardHistoriqueN.vue";
+  import CardHistoriqueN from "@/components/Cards/Historiques/CardHistoriqueN.vue";
   
   export default {
     components: {

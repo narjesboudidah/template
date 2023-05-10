@@ -1,7 +1,6 @@
 <template>
   <!-- Header -->
   <div class="relative  pb-33 pt-12">
-    
   </div>
 </template>
 

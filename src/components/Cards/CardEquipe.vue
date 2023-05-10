@@ -78,12 +78,12 @@ export default {
   data() {
     return {
       equipelogo,
-      url: `/form/EquipeProfile/${this.props?.equipe?.id}`
+      url: `/profile/EquipeProfile/${this.props?.equipe?.id}`
     }
   },
   methods: {
     toEquipe() {
-      this.$router.push(`/form/EquipeProfile/${this.$props.equipe?.id}`)
+      this.$router.push(`/profile/EquipeProfile/${this.$props.equipe?.id}`)
     }
   }
   
