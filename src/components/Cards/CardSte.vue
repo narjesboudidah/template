@@ -53,7 +53,17 @@
             class="bg-white-500 text-black-200 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
           >
+          <a
+                 style="font-family: inherit,serif;font-size: 15px;"
+                @click="toSte()"
+                :class="[
+                  isActive
+                    ? 'box-sidebar hover:text-red-600 '
+                    : 'hover:text-blueGray-500',
+                ]"
+              >
             <i class="fa fa-list"></i>
+            </a>
           </button>
           </div>
         </div>
@@ -71,12 +81,12 @@
     data() {
       return {
         gearlogo,
-        url: `/form/ste/${this.props?.ste?.id}`
+        url: `/form/SteProfile/${this.props?.ste?.id}`
       };
     },
   methods: {
     toSte() {
-      this.$router.push(`/form/ste/${this.$props.ste?.id}`)
+      this.$router.push(`/form/SteProfile/${this.$props.ste?.id}`)
     }
   }
   };

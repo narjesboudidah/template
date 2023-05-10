@@ -23,9 +23,9 @@
                       class="w-full md:w-5/12 ml-auto mr-auto px-2"
                     >
                       <div class="md:pr-12">
-                        <h3 class="text-3xl font-semibold">{{ stade.nom }}</h3>
+                        <h3 class="text-3xl font-semibold">{{ ste.nom }}</h3>
                         <p class="mt-4 text-lg leading-relaxed text-blueGray-700">
-                          {{ stade.description }}
+                          {{ ste.description }}
                         </p>
                         <ul class="list-none mt-6">
                           <li class="py-2">
@@ -39,7 +39,7 @@
                               </div>
                               <div>
                                 <h4 class="text-blueGray-700">  
-                                  Directeur Général : {{ stade.proprietaire }}
+                                  Admin Ste : *****
                                 </h4>
                               </div>
                             </div>
@@ -50,12 +50,12 @@
                                 <span
                                   class="material-symbols-outlined icon-sidebar-click1"
                                 >
-                                  call
+                                pin_drop
                                 </span>
                               </div>
                               <div>
                                 <h4 class="text-blueGray-700 text-l">
-                                  Phone : {{ stade.telephone }}
+                                  Adresse : {{ ste.adresse }}
                                 </h4>
                               </div>
                             </div>
@@ -66,11 +66,11 @@
                                 <span
                                   class="material-symbols-outlined icon-sidebar-click1"
                                 >
-                                  pin_drop
+                                call
                                 </span>
                               </div>
                               <div>
-                                <h4 class="text-blueGray-700">Pays : {{ stade.pays }}</h4>
+                                <h4 class="text-blueGray-700"> Téléphone :  {{ ste.tl }}</h4>
                               </div>
                             </div>
                           </li>
@@ -80,41 +80,11 @@
                                 <span
                                   class="material-symbols-outlined icon-sidebar-click1"
                                 >
-                                  groups
+                                alternate_email
                                 </span>
                               </div>
                               <div>
-                                <h4 class="text-blueGray-700">Capacite : {{ stade.capacite || '00'}}</h4>
-                              </div>
-                            </div>
-                          </li>
-                          <li class="py-2">
-                            <div class="flex items-center">
-                              <div>
-                                <span
-                                  class="material-symbols-outlined icon-sidebar-click1"
-                                >
-                                  stadium
-                                </span>
-                              </div>
-                              <div>
-                                <h4 class="text-blueGray-700 text-l">
-                                  Surface : {{ stade.surface || '00' }}
-                                </h4>
-                              </div>
-                            </div>
-                          </li>
-                          <li class="py-2">
-                            <div class="flex items-center">
-                              <div>
-                                <span
-                                  class="material-symbols-outlined icon-sidebar-click1"
-                                >
-                                  sports_soccer
-                                </span>
-                              </div>
-                              <div>
-                                <h4 class="text-blueGray-700">Matchs : 00</h4>
+                                <h4 class="text-blueGray-700"> Email :  {{ ste.email }}</h4>
                               </div>
                             </div>
                           </li>
@@ -136,23 +106,23 @@
     data() {
       return {
         team2,
-        stade :{},
+        ste :{},
       };
     },
     components: {},
     methods: {
-      async getStade() {
+      async getSte() {
         let id = this.$route.params.id;
         let token = localStorage.getItem("userToken");
-        await axios.get(`http://127.0.0.1:8000/api/stade/${id}`,{headers: {
+        await axios.get(`http://127.0.0.1:8000/api/societeMaintenance/${id}`,{headers: {
           'Authorization': `Bearer ${token}`
         }}).then((response) => {
-          this.stade = response.data.data;
+          this.ste = response.data.data;
         }).catch(err => console.log(err))
       }
     }, 
     mounted() {
-      this.getStade();
+      this.getSte();
     }
   };
   </script>
