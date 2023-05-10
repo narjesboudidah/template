@@ -195,11 +195,10 @@ const routes = [
         component: Stade,
       },
       {
-<<<<<<< HEAD
         path: "/form/FaireReservation",
         component: ReservationForm,
       },
-=======
+      {
         path: "/form/EquipeProfile/:id",
         component: EquipeProfile,
       },
@@ -208,11 +207,10 @@ const routes = [
         component: SteProfile,
       },
 
->>>>>>> 8f4d4e3ed6aa8e3ca9bbe61a99c28bc4d8b16d6b
     
     ]
-    },
- 
+    
+  },
   {
     path: "/login",
     component: Login,
