@@ -90,7 +90,7 @@ const routes = [
         path: "/admin/settings/permission",
         component: Permission,
       },
-     {
+      {
         path: "/admin/tables",
         component: Tables,
       },
@@ -98,10 +98,10 @@ const routes = [
         path: "/admin/competition",
         component: Competition,
       },
-      
-       {
+
+      {
         path: "/admin/competition/match",
-        component:Matchs,
+        component: Matchs,
       },
       {
         path: "/admin/listeDemande",
@@ -111,7 +111,7 @@ const routes = [
         path: "/admin/users",
         component: GestionAdmins,
       },
-      
+
       {
         path: "/admin/maps",
         component: Maps,
@@ -122,7 +122,7 @@ const routes = [
       },
       {
         path: "/admin/equipe",
-        component:Equipe,
+        component: Equipe,
       },
       {
         path: "/admin/ste",
@@ -146,7 +146,8 @@ const routes = [
       },
     ],
   },
-  { path: "/form",
+  {
+    path: "/form",
     redirect: "/admin/dashboard",
     component: Forms,
     children: [
@@ -182,7 +183,7 @@ const routes = [
         path: "/form/AjoutMaintenance",
         component: MaintenanceForm
       },
-   
+
       {
         path: "/form/AjoutRole",
         component: RoleForm,
@@ -202,13 +203,14 @@ const routes = [
       {
         path: "/form/HistoriqueN",
         component: HistoriqueN,
-      },  {
+      }, {
         path: "/form/historique",
         component: Historique,
       },
-     
-    ]},
-      
+
+    ]
+  },
+
   {
     path: "/profile",
     redirect: "/admin/dashboard",
@@ -232,8 +234,8 @@ const routes = [
       },
     ]
   },
-  
- 
+
+
   //*** Logout***/
   {
     path: "/login",

@@ -99,15 +99,17 @@
 </template>
 <script>
 import bootstrap from "@/assets/img/bootstrap.jpg";
-// import axios from "axios";
+import axios from "axios";
 export default {
     props:{
-      admins: {
-      type: [],
-  }},
+      // admins: {
+      //   type: [],
+      // }
+    },
     data() {
       return{
       bootstrap,
+      admins : []
     }},
 
     mounted() {
@@ -115,14 +117,13 @@ export default {
   },
 
   methods: {
-    getUsers() {
-      // axios({
-      //   url: "http://localhost:8000/api/users",
-      //   method: "GET"
-      // }).then((response) => {
-      //   this.admins = response.data.data;
-      // })
-      console.log("to do later");
+    async getUsers() {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/users",{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.admins = response.data.data;
+      })
     }
   }
 };
