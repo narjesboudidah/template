@@ -29,7 +29,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="Nombre de users"
-              statTitle="userCount"
+              :statTitle="users"
               statIconName="fas fa-user"
               statIconColor="bg-emerald-550"
             />
@@ -37,7 +37,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="Nombre de stades"
-              statTitle="stadiumCount"
+              :statTitle="stades"
               statIconName="fas fa-hockey-puck"
               statIconColor="bg-emerald-550"
             />
@@ -45,7 +45,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="Nombre des equipes"
-              statTitle="teamCount"
+              :statTitle="equipes"
               statIconName="fas fa-users"
               statIconColor="bg-emerald-550 "
             />
@@ -53,7 +53,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="Nombre stes maintenance"
-              statTitle="steCount"
+              :statTitle="ste_maintenance"
               statIconName="fas fa-tools"
               statIconColor="bg-emerald-550 "
             />
@@ -76,30 +76,30 @@ export default {
   },
   data() {
     return {
-      userCount: 0,
-      stadiumCount: 0,
-      teamCount: 0,
-      maintenanceCount: 0
+      users: 0,
+      stades: 0,
+      equipes: 0,
+      ste_maintenance: 0
     };
+  },
+  methods: {
+    async fetchData() {
+        let token = localStorage.getItem("userToken");
+        await axios.get("http://127.0.0.1:8000/api/stats",{headers: {
+            'Authorization': `Bearer ${token}`
+        }}).then((response)=>{
+        this.users = response.data.users;
+        this.stades = response.data.stades;
+        this.equipes = response.data.equipes;
+        this.ste_maintenance = response.data.ste_maintenance;
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    }
   },
   mounted() {
     this.fetchData();
-  },
-  methods: {
-    
-    fetchData() {
-            axios.get("http://127.0.0.1:8000/api/users",{headers: {
-          'Authorization': `Bearer ${token}`
-      }}).then((response)=>{
-      this.userCount = response.data.userCount;
-      this.stadiumCount = response.data.stadiumCount;
-      this.teamCount = response.data.teamCount;
-      this.maintenanceCount = response.data.maintenanceCount;
-    })
-    .catch((error) => {
-      console.error(error);
-    })
-}
   },
 };
 </script>
