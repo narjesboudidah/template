@@ -128,23 +128,16 @@ import bootstrap from "@/assets/img/bootstrap.jpg";
 import axios from "axios";
 export default {
     props:{
-<<<<<<< HEAD
       // admins: {
       //   type: [],
       // }
-=======
       // admins: [],
       type: [],
->>>>>>> b960a95a30f777f07d576f29ae954a2c799bf1d4
     },
     data() {
       return{
       bootstrap,
-<<<<<<< HEAD
-      admins : []
-=======
       admins: [],
->>>>>>> b960a95a30f777f07d576f29ae954a2c799bf1d4
     }},
 
     mounted() {
@@ -152,7 +145,6 @@ export default {
   },
 
   methods: {
-<<<<<<< HEAD
     async getUsers() {
       let token = localStorage.getItem("userToken");
       await axios.get("http://127.0.0.1:8000/api/users",{headers: {
@@ -160,16 +152,6 @@ export default {
       }}).then((response) => {
         this.admins = response.data.data;
       })
-=======
-    getUsers() {
-      let token = localStorage.getItem("userToken");
-      axios.get("http://127.0.0.1:8000/api/users",{headers: {
-          'Authorization': `Bearer ${token}`
-      }}).then((response) => {
-        this.admins = response.data.data;
-      })
-      console.log(this.admins);
->>>>>>> b960a95a30f777f07d576f29ae954a2c799bf1d4
     }
   }
 };
