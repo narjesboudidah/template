@@ -29,7 +29,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="Nombre de users"
-              statTitle="350,897"
+              statTitle="userCount"
               statIconName="fas fa-user"
               statIconColor="bg-emerald-550"
             />
@@ -37,7 +37,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="Nombre de stades"
-              statTitle="2,356"
+              statTitle="stadiumCount"
               statIconName="fas fa-hockey-puck"
               statIconColor="bg-emerald-550"
             />
@@ -45,7 +45,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="Nombre des equipes"
-              statTitle="924"
+              statTitle="teamCount"
               statIconName="fas fa-users"
               statIconColor="bg-emerald-550 "
             />
@@ -53,7 +53,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="Nombre stes maintenance"
-              statTitle="49,65"
+              statTitle="steCount"
               statIconName="fas fa-tools"
               statIconColor="bg-emerald-550 "
             />
@@ -67,11 +67,39 @@
 </template>
 
 <script>
+import axios from "axios";
 import CardStats from "@/components/Cards/CardStats.vue";
 
 export default {
   components: {
     CardStats,
+  },
+  data() {
+    return {
+      userCount: 0,
+      stadiumCount: 0,
+      teamCount: 0,
+      maintenanceCount: 0
+    };
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    
+    fetchData() {
+            axios.get("http://127.0.0.1:8000/api/users",{headers: {
+          'Authorization': `Bearer ${token}`
+      }}).then((response)=>{
+      this.userCount = response.data.userCount;
+      this.stadiumCount = response.data.stadiumCount;
+      this.teamCount = response.data.teamCount;
+      this.maintenanceCount = response.data.maintenanceCount;
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+}
   },
 };
 </script>

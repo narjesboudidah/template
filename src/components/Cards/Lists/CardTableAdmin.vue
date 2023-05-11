@@ -11,7 +11,33 @@
             Liste des utilisateurs
           </h3>
         </div>
-     
+        <div
+          class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
+        >
+          <button
+            class="icon-sidebar-click"
+            type="button"
+            style="padding-right: 0.7rem; padding-left: 0.7rem"
+          >
+          <router-link
+              to="/form/AjoutAdmin"
+              v-slot="{ href, navigate, isActive }"
+            >
+              <a
+                 style="font-family: inherit,serif;font-size: 15px;"
+                :href="href"
+                @click="navigate"
+                class=""
+                :class="[
+                  isActive
+                    ? 'box-sidebar hover:text-red-600 '
+                    : 'hover:text-blueGray-500',
+                ]">
+            <i class="fas fa-plus mr-2"></i> Ajouter Admin
+            </a>
+      </router-link>
+          </button>
+        </div>
       </div>
     </div>
     <div class="block w-full overflow-x-auto">
@@ -48,7 +74,7 @@
         </thead>
         <tbody v-if="admins && admins.length">
           <!--admin instance in table admins with key admin_id-->
-          <tr v-for="admin in admins" :key="admin.id">
+          <tr v-for="admin in this.admins" :key="admin.id">
             <td
               class="px-7  border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
@@ -99,15 +125,16 @@
 </template>
 <script>
 import bootstrap from "@/assets/img/bootstrap.jpg";
-// import axios from "axios";
+import axios from "axios";
 export default {
     props:{
-      admins: {
+      // admins: [],
       type: [],
-  }},
+    },
     data() {
       return{
       bootstrap,
+      admins: [],
     }},
 
     mounted() {
@@ -116,13 +143,13 @@ export default {
 
   methods: {
     getUsers() {
-      // axios({
-      //   url: "http://localhost:8000/api/users",
-      //   method: "GET"
-      // }).then((response) => {
-      //   this.admins = response.data.data;
-      // })
-      console.log("to do later");
+      let token = localStorage.getItem("userToken");
+      axios.get("http://127.0.0.1:8000/api/users",{headers: {
+          'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.admins = response.data.data;
+      })
+      console.log(this.admins);
     }
   }
 };
