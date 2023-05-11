@@ -265,7 +265,7 @@
                     ? 'icon-sidebar-click '
                     : 'icon-sidebar',
                 ]"> engineering </span>
-                Traveaux
+                Travaux
               </a>
             </router-link>
           </li>

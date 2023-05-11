@@ -31,11 +31,10 @@ export default {
   props: {
     statSubtitle: {
       type: String,
-      default: "Traffic",
+      default: "",
     },
     statTitle: {
-      type: String,
-      default: "350,897",
+      type: Number,
     },
     statArrow: {
       default: "up",

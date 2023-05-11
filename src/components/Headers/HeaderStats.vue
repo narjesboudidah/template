@@ -29,7 +29,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="Nombre de users"
-              statTitle="350,897"
+              :statTitle="users"
               statIconName="fas fa-user"
               statIconColor="bg-emerald-550"
             />
@@ -37,7 +37,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="Nombre de stades"
-              statTitle="2,356"
+              :statTitle="stades"
               statIconName="fas fa-hockey-puck"
               statIconColor="bg-emerald-550"
             />
@@ -45,7 +45,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="Nombre des equipes"
-              statTitle="924"
+              :statTitle="equipes"
               statIconName="fas fa-users"
               statIconColor="bg-emerald-550 "
             />
@@ -53,7 +53,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="Nombre stes maintenance"
-              statTitle="49,65"
+              :statTitle="ste_maintenance"
               statIconName="fas fa-tools"
               statIconColor="bg-emerald-550 "
             />
@@ -67,11 +67,39 @@
 </template>
 
 <script>
+import axios from "axios";
 import CardStats from "@/components/Cards/CardStats.vue";
 
 export default {
   components: {
     CardStats,
+  },
+  data() {
+    return {
+      users: 0,
+      stades: 0,
+      equipes: 0,
+      ste_maintenance: 0
+    };
+  },
+  methods: {
+    async fetchData() {
+        let token = localStorage.getItem("userToken");
+        await axios.get("http://127.0.0.1:8000/api/stats",{headers: {
+            'Authorization': `Bearer ${token}`
+        }}).then((response)=>{
+        this.users = response.data.users;
+        this.stades = response.data.stades;
+        this.equipes = response.data.equipes;
+        this.ste_maintenance = response.data.ste_maintenance;
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    }
+  },
+  mounted() {
+    this.fetchData();
   },
 };
 </script>

@@ -100,7 +100,6 @@ export default {
   data() {
     return {
       stadeimg,
-      url: `/profile/stade/${this.props?.stade?.id}`
     }
   },
   methods: {
