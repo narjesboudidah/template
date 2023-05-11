@@ -132,9 +132,9 @@
                 <option value="" disabled selected hidden>
                   Choisissez une catégorie
                 </option>
-                <option value="amateur">Amateur</option>
-                <option value="professionnel">Professionnel</option>
-                <option value="jeunes">Jeunes</option>
+                <option >Amateur</option>
+                <option >Professionnel</option>
+                <option >Jeunes</option>
               </select>
             </div>
   

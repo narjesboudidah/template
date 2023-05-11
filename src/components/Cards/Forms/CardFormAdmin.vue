@@ -20,7 +20,7 @@
             >
               Nom de l'admin :
             </label>
-            <input
+            <input  v-model="this.form.nom"
               type="text"
               id="nom-admin"
               name="nom-admin"
@@ -36,7 +36,7 @@
             >
               Prénom de l'admin :
             </label>
-            <input
+            <input  v-model="this.form.prenom"
               type="text"
               id="prenom-admin"
               name="prenom-admin"
@@ -52,7 +52,7 @@
             >
               Téléphone :
             </label>
-            <input
+            <input  v-model="this.form.tel"
               type="tel"
               id="telephone"
               name="telephone"
@@ -69,7 +69,7 @@
             >
               Email :
             </label>
-            <input
+            <input  v-model="this.form.email"
               type="email"
               id="email"
               name="email"
@@ -86,7 +86,7 @@
             >
               Adresse :
             </label>
-            <input
+            <input  v-model="this.form.adresse"
               type="text"
               id="adresse"
               name="adresse"
@@ -102,7 +102,7 @@
             >
               Mot de passe :
             </label>
-            <input
+            <input  v-model="this.form.password"
               type="password"
               id="mot-de-passe"
               name="mot-de-passe"
@@ -112,91 +112,46 @@
             />
           </div>
         </div>
-        <hr class="mt-6 border-b-1 border-blueGray-300" />
-
-        <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-          Role de l'admin
-        </h6>
-        <div class="flex flex-wrap">
-          <div class="w-full lg:w-6/12 px-4 mb-3">
-            <fieldset>
-              <legend
+        <div class="w-full lg:w-6/12 px-4 mb-3">
+              <label
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                for="role"
               >
-                Role :
-              </legend>
-              <div class="mt-2" style="display: flex">
-                <div class="mr-4">
-                  <input
-                    type="radio"
-                    id="admin-maintenance"
-                    name="role"
-                    value="1"
-                    checked
-                  />
-                  <label for="admin-maintenance"> Admin équipe</label>
-                </div>
-                <div class="mr-4">
-                  <input
-                    type="radio"
-                    id="admin-maintenance"
-                    name="role"
-                    value="2"
-                  />
-                  <label for="admin-maintenance"> Admin ste maintenance</label>
-                </div>
-                <div class="mr-4">
-                  <input
-                    type="radio"
-                    id="admin-federation"
-                    name="role"
-                    value="3"
-                  />
-                  <label for="admin-federation"> Admin fédération</label>
-                </div>
-              </div>
-            </fieldset>
-          </div>
-        </div>
-        <hr class="mt-6 border-b-1 border-blueGray-300" />
-
-        <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-          Permission de l'admin
-        </h6>
-        <div>
-        <div>Permissions : {{ checkedNames }}</div>
-        <div class="mt-2 space-y-2" style="display: flex;">
-          <div class="flex items-center ml-3 mr-1">
-            <input
-              type="checkbox"
-              id="ajouter-stade"
-              value="Ajouter stade"
-              v-model="checkedNames"
-            />
-            <label class="ml-3 mr-1" for="ajouter-stade">Ajouter stade</label>
-          </div>
-
-          <div class="flex items-center ml-3 mr-1">
-            <input
-              type="checkbox"
-              id="modifier-role"
-              value="Modifier role"
-              v-model="checkedNames"
-            />
-            <label class="ml-3 mr-1" for="modifier-role">Modifier role</label>
-          </div>
-
-          <div class="flex items-center ml-3 mr-1">
-            <input
-              type="checkbox"
-              id="supprimer-event"
-              value="Supprimer Event"
-              v-model="checkedNames"
-            />
-            <label class="ml-3 mr-1" for="supprimer-event">Supprimer Event</label>
-          </div>
-        </div>
-        </div>
+              Role de l'admin :
+              </label>
+              <select v-model="this.form.role"
+                id="role"
+                name="role"
+                required
+                class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+              >
+                <option value="" disabled selected>
+                  Sélectionnez  Role de l'admin
+                </option>
+                <option >Admin fédération</option>
+                <option >Admin équipe</option>
+                <option >Admin ste maintenance</option>
+              </select>
+            </div>
+        <div class="w-full lg:w-6/12 px-4 mb-3">
+              <label
+                class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                for="permissions"
+              >
+              Permissions de l'admin :
+              </label>
+              <select v-model="this.form.permissions"
+                id="permissions"
+                name="permissions"
+                required
+                multiple
+                class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+              >
+              <option v-for="permission in this.permissions" :key="permission" :value="permission">
+                {{ permission }}
+              </option>
+              </select>
+            </div>
       </form>
       <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-center">
         <button
@@ -219,11 +174,98 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      checkedNames: [],
-    };
-  },
+      permissions: ["Consulter Events",
+        "Consulter Event",
+        "Ajout Event",
+        "Modifier Event",
+        "Supprimer Event",
+        "Consulter Users",
+        "Consulter User",
+        "Ajout User",
+        "Modifier User",
+        "Supprimer User",
+        "Consulter Maintenances",
+        "Consulter Maintenance",
+        "Ajout Maintenance",
+        "Modifier Maintenance",
+        "Supprimer Maintenance",
+        "Confirmer Maintenance",
+        "Annuler Maintenance",
+        "Consulter Equipes",
+        "Consulter Equipe",
+        "Ajout Equipe",
+        "Modifier Equipe",
+        "Supprimer Equipe",
+        "Consulter Matchs",
+        "Consulter Match",
+        "Ajout Match",
+        "Modifier Match",
+        "Supprimer Match",
+        "Consulter Stes",
+        "Consulter Ste",
+        "Ajout Ste",
+        "Modifier Ste",
+        "Supprimer Ste",
+        "Consulter Stades",
+        "Consulter Stade",
+        "Ajout Stade",
+        "Modifier Stade",
+        "Supprimer Stade",
+        "Consulter Permissions",
+        "Consulter Permission",
+        "Ajout Permission",
+        "Modifier Permission",
+        "Supprimer Permission",
+        "Consulter Roles",
+        "Consulter Role",
+        "Ajout Role",
+        "Modifier Role",
+        "Supprimer Role",
+        "Consulter Competitions",
+        "Consulter Competition",
+        "Ajout Competition",
+        "Modifier Competition",
+        "Supprimer Competition",
+        "Consulter Reservations",
+        "Consulter Reservation",
+        "Ajout Reservation",
+        "Modifier Reservation",
+        "Supprimer Reservation",
+        "Confirmer Reservation",
+        "Annuler Reservation",
+        "Consulter Historiques"],
+      roles:["Admin fédération","Admin équipe","Admin ste"],
+      form : {
+          nom: "",
+          prenom:"",
+          tel: "",
+          email: "",
+          adresse : "",
+          password: "",
+          permissisons:[],
+          role:"",
+        }
+    }},
+
+    methods: {
+    submit: async function() {
+      let token = localStorage.getItem("userToken");
+      console.log(this.form);
+      await axios.post("http://127.0.0.1:8000/api/users",this.form,{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((result) => {
+        if (result.status != 201){
+          console.log("error");
+          return;
+        }
+        
+        console.log(result.data);
+      }).catch(err => console.log(err.message));
+    }
+  } 
 };
 </script>
