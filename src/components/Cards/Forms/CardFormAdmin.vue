@@ -73,7 +73,7 @@
             <option>Admin Ste</option>
           </select>
         </div>
-        <div class="w-full">
+        <div v-if="this.form.role === 'Admin Federation'" class="w-full">
           <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="permissions">
             Permissions de l'admin :
           </label>
