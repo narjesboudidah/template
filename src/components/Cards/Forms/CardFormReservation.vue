@@ -192,6 +192,7 @@
             class=" boutton-click active:bg-blueGray-600 font-bold   text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear "
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
+            v-on:click="submit()"
            >
           confirmer
         </button>
@@ -251,7 +252,20 @@
         console.log(this.equipes);
       }).catch(err => console.log(err))
     }
-    },
+    
+  },
+submit: async function() {
+    let token = localStorage.getItem("userToken");
+    console.log(this.form);
+    await axios.post("http://127.0.0.1:8000/api/equipes",this.form,{headers: {
+      'Authorization': `Bearer ${token}`
+    }}).then((result) => {
+      if (result.status != 201){
+        console.log("error");
+        return;
+      }
+    })
+  },
   mounted() {
     this.getEquipes();
   }

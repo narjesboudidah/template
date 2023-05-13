@@ -84,7 +84,7 @@
                 alt="..."
               />
               <!--prendre le nom et le prenom du BD -->
-              <span class="ml-3"> {{ admin.prenom +" "+admin .nom }} </span>
+              <span class="ml-3"> {{ admin.prenom +" "+admin.nom }} </span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
@@ -104,15 +104,23 @@
             <td
               class="border-t-0  border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
             >
-              <button
-                class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-              >
-                <i class="fas fa-pen"></i>
-              </button>
+            <router-link
+              to="/form/AjoutAdmin"
+              v-slot="{ href, navigate }"
+            >
+            <button
+              :href="href"
+                @click="navigate"
+              class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              type="button"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+          </router-link>
               <button
                 class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
+                v-on:click="this.deleteUser(admin.id)"
               >
                 <i class="fa fa-trash"></i>
               </button>
@@ -128,10 +136,6 @@ import bootstrap from "@/assets/img/bootstrap.jpg";
 import axios from "axios";
 export default {
     props:{
-      // admins: {
-      //   type: [],
-      // }
-      // admins: [],
       type: [],
     },
     data() {
@@ -151,6 +155,26 @@ export default {
         'Authorization': `Bearer ${token}`
       }}).then((response) => {
         this.admins = response.data.data;
+      })
+    },
+    async deleteUser(id){
+      let token = localStorage.getItem("userToken");
+      await axios.delete(`http://127.0.0.1:8000/api/user/${id}`,{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then(() => {
+        this.$swal({
+          icon: 'succes',
+          title: 'Deleted User',
+          showConfirmButton: false,
+          timer: 5500
+        })
+      }).catch(()=> {
+        this.$swal({
+          icon: 'error',
+          title: 'cannot delete user',
+          showConfirmButton: false,
+          timer: 5500
+        })
       })
     }
   }
