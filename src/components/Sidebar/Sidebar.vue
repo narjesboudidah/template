@@ -185,7 +185,7 @@
 
           <!--Competitions-->
           <li class="items-center">
-            <router-link
+            <router-link  v-if="userRole === 'admin Federation '"
               to="/admin/competition"
               v-slot="{ href, navigate, isActive }"
             >
@@ -243,7 +243,7 @@
 
           <!--Traveaux-->
           <li class="items-center">
-            <router-link
+            <router-link 
               to="/admin/maintenance"
               v-slot="{ href, navigate, isActive }"
             >
@@ -272,7 +272,7 @@
 
           <!--Equipe-->
           <li class="items-center">
-            <router-link
+            <router-link  v-if="userRole === 'admin Federation '"
               to="/admin/equipe"
               v-slot="{ href, navigate, isActive }"
             >
@@ -301,7 +301,8 @@
 
           <!--Stes de maintenance-->
           <li class="items-center">
-            <router-link to="/admin/ste" v-slot="{ href, navigate, isActive }">
+            <router-link   v-if="userRole === 'admin Federation '"
+             to="/admin/ste" v-slot="{ href, navigate, isActive }">
               <a
               style="font-family: inherit,serif;font-size: 15px;"
                 :href="href"
@@ -392,7 +393,7 @@
 <script>
 import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
 import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
-
+import axios from "axios";
 import image from "@/assets/img/photo.png";
 
 export default {
@@ -400,6 +401,7 @@ export default {
     return {
       collapseShow: "hidden",
       image,
+      userRole: '',
     };
   },
   methods: {
@@ -412,5 +414,17 @@ export default {
     UserDropdown,
    
   },
+  mounted() {
+    // Effectuez une requête à votre API Laravel pour récupérer le rôle de l'utilisateur à partir de la base de données
+    // Par exemple, utilisez axios pour effectuer une requête GET
+    axios.get('http://127.0.0.1:8000/api/users"')
+      .then(response => {
+        this.userRole = response.data.role; // Assurez-vous d'adapter la réponse en fonction de votre structure de données
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
 };
+
 </script>
