@@ -93,8 +93,8 @@
             </router-link>
           </li>
           <!--Gestion des admins-->
-          <li class="items-center">
-            <router-link v-if="userRole === 'Admin Federation'"
+          <li v-if="userRole === 'Admin Federation'" class="items-center">
+            <router-link 
               to="/admin/users"
               v-slot="{ href, navigate, isActive }"
             >
@@ -153,7 +153,7 @@
 
           <!--LISTE DES DEMANDES-->
           <li class="items-center">
-            <router-link v-if="userRole === 'Admin Federation'|| userRole === 'Admin Equipe'"
+            <router-link v-if="userRole === 'Admin Federation' || userRole === 'Admin Equipe'"
               to="/admin/listeDemande"
               v-slot="{ href, navigate, isActive }"
             >
@@ -300,7 +300,7 @@
 
           <!--Stes de maintenance-->
           <li class="items-center">
-            <router-link  v-if="userRole === 'Admin Federation' || userRole === 'Admin Ste'"
+            <router-link  v-if="this.userRole === 'Admin Federation' || this.userRole === 'Admin Ste'"
              to="/admin/ste" v-slot="{ href, navigate, isActive }">
               <a
               style="font-family: inherit,serif;font-size: 15px;"
@@ -387,13 +387,12 @@
     </div>
   </nav>
 </template>
-); }
 
 <script>
 import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
 import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
 import image from "@/assets/img/photo.png";
-import { user } from '../../../utils/index.js';
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -406,6 +405,19 @@ export default {
     toggleCollapseShow: function (classes) {
       this.collapseShow = classes;
     },
+    async getUser() {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+      }).then((result) => {
+        this.userRole = result.data.role;
+
+      }).catch((err) => {
+          console.log(err);
+      })
+    }
   },
   components: {
     NotificationDropdown,
@@ -413,8 +425,8 @@ export default {
    
   },
   mounted() {
-    this.userRole = user.role;
-    
+   this.getUser();
+   console.log(this.userRole);
   },
 };
 
