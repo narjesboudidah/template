@@ -93,7 +93,29 @@
         </tbody>
       </table>
     </div>
-    <div
+    <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                    <label
+                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                      for="nom"
+                    >
+                      Nom du stade:
+                    </label>
+                    <select v-model="this.form.nom"
+                      id="nom"
+                      name="nom"
+                      required
+                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+                    >
+                      <option value="">Choisissez un stade</option>
+                      <option
+                        v-for="team in this.stades"
+                        :key="team.id"
+                        :value="team.nom"
+                        :label="team.nom"
+                      />
+                    </select>
+    </div>    
+    <div v-if="userRole === 'admin Equipe '"
           class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
         >
       
@@ -102,7 +124,7 @@
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
           >
-            <router-link  v-if="userRole === 'admin Equipe '"
+            <router-link  
               to="/form/FaireReservation"
               v-slot="{ href, navigate, isActive }"
             >
@@ -122,7 +144,7 @@
             </router-link>
           </button>
         </div>
-        <div
+        <div v-if="userRole === 'admin Ste'" 
           class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
         >
           <button
@@ -130,7 +152,7 @@
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
           >
-            <router-link  v-if="userRole === 'admin Ste'"
+            <router-link 
               to=/form/AjoutMaintenance
               v-slot="{ href, navigate, isActive }"
             >
@@ -155,7 +177,27 @@
    
 </template>
 <script>
+import axios from "axios";
 export default {
+  data() {
+    return {
+      form : {
+          nom: ""
+        },
+      stades : []
+      }
+    },
+  methods: {
+    async getStades () {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/stades",{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.stades = response.data.data;
+        console.log(this.stades);
+      }).catch(err => console.log(err))
+    }
+    },
   mounted() {
     const currentDate = document.querySelector(".current-date");
     const daysTag = document.querySelector(".days");
@@ -226,6 +268,7 @@ export default {
         renderCalendar();
       });
     });
+    this.getStades();
   },
 };
 </script>
