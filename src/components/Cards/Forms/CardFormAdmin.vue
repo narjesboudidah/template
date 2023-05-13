@@ -189,13 +189,7 @@ export default {
       console.log(this.form);
     },
     submit: async function () {
-      this.$swal({
-  position: 'top-end',
-  icon: 'success',
-  title: 'Your work has been saved',
-  showConfirmButton: false,
-  timer: 1500
-})
+      
       let token = localStorage.getItem("userToken");
       console.log(this.form);
       await axios.post("http://127.0.0.1:8000/api/users", this.form, {
@@ -203,12 +197,19 @@ export default {
           'Authorization': `Bearer ${token}`
         }
       }).then((result) => {
-        // if (result.status != 201) {
-        //   console.log("error");
-        //   return;
-        // }
+        this.$swal({
+          icon: 'succes',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+          timer: 5500
+        })
         console.log(result.data);
-      }).catch(err => console.log(err.message));
+      }).catch(err => this.$swal({
+        icon: 'warning',
+        title: err.message,
+        showConfirmButton: false,
+        timer: 5500
+      }));
     }
   }
 };

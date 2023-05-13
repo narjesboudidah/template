@@ -245,7 +245,7 @@ const routes = [
   { path: "/:pathMatch(.*)*", redirect: "/" },
 ];
 
-// App.config.productionTip = false
+
 const app = createApp(App);
 app.use(VueSweetalert2);
 const router = createRouter({
