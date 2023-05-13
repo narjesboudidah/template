@@ -65,7 +65,7 @@
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <!--Accuiel-->
           <li class="items-center" >
-            <router-link
+            <router-link v-if="userRole === 'Admin Federation' || userRole === 'Admin Ste' || userRole === 'Admin Equipe'"
               to="/admin/dashboard"
               v-slot="{ href, navigate, isActive }"
             >
@@ -94,7 +94,7 @@
           </li>
           <!--Gestion des admins-->
           <li class="items-center">
-            <router-link
+            <router-link v-if="userRole === 'Admin Federation'"
               to="/admin/users"
               v-slot="{ href, navigate, isActive }"
             >
@@ -124,8 +124,7 @@
 
           <!--Planning-->
           <li class="items-center">
-            <router-link
-              to="/admin/planning"
+            <router-link v-if="userRole === 'Admin Federation' || userRole === 'Admin Ste' || userRole === 'Admin Equipe'"               to="/admin/planning"
               v-slot="{ href, navigate, isActive }"
             >
               <a
@@ -154,7 +153,7 @@
 
           <!--LISTE DES DEMANDES-->
           <li class="items-center">
-            <router-link
+            <router-link v-if="userRole === 'Admin Federation'|| userRole === 'Admin Equipe'"
               to="/admin/listeDemande"
               v-slot="{ href, navigate, isActive }"
             >
@@ -185,7 +184,7 @@
 
           <!--Competitions-->
           <li class="items-center">
-            <router-link  v-if="userRole === 'admin Federation '"
+            <router-link  v-if="userRole === 'Admin Federation' || userRole === 'Admin Equipe'" 
               to="/admin/competition"
               v-slot="{ href, navigate, isActive }"
             >
@@ -214,7 +213,7 @@
 
           <!--Evenements-->
           <li class="items-center">
-            <router-link
+            <router-link v-if="userRole === 'Admin Federation' || userRole === 'Admin Equipe'"
               to="/admin/events"
               v-slot="{ href, navigate, isActive }"
             >
@@ -243,7 +242,7 @@
 
           <!--Traveaux-->
           <li class="items-center">
-            <router-link 
+            <router-link  v-if="userRole === 'Admin Federation' || userRole === 'Admin Ste'"
               to="/admin/maintenance"
               v-slot="{ href, navigate, isActive }"
             >
@@ -272,7 +271,7 @@
 
           <!--Equipe-->
           <li class="items-center">
-            <router-link  v-if="userRole === 'admin Federation '"
+            <router-link  v-if="userRole === 'Admin Federation' || userRole === 'Admin Equipe'"
               to="/admin/equipe"
               v-slot="{ href, navigate, isActive }"
             >
@@ -301,7 +300,7 @@
 
           <!--Stes de maintenance-->
           <li class="items-center">
-            <router-link   v-if="userRole === 'admin Federation '"
+            <router-link  v-if="userRole === 'Admin Federation' || userRole === 'Admin Ste'"
              to="/admin/ste" v-slot="{ href, navigate, isActive }">
               <a
               style="font-family: inherit,serif;font-size: 15px;"
@@ -328,7 +327,7 @@
 
            <!-- Stades -->
           <li class="items-center">
-            <router-link
+            <router-link v-if="userRole === 'Admin Federation' || userRole === 'Admin Ste' || userRole === 'Admin Equipe'"
               to="/admin/stades"
               v-slot="{ href, navigate, isActive }"
             >
@@ -357,7 +356,7 @@
           
           <!-- Paramètres -->
           <li class="items-center">
-            <router-link
+            <router-link v-if="userRole === 'Admin Federation' || userRole === 'Admin Ste' || userRole === 'Admin Equipe'"
               to="/admin/settings"
               v-slot="{ href, navigate, isActive }"
             >
@@ -393,9 +392,8 @@
 <script>
 import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
 import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
-import axios from "axios";
 import image from "@/assets/img/photo.png";
-
+import { user } from '../../../utils/index.js';
 export default {
   data() {
     return {
@@ -415,15 +413,8 @@ export default {
    
   },
   mounted() {
-    // Effectuez une requête à votre API Laravel pour récupérer le rôle de l'utilisateur à partir de la base de données
-    // Par exemple, utilisez axios pour effectuer une requête GET
-    axios.get('http://127.0.0.1:8000/api/users"')
-      .then(response => {
-        this.userRole = response.data.role; // Assurez-vous d'adapter la réponse en fonction de votre structure de données
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    this.userRole = user.role;
+    
   },
 };
 

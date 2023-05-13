@@ -102,7 +102,7 @@
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
           >
-            <router-link
+            <router-link  v-if="userRole === 'admin Equipe '"
               to="/form/FaireReservation"
               v-slot="{ href, navigate, isActive }"
             >
@@ -130,7 +130,7 @@
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
           >
-            <router-link
+            <router-link  v-if="userRole === 'admin Ste'"
               to=/form/AjoutMaintenance
               v-slot="{ href, navigate, isActive }"
             >
