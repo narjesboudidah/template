@@ -16,17 +16,23 @@
             <div class="w-full lg:w-6/12 px-4 mb-3">
                     <label 
                       class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                      for="nom-match"
+                      for="nom"
                     >
-                      Note
+                      Nom Stade
                     </label>
-                    <input v-model="this.form.note"
-                      type="text"
-                      id="nom-match"
-                      name="nom-match"
-                      placeholder="Ecrire nom du stade preferer"
-                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-                    />
+                    <select
+                       v-model="this.form.nom"
+                       required
+                       class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+                      >
+                      <option value="">Choisissez un stade</option>
+                         <option 
+                       v-for="team in this.stades"
+                        :key="team.id"
+                        :value="team.nom"
+                        :label="team.nom">
+              </option>
+            </select>
                   </div>
                   <div class="w-full lg:w-6/12 px-4 mb-3">
               <label
@@ -223,9 +229,11 @@
           typeReservation: "",
           type_match : "",
           nom_match: "",
-          nom_equipe2 : ""
+          nom_equipe2 : "",
+          nom:"",
         },
-        equipes : []
+        equipes : [],
+        stades:[],
       }
     },
     methods: {
@@ -251,10 +259,19 @@
         this.equipes = response.data.data;
         console.log(this.equipes);
       }).catch(err => console.log(err))
-    }
+    },
+    async getStades () {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/stades",{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.stades = response.data.data;
+        console.log(this.stades);
+      }).catch(err => console.log(err))
+    },
     
   },
-submit: async function() {
+    submit: async function() {
     let token = localStorage.getItem("userToken");
     console.log(this.form);
     await axios.post("http://127.0.0.1:8000/api/reservations",this.form,{headers: {
@@ -264,10 +281,12 @@ submit: async function() {
         console.log("error");
         return;
       }
-    })
+      console.log(result.data);
+      }).catch(err => console.log(err.message));
   },
   mounted() {
     this.getEquipes();
+    this.getStades();
   }
   };
   </script>
