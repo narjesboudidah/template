@@ -257,7 +257,7 @@
 submit: async function() {
     let token = localStorage.getItem("userToken");
     console.log(this.form);
-    await axios.post("http://127.0.0.1:8000/api/equipes",this.form,{headers: {
+    await axios.post("http://127.0.0.1:8000/api/reservations",this.form,{headers: {
       'Authorization': `Bearer ${token}`
     }}).then((result) => {
       if (result.status != 201){

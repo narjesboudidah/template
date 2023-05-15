@@ -37,7 +37,8 @@
               >
                 Année du compétition :
               </label>
-              <input  v-model="this.form.annee"
+              <input 
+                v-model="this.form.annee"
                 type="number"
                 id="annee-competition"
                 name="annee-competition"
@@ -56,7 +57,8 @@
               >
                 Date début de compétition :
               </label>
-              <input v-model="this.form.date_debut"
+              <input
+                v-model="this.form.date_debut"
                 type="date"
                 id="date-debut-competition"
                 name="date-debut-competition"
@@ -75,7 +77,8 @@
               >
                 Date fin de compétition :
               </label>
-              <input v-model="this.form.date_fin"
+              <input
+                v-model="this.form.date_fin"
                 type="date"
                 id="date-fin-competition"
                 name="date-fin-competition"
@@ -95,7 +98,8 @@
               >
                 Type de compétition :
               </label>
-              <select v-model="this.form.type_competition"
+              <select 
+                v-model="this.form.type_competition"
                 id="type-competition"
                 name="type-competition"
                 required
@@ -104,16 +108,16 @@
                 <option value="" disabled selected>
                   Sélectionnez le type de compétition
                 </option>
-                <option value="1">Championnat national</option>
-                <option value="2">Coupe nationale</option>
-                <option value="3">Supercoupe nationale</option>
-                <option value="4">Ligue des champions</option>
-                <option value="5">Ligue Europa</option>
-                <option value="6">Supercoupe de l'UEFA</option>
-                <option value="7">Coupe du monde</option>
-                <option value="8">Coupe des confédérations</option>
-                <option value="9">Championnat d'Europe</option>
-                <option value="10">Coupe d'Europe des nations</option>
+                <option >Championnat national</option>
+                <option >Coupe nationale</option>
+                <option >Supercoupe nationale</option>
+                <option >Ligue des champions</option>
+                <option >Ligue Europa</option>
+                <option >Supercoupe de l'UEFA</option>
+                <option >Coupe du monde</option>
+                <option >Coupe des confédérations</option>
+                <option >Championnat d'Europe</option>
+                <option >Coupe d'Europe des nations</option>
               </select>
             </div>
             <div class="w-full lg:w-6/12 px-4 mb-3">
@@ -123,7 +127,8 @@
               >
                 Catégorie de compétition :
               </label>
-              <select v-model="this.form.categorie"
+              <select 
+               v-model="this.form.categorie"
                 id="categorie-competition"
                 name="categorie-competition"
                 required
@@ -145,7 +150,8 @@
               >
                 Organisateur du compétition :
               </label>
-              <input v-model="this.form.organisateur"
+              <input 
+                v-model="this.form.organisateur"
                 type="text"
                 id="organisateur-competition"
                 name="organisateur-competition"
@@ -164,6 +170,7 @@
               </label>
               <textarea
                 v-model="this.form.description"
+                type="text"
                 id="description-competition"
                 name="description-competition"
                 placeholder="Description du compétition"

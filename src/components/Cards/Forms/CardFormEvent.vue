@@ -17,22 +17,111 @@
           <div class="w-full lg:w-6/12 px-4 mb-3">
             <label
               class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-              for="type-event"
-            >
+              for="type-event">
               Type event :
             </label>
-            <select
-              id="type-event"
-              name="type-event"
-              required
-              class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-            >
-              <option value="" disabled selected>Entraînement</option>
-              <option value="1">Match</option>
-              <option value="2">Evénements spéciaux</option>
-            </select>
+              <select
+                v-model="this.form.type_event"
+                id="type-event"
+                name="type-event"
+                required
+                class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+              >
+                <option>Entraînement</option>
+                <option>Match</option>
+                <option>Evénements spéciaux</option>
+              </select>
+              <div v-if="this.form.type_event === 'Match'">
+                <h6
+                  class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase"
+                >
+                  Informations sur le Match
+                </h6>
+                <div class="flex flex-wrap">
+                  <div class="w-full lg:w-6/12 px-4 mb-3">
+                    <label
+                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                      for="nom-match"
+                    >
+                      Nom du Match :
+                    </label>
+                    <input v-model="this.form.nom_match"
+                      type="text"
+                      id="nom-match"
+                      name="nom-match"
+                      placeholder="Nom du Match"
+                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+                    />
+                  </div>
+                  <div class="w-full lg:w-6/12 px-4 mb-3">
+                    <label
+                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                      for="type-match"
+                    >
+                      Type du Match :
+                    </label>
+
+                    <select
+                v-model="this.form.type_match"
+                id="type_match"
+                name="type_match"
+                required
+                class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+              >
+                <option>National</option>
+                <option>International</option>
+              </select>
+                  </div>
+                  <div class="w-full lg:w-6/12 px-4 mb-3">
+                    <label
+                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                      for="nom-equipe1"
+                    >
+                      Nom de l'équipe 1:
+                    </label>
+                    <select v-model="this.form.nom_equipe1"
+                      id="nom-equipe1"
+                      name="nom-equipe1"
+                      required
+                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+                    >
+                      <option value="">Choisissez une équipe</option>
+                      <option
+                        v-for="team in this.equipes"
+                        :key="team.id"
+                        :value="team.nom_equipe"
+                        :label="team.nom_equipe"
+                      />
+                    </select>
+                  </div>
+                  <div class="w-full lg:w-6/12 px-4 mb-3">
+                    <label
+                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                      for="nom-equipe2"
+                    >
+                      Nom de l'équipe 2:
+                    </label>
+                    <select v-model="this.form.nom_equipe2"
+                      id="nom-equipe2"
+                      name="nom-equipe2"
+                      required
+                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+                    >
+                      <option value="">Choisissez une équipe</option>
+                      <option
+                        v-for="team in this.equipes"
+                        :key="team.id"
+                        :value="team.nom_equipe"
+                        :label="team.nom_equipe"
+                      />
+                    </select>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="w-full lg:w-6/12 px-4 mb-3">
+          <div class="w-full lg:w-6/12 px-4 mb-3" v-if="this.form.type_event === 'Evénements spéciaux'">
             <label
               class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
               for="nom-event"
@@ -40,6 +129,7 @@
               Nom Event :
             </label>
             <input
+              v-model="this.form.nom_event" 
               type="text"
               id="nom-event"
               name="nom-event"
@@ -50,30 +140,36 @@
           <div class="w-full lg:w-6/12 px-4 mb-3">
             <label
               class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-              for="nom-stade"
+              for="nom"
             >
               Nom du Stade:
             </label>
             <select
-              v-model="selectedStade"
+              v-model="this.form.nom"
               required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
             >
               <option value="">Choisissez un stade</option>
-              <option v-for="stade in stades" :key="stade" :value="stade">
-                {{ stade }}
+              <option 
+              v-for="team in this.stades"
+                        :key="team.id"
+                        :value="team.nom"
+                        :label="team.nom"
+              >
+               
               </option>
             </select>
           </div>
 
           <div class="w-full lg:w-6/12 px-4 mb-3">
-            <label
+            <label 
               for="date-debut-competition"
               class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
             >
               Date début:
             </label>
             <input
+              v-model="this.form.date_debut"
               type="date"
               id="date-debut-competition"
               name="date-debut-competition"
@@ -92,7 +188,8 @@
             >
               Date fin:
             </label>
-            <input
+            <input 
+              v-model="this.form.date_fin"
               type="date"
               id="date-fin-competition"
               name="date-fin-competition"
@@ -112,6 +209,7 @@
               Heure début:
             </label>
             <input
+              v-model="this.form.heure_debut"
               type="time"
               id="heure-debut-Event"
               name="heure-debut-Event"
@@ -130,6 +228,7 @@
               Heure fin:
             </label>
             <input
+              v-model="this.form.heure_fin"
               type="time"
               id="Heure-fin-Event"
               name="Heure-fin-Event"
@@ -139,77 +238,29 @@
               aria-describedby="Heure-fin-Event-helper"
             />
           </div>
-          <div class="w-full lg:w-6/12 px-4 mb-3">
-            <label
-              class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-              for="type-match"
-            >
-              Type du Match :
-            </label>
-            <div class="flex justify-between">
-              <label class="inline-flex items-center">
-                <input
-                  type="radio"
-                  class="form-radio"
-                  name="type-match"
-                  value="national"
-                
-                />
-                <span class="ml-2">National</span>
-              </label>
-              <label class="inline-flex items-center">
-                <input
-                  type="radio"
-                  class="form-radio"
-                  name="type-match"
-                  value="international"
-                 
-                />
-                <span class="ml-2">International</span>
-              </label>
-            </div>
-          </div>
-          <div class="w-full lg:w-6/12 px-4 mb-3">
-            <label
-              class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-              for="nom-equipe1"
-            >
-              Nom de l'équipe 1 :
-            </label>
-            <select
-              id="nom-equipe1"
-              name="nom-equipe1"
-              
-              class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-              v-model="selectedTeam"
-            >
-              <option value="">Choisissez une équipe</option>
-              <option v-for="team in teams" :key="team.id" :value="team.nom">
-                {{ team.nom }}
-              </option>
-            </select>
-          </div>
-          <div class="w-full lg:w-6/12 px-4 mb-3">
-            <label
-              class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-              for="nom-equipe2"
-            >
-              Nom de l'équipe 2 :
-            </label>
-            <select
-              id="nom-equipe2"
-              name="nom-equipe2"
-             
-              class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-              v-model="selectedTeam"
-            >
-              <option value="">Choisissez une équipe</option>
-              <option v-for="team in teams" :key="team.id" :value="team.nom">
-                {{ team.nom }}
-              </option>
-            </select>
-          </div>
-        </div>
+          <div class="w-full lg:w-6/12 px-4 mb-3" v-if="this.form.type_event === 'Entraînement'">
+                    <label
+                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                      for="nom-equipe"
+                    >
+                      Nom de l'équipe 
+                    </label>
+                    <select v-model="this.form.nom_equipe2"
+                      id="nom-equipe"
+                      name="nom-equipe"
+                      required
+                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+                    >
+                      <option value="">Choisissez une équipe</option>
+                      <option
+                        v-for="team in this.equipes"
+                        :key="team.id"
+                        :value="team.nom_equipe"
+                        :label="team.nom_equipe"
+                      />
+                    </select>
+                  </div>
+
       </form>
       <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-center">
         <button
@@ -233,7 +284,28 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
+  data() {
+        return{
+          form : {
+            nom_event: "",
+            type_event : "",
+            date_debut: "",
+            date_fin: "",
+            heure_debut : "",
+            heure_fin : "",
+            type_match : "",
+            nom_equipe1: "",
+            nom_equipe2: "",
+            nom_match: "",
+            nom_equipe:"",
+            nom:"",
+          },
+          equipes:[],
+          stades:[],
+      }},
+
   methods: {
     validateDate() {
       const startDateInput = document.querySelector("#date-debut-competition");
@@ -249,6 +321,42 @@ export default {
         endDateInput.setCustomValidity("");
       }
     },
+    async getEquipes () {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/equipes",{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.equipes = response.data.data;
+        console.log(this.equipes);
+      }).catch(err => console.log(err))
+    },
+    submit: async function() {
+        let token = localStorage.getItem("userToken");
+        console.log(this.form);
+        await axios.post("http://127.0.0.1:8000/api/events",this.form,{headers: {
+          'Authorization': `Bearer ${token}`
+        }}).then((result) => {
+          if (result.status != 201){
+            console.log("error");
+            return;
+          }
+          
+          console.log(result.data);
+        }).catch(err => console.log(err.message));
+      },
+      async getStades () {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/stades",{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.stades = response.data.data;
+        console.log(this.stades);
+      }).catch(err => console.log(err))
+    },
   },
+  mounted() {
+    //this.Stades();
+    this.getEquipes();
+  }
 };
 </script>
