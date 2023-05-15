@@ -355,7 +355,7 @@ export default {
     },
   },
   mounted() {
-    //this.Stades();
+    this.getStades();
     this.getEquipes();
   }
 };
