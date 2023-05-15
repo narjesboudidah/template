@@ -16,6 +16,7 @@ import App from "@/App.vue";
 import Admin from "@/layouts/Admin.vue";
 import Forms from "@/layouts/Forms.vue";
 import Profiles from "@/layouts/Profiles.vue";
+import Plan from "@/layouts/Plan.vue";
 
 // views for Admin layout
 
@@ -32,7 +33,6 @@ import Competition from "@/views/admin/Competition.vue";
 import Matchs from "@/views/admin/Matchs.vue";
 import Events from "@/views/admin/Events.vue";
 import Maintenance from "@/views/admin/Maintenance.vue";
-import Planning from "@/views/admin/Planning.vue";
 import Equipe from "@/views/admin/Equipe.vue";
 import Stades from "@/views/admin/Stades.vue";
 
@@ -59,6 +59,9 @@ import Profile from "@/views/admin/Profiles/Profile.vue";
 import StadeProfile from "@/views/admin/Profiles/StadeProfile.vue";
 import EquipeProfile from "@/views/admin/Profiles/EquipeProfile.vue";
 import SteProfile from "@/views/admin/Profiles/SteProfile.vue";
+
+
+import Planning from "@/views/admin/Planning.vue";
 
 //******Login ******/
 import Login from "@/views/Login.vue";
@@ -137,10 +140,10 @@ const routes = [
         path: "/admin/maintenance",
         component: Maintenance,
       },
-      {
+     /* {
         path: "/admin/planning",
         component: Planning,
-      },
+      },*/
       {
         path: "/admin/profile",
         component: Profile,
@@ -236,6 +239,16 @@ const routes = [
     ]
   },
 
+  {
+    path: "/plan",
+    redirect: "/plan/planning",
+    component: Plan,
+    children: [
+      {
+        path: "/plan/planning",
+        component: Planning,
+      }]
+    },
 
   //*** Logout***/
   {

@@ -1,13 +1,33 @@
 <template>
   <div
-    class="relative flex min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
-    style="border-radius: 1rem; max-height: 31.7rem"
+    class="relative break-words bg-white shadow-lg rounded"
+    style="border-radius: 1rem;padding: 1rem;width: 1110px;height: 550px;
+  margin-left: 7.5rem;"
   >
+
+      <div class="px-4" style="width: 7rem; position: absolute;right: 0;">
+                    <select v-model="this.form.nom"
+                      id="nom"
+                      name="nom"
+                      required
+                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2 rounded-md text-sm shadow"
+                    >
+                      <option value="">Stade</option>
+                      <option
+                        v-for="team in this.stades"
+                        :key="team.id"
+                        :value="team.nom"
+                        :label="team.nom"
+                      />
+                    </select>
+    </div>    
     <div class="wrapper">
       <header>
+        <div class="icons">
+        <span id="prev" class="material-symbols-outlined">chevron_left</span></div>
         <p class="current-date"></p>
         <div class="icons">
-          <span id="prev" class="material-symbols-outlined">chevron_left</span>
+          
           <span id="next" class="material-symbols-outlined">chevron_right</span>
         </div>
       </header>
@@ -24,99 +44,12 @@
         <ul class="days"></ul>
       </div>
     </div>
-    <div style="width: 22rem;max-height: 27rem;margin: 1rem;border-radius: 1rem;padding-top: 1.5rem;padding-bottom: 1.5rem;">
-      <!-- Projects table -->
-      <table class="items-center w-full">
-       
-        <tbody>
-          <tr>
-            <td  style="border:1px solid #fff;"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-            >
-              12:30
-            </td>
-            <td  style="border:1px solid #fff;"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              match
-            </td>
-          </tr>
-          <tr>
-            <td  style="border:1px solid #fff;"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-            >
-              12:30
-            </td>
-            <td  style="border:1px solid #fff;"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              match
-            </td>
-          </tr>
-          <tr>
-            <td  style="border:1px solid #fff;"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-            >
-              12:30
-            </td>
-            <td  style="border:1px solid #fff;"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              match
-            </td>
-          </tr>
-          <tr>
-            <td  style="border:1px solid #fff;"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-            >
-              12:30
-            </td>
-            <td  style="border:1px solid #fff;"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              match
-            </td>
-          </tr>
-          <tr>
-            <td style="border:1px solid #fff;"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-            >
-              12:30
-            </td>
-            <td  style="border:1px solid #fff;"
-              class="px-6 align-middle py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              match
-            </td>
-          </tr>
-        
-        </tbody>
-      </table>
-    </div>
-    <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                    <label
-                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                      for="nom"
-                    >
-                      Nom du stade:
-                    </label>
-                    <select v-model="this.form.nom"
-                      id="nom"
-                      name="nom"
-                      required
-                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-                    >
-                      <option value="">Choisissez un stade</option>
-                      <option
-                        v-for="team in this.stades"
-                        :key="team.id"
-                        :value="team.nom"
-                        :label="team.nom"
-                      />
-                    </select>
-    </div>    
-    <div v-if="userRole === 'admin Equipe '"
-          class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
+
+        <div v-if="userRole === 'admin Equipe'" 
+     class="relative px-4 text-right" style="width: 13rem; position: absolute;
+  bottom: 1%;
+  left: 50%;
+  transform: translate(-50%, 10%);margin-bottom: 1rem;"
         >
       
           <button
@@ -145,7 +78,10 @@
           </button>
         </div>
         <div v-if="userRole === 'admin Ste'" 
-          class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
+        class="relative px-4 text-right" style="width: 13rem; position: absolute;
+  bottom: 1%;
+  left: 50%;
+  transform: translate(-50%, 10%);margin-bottom: 1rem;"
         >
           <button
             class="icon-sidebar-click mt-4 w-full"
@@ -174,7 +110,6 @@
         </div>
   </div>
 
-   
 </template>
 <script>
 import axios from "axios";

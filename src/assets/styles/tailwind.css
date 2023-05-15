@@ -1340,6 +1340,12 @@ select {
 .bg-emerald-550 {
   background-image:linear-gradient(310deg,#17ad37,#98ec2d);
 }
+.bg-emerald-570 {
+  background-color:#d7ded6;
+}
+.bg-emerald-580 {
+  background-color:#e9e9e9;
+}
 
 .bg-emerald-600 {
   --tw-bg-opacity: 1;
@@ -2354,6 +2360,9 @@ select {
 
 .-m-24 {
   margin: -6rem;
+}
+.-m-22 {
+  margin: -15rem;
 }
 
 .my-2 {
@@ -4595,13 +4604,16 @@ td.not-current-month {
 
 
 .wrapper{
-  width: 670px;
+  position: absolute;
+  top: 8%;
+  width: 1050px;
+  height: 460px;
   background: #fff;
   border-radius: 10px;
   margin: 1rem;
   border: 0.5px solid #17ad37;
-  box-shadow: 0 0.25rem 0.375rem -0.0625rem rgba(20, 20, 20, 0.12),
-    0 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.07) !important;
+  box-shadow: 0 0.25rem 0.375rem -0.0625rem rgba(20, 20, 20, 0.12);
+  align-items:center;
 }
 .wrapper header{
   display: flex;
