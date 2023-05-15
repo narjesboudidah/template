@@ -15,7 +15,9 @@
             <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="nom-admin">
               Nom de l'admin :
             </label>
-            <input v-model="this.form.nom" type="text" id="nom-admin" name="nom-admin" placeholder="Nom de l'admin"
+            <input 
+              v-model="this.form.nom" 
+              type="text" id="nom-admin" name="nom-admin" placeholder="Nom de l'admin"
               required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow" />
           </div>
@@ -23,7 +25,9 @@
             <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="prenom-admin">
               Prénom de l'admin :
             </label>
-            <input v-model="this.form.prenom" type="text" id="prenom-admin" name="prenom-admin"
+            <input 
+              v-model="this.form.prenom"
+              type="text" id="prenom-admin" name="prenom-admin"
               placeholder="Prénom de l'admin" required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow" />
           </div>
@@ -31,7 +35,9 @@
             <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="telephone">
               Téléphone :
             </label>
-            <input v-model="this.form.telephone" type="tel" id="telephone" name="telephone" placeholder="Téléphone"
+            <input 
+             v-model="this.form.telephone" 
+             type="tel" id="telephone" name="telephone" placeholder="Téléphone"
               required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow" />
           </div>
@@ -39,7 +45,9 @@
             <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="email">
               Email :
             </label>
-            <input v-model="this.form.email" type="email" id="email" name="email" placeholder="Email" required
+            <input
+              v-model="this.form.email"
+              type="email" id="email" name="email" placeholder="Email" required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow" />
           </div>
 
@@ -47,14 +55,18 @@
             <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="adresse">
               Adresse :
             </label>
-            <input v-model="this.form.adresse" type="text" id="adresse" name="adresse" placeholder="Adresse" required
+            <input
+              v-model="this.form.adresse" 
+              type="text" id="adresse" name="adresse" placeholder="Adresse" required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow" />
           </div>
           <div class="w-full lg:w-6/12 px-4 mb-3">
             <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="mot-de-passe">
               Mot de passe :
             </label>
-            <input v-model="this.form.password" type="password" id="mot-de-passe" name="mot-de-passe"
+            <input
+              v-model="this.form.password" 
+              type="password" id="mot-de-passe" name="mot-de-passe"
               placeholder="Mot de passe" required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow" />
           </div>
@@ -63,7 +75,9 @@
           <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="role">
             Role de l'admin :
           </label>
-          <select v-model="this.form.role" id="role" name="role" required
+          <select 
+            v-model="this.form.role" 
+            id="role" name="role" required
             class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow">
             <option value="" disabled selected>
               Sélectionnez Role de l'admin
@@ -77,7 +91,9 @@
           <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="permissions">
             Permissions de l'admin :
           </label>
-          <select v-model="this.form.permissions" v-on:change="handlePermissions($event)" multiple id="permissions"
+          <select 
+            v-model="this.form.permissions"
+            v-on:change="handlePermissions($event)" multiple id="permissions"
             name="permissions" required
             class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow">
             <option disabled>Vous pouvez sélectionner plusieurs options en maintenant la touche Ctrl (ou Commande)
@@ -91,7 +107,8 @@
       <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-center">
         <button
           class="boutton-click active:bg-blueGray-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear"
-          type="button" style="padding-right: 0.7rem; padding-left: 0.7rem" v-on:click="submit()">
+          type="button" style="padding-right: 0.7rem; padding-left: 0.7rem" 
+          v-on:click="submit()">
           confirmer
         </button>
 

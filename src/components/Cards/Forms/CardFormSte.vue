@@ -89,7 +89,8 @@
               >
                 Email de la Société de maintenance :
               </label>
-              <input  v-model="this.form.email"
+              <input 
+                v-model="this.form.email"
                 type="email"
                 id="email-societe-maintenance"
                 name="email-societe-maintenance"

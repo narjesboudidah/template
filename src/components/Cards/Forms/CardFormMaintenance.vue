@@ -20,7 +20,8 @@
             >
               Date début:
             </label>
-            <input v-model="this.form.date_debut"
+            <input 
+              v-model="this.form.date_debut"
               type="date"
               id="date-debut-maintenance"
               name="date-debut-maintenance"
@@ -38,7 +39,8 @@
             >
             Date fin:
           </label>
-          <input  v-model="this.form.date_fin"
+          <input 
+           v-model="this.form.date_fin"
           type="date"
           id="date-fin-maintenance"
           name="date-fin-maintenance"
@@ -56,7 +58,8 @@
           >
             Heure début:
           </label>
-          <input  v-model="this.form.heure_debut"
+          <input
+            v-model="this.form.heure_debut"
             type="time"
             id="heure-debut-Maintenance"
             name="heure-debut-Maintenance"
@@ -74,7 +77,8 @@
           >
             Heure fin:
           </label>
-          <input  v-model="this.form.heure_fin"
+          <input
+            v-model="this.form.heure_fin"
             type="time"
             id="heure-fin-Maintenance"
             name="heure-fin-Maintenance"
@@ -87,27 +91,25 @@
        
           <div class="w-full lg:w-6/12 px-4 mb-3">
             <label
-              class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-              for="stade"
-            >
-              Stade :
-            </label>
-            <select 
-              v-model="this.form.stade"
-              type="text" 
-              id="stade"
-              name="stade"
-              placeholder="Stade"
-              required
-              class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-            >
-            <option value="" disabled selected>
-              Sélectionnez Stade
-            </option>
-            <option v-for="stade in this.stades" :key="stade.id" :value="stade.id">
-              {{ stade.nom }}
-            </option>
-          </select>
+                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                      for="nom"
+                    >
+                      Nom du stade:
+                    </label>
+                    <select v-model="this.form.nom"
+                      id="nom"
+                      name="nom"
+                      required
+                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+                    >
+                      <option value="">Choisissez un stade</option>
+                      <option
+                        v-for="team in this.stades"
+                        :key="team.id"
+                        :value="team.nom"
+                        :label="team.nom"
+                      />
+                    </select>
           </div>
           <div class="w-full lg:w-6/12 px-4 mb-3">
             <label
@@ -133,7 +135,8 @@
               >
                 Description :
               </label>
-              <textarea
+              <textarea 
+               v-model="this.form.description"
                 id="description"
                 name="description"
                 placeholder="Description"
@@ -176,13 +179,20 @@ export default {
           heure_fin : "",
           etat: "",
           description : "",
-          stade: "",
+          nom: "",
         },
-        stades : [],
-        maintenances: []
+        stades : []
       }
     },
   methods: {
+    async getStades () {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/stades",{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.stades = response.data.data;
+      }).catch(err => console.log(err))
+    },
 
     validateDate() {
       const startDateInput = document.querySelector("#date-debut-maintenance");
@@ -198,27 +208,11 @@ export default {
         endDateInput.setCustomValidity("");
       }
     },
-    async getMaintenances () {
-      let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/maintenances",{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => {
-        this.maintenances = response.data.data;
-        console.log(this.maintenances);
-      }).catch(err => console.log(err))
-    },
-    async getStades () {
-      let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/stades",{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => {
-        this.stades = response.data.data;
-      }).catch(err => console.log(err))
-    },
+   
     submit: async function() {
         let token = localStorage.getItem("userToken");
         console.log(this.form);
-        await axios.post("http://127.0.0.1:8000/api/equipes",this.form,{headers: {
+        await axios.post("http://127.0.0.1:8000/api/maintenances",this.form,{headers: {
           'Authorization': `Bearer ${token}`
         }}).then((result) => {
           if (result.status != 201){
@@ -228,7 +222,6 @@ export default {
         });
       },
       mounted() {
-        this.getMaintenances();
         this.getStades();
       }
 }

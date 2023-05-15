@@ -115,7 +115,7 @@
                       />
                     </select>
     </div>    
-    <div v-if="userRole === 'admin Equipe '"
+    <div 
           class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
         >
       
@@ -144,7 +144,7 @@
             </router-link>
           </button>
         </div>
-        <div v-if="userRole === 'admin Ste'" 
+        <div  
           class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
         >
           <button

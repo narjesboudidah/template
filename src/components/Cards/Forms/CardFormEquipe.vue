@@ -45,11 +45,11 @@
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               >
                 <option value="">-- Sélectionner un pays --</option>
-                <option value="france">Tunisie</option>
-                <option value="espagne">Espagne</option>
-                <option value="italie">Italie</option>
-                <option value="allemagne">Allemagne</option>
-                <option value="portugal">Portugal</option>
+                <option >Tunisie</option>
+                <option>Espagne</option>
+                <option>Italie</option>
+                <option>Allemagne</option>
+                <option>Portugal</option>
               </select>
             </div>
   
@@ -77,7 +77,7 @@
               >
                 Logo de l'équipe :
               </label>
-              <input
+              <input 
                 type="file"
                 id="logo"
                 name="logo"
@@ -95,6 +95,7 @@
               </label>
               <textarea
                 v-model="this.form.description"
+                type="text"
                 id="description-stade"
                 name="description-stade"
                 placeholder="Description de l'équipe"
@@ -116,9 +117,9 @@
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               >
-                <option value="">Sélectionnez un type d'équipe</option>
-                <option value="national">National</option>
-                <option value="international">International</option>
+                <option >Sélectionnez un type d'équipe</option>
+                <option >National</option>
+                <option >International</option>
               </select>
             </div>
   
@@ -183,14 +184,13 @@
       submit: async function() {
         let token = localStorage.getItem("userToken");
         console.log(this.form);
-        await axios.post("http://127.0.0.1:8000/api/equipes",this.form,{headers: {
+        await axios.post("http://localhost:8000/api/equipes",this.form,{headers: {
           'Authorization': `Bearer ${token}`
         }}).then((result) => {
           if (result.status != 201){
             console.log("error");
             return;
           }
-          
           console.log(result.data);
         }).catch(err => console.log(err.message));
       }
