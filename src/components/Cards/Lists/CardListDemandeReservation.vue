@@ -54,7 +54,7 @@
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
-             Heure Fin
+              Heure Fin
             </th>
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
@@ -88,7 +88,7 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3"> {{ reservation.nom || "null"}}</span>
+              <span class="ml-3"> {{ reservation.nom || "null" }}</span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
@@ -103,35 +103,43 @@
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-            {{ reservation.date_fin }}
+              {{ reservation.date_fin }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-            {{ reservation.heure_debut }}
+              {{ reservation.heure_debut }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-            {{ reservation.heure_fin }}
+              {{ reservation.heure_fin }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-            {{ reservation.type_reservation }}
+              {{ reservation.type_reservation }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-            {{ reservation.type_reservation == "Match" ? reservation.type_match :  "N/A" }}
+              {{
+                reservation.type_reservation == "Match"
+                  ? reservation.type_match
+                  : "N/A"
+              }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-            {{ reservation.type_reservation == "Match" ? reservation.nom_equipe_adversaire : "N/A" }}
+              {{
+                reservation.type_reservation == "Match"
+                  ? reservation.nom_equipe_adversaire
+                  : "N/A"
+              }}
             </td>
-           <td
-              class="border-t-0 px-6   border-solid border-blueGray-50 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
+            <td
+              class="border-t-0 px-6 border-solid border-blueGray-50 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
             >
               <button
                 class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -149,7 +157,6 @@
               </button>
             </td>
           </tr>
-         
         </tbody>
       </table>
     </div>
@@ -162,18 +169,23 @@ export default {
   data() {
     return {
       bootstrap,
-      reservations : [],
+      reservations: [],
     };
   },
   methods: {
-    async getReservations () {
+    async getReservations() {
       let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/reservations",{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => {
-        this.reservations = response.data.data;
-        console.log(response.data.data);
-      }).catch(err => console.log(err))
+      await axios
+        .get("http://127.0.0.1:8000/api/reservations", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          this.reservations = response.data.data;
+          console.log(response.data.data);
+        })
+        .catch((err) => console.log(err));
       // this.reservations.forEach(async (idx,elem) => {
       //   await axios.get(`http://127.0.0.1:8000/api/user/${elem.admin_equipe_id}`,{headers: {
       //   'Authorization': `Bearer ${token}`
@@ -181,28 +193,42 @@ export default {
       //     // this.nom_admins_equipes.push(response.data.data.nom);
       //     this.reservations[idx].nom_admin_equipe = response.data.data.nom;
       //   }).catch(err => console.log(err))
-        
+
       // })
     },
     async accepter(id) {
       let token = localStorage.getItem("userToken");
-      await axios.get(`http://127.0.0.1:8000/api/reservation/accepter/${id}`,{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => { 
+      try {
+        const response = await axios.post(
+          `http://127.0.0.1:8000/api/reservations/accept/${id}`,
+          null,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         console.log(response.data.message);
-      }).catch(err => console.log(err))
+      } catch (err) {
+        console.log(err);
+      }
     },
     async refuser(id) {
       let token = localStorage.getItem("userToken");
-      await axios.get(`http://127.0.0.1:8000/api/reservation/refuser/${id}`,{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => { 
-        console.log(response.data.message);
-      }).catch(err => console.log(err))
-    }
+      await axios
+        .get(`http://127.0.0.1:8000/api/reservation/refuser/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data.message);
+        })
+        .catch((err) => console.log(err));
+    },
   },
   mounted() {
     this.getReservations();
-  }
+  },
 };
 </script>
