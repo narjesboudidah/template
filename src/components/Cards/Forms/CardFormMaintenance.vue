@@ -209,18 +209,17 @@ export default {
     },
    
     submit: async function() {
-        let token = localStorage.getItem("userToken");
-        console.log(this.form);
-        await axios.post("http://127.0.0.1:8000/api/maintenances",this.form,{headers: {
-          'Authorization': `Bearer ${token}`
-        }}).then((result) => {
-          console.log(result.data.data);
-          // if (result.status != 201){
-          //   console.log("error");
-          //   return;
-          // }
-        });
-      },
+    let token = localStorage.getItem("userToken");
+    console.log(this.form);
+    await axios.post("http://127.0.0.1:8000/api/maintenances",this.form,{headers: {
+      'Authorization': `Bearer ${token}`
+    }}).then((result) => {
+      if (result.status != 201){
+        console.log("error");
+        return;
+      }
+    })
+  },
 },  
 mounted() {
   this.getStades();
