@@ -81,7 +81,8 @@
                 type="file"
                 id="logo"
                 name="logo"
-                accept="Logo/*"
+                ref="file"
+                @change="uploadFile"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               />
@@ -118,8 +119,8 @@
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               >
                 <option >Sélectionnez un type d'équipe</option>
-                <option >National</option>
-                <option >International</option>
+                <option >national</option>
+                <option >international</option>
               </select>
             </div>
   
@@ -177,20 +178,20 @@
             adresse: "",
             description : "",
             type_equipe : "",
-            site_web: ""
+            site_web: "",
+            logo: null,
           }
       }},
       methods: {
+      uploadFile : function () {
+        this.form.logo = this.$refs.file.files[0];
+      },
       submit: async function() {
         let token = localStorage.getItem("userToken");
-        console.log(this.form);
         await axios.post("http://localhost:8000/api/equipes",this.form,{headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         }}).then((result) => {
-          if (result.status != 201){
-            console.log("error");
-            return;
-          }
           console.log(result.data);
         }).catch(err => console.log(err.message));
       }
