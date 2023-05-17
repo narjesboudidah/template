@@ -90,6 +90,16 @@
             </th>
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+              Type Match
+            </th>
+            <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+              Nom Equipe Adversaire
+            </th>
+            <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             > Action
             </th>
           </tr>
@@ -135,7 +145,25 @@
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-            {{reservation.typeReservation || "type reservation"}}
+            {{reservation.type_reservation || "type reservation"}}
+            </td>
+            <td
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+            >
+              {{
+                reservation.type_reservation == "Match"
+                  ? reservation.type_match
+                  : "N/A"
+              }}
+            </td>
+            <td
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+            >
+              {{
+                reservation.type_reservation == "Match"
+                  ? reservation.nom_equipe_adversaire
+                  : "N/A"
+              }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
@@ -164,6 +192,7 @@
 </template>
 <script>
 import bootstrap from "@/assets/img/bootstrap.jpg";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -185,7 +214,7 @@ export default {
 
     async accepter(id)  {
       let token = localStorage.getItem("userToken");
-      await axios.get(`http://127.0.0.1:8000/api/maintenance/accepter/${id}`,{headers: {
+      await axios.post(`http://127.0.0.1:8000/api/reservations/accepter/${id}`,{headers: {
         'Authorization': `Bearer ${token}`
       }}).then((response) => { 
         console.log(response.data.message);
@@ -193,7 +222,7 @@ export default {
     },
     async refuser(id) {
       let token = localStorage.getItem("userToken");
-      await axios.get(`http://127.0.0.1:8000/api/maintenance/refuser/${id}`,{headers: {
+      await axios.get(`http://127.0.0.1:8000/api/reservation/refuser/${id}`,{headers: {
         'Authorization': `Bearer ${token}`
       }}).then((response) => { 
         console.log(response.data.message);

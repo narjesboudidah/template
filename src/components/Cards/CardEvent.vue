@@ -53,7 +53,7 @@
               <th
                 class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
               >
-                Nom Equipe
+                Nom Admin Equipe 
               </th>
               <th
                 class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
@@ -71,14 +71,39 @@
                 Date Fin
               </th>
               <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+              Heure Début
+            </th>
+            <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+              Heure Fin
+            </th>
+              <th
                 class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
               >
                 Type Event
               </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+                Nom Event
+              </th>
+              <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+            Type du Match 
+            </th>
+              <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+            Nom de l'équipe adversaire
+            </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="event in this.events" :key="event.id">
               <td
                 class="border-t-0   border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
               >
@@ -87,27 +112,59 @@
                   class="h-12 w-12 bg-white rounded-full border"
                   alt="..."
                 />
-                <span class="ml-3"> ES Tunis </span>
+                <span class="ml-3"> {{ event.nom || "null" }}  </span>
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
               >
-              Olympique de Radès
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-              >
-                04-05-2023
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-              >
-                05-05-2023
+              {{ event.stade  }}
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
               >
-                Match
+              {{event.date_debut }}
+              </td>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
+              >
+              {{ event.date_fin }}
+              </td>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
+              >
+              {{ event.heure_debut }}
+              </td>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+              >
+              {{ event.heure_fin }}
+              </td>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+              >
+              {{
+               event.type_event == "Evénements spéciaux || Entraînement"
+                  ? event.nom_equipe_adversaire
+                  : "N/A"
+              }}
+              </td>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
+              >
+              {{
+                reservation.type_event == "Evénements spéciaux || Entraînement"
+                  ? event.type_match
+                  : "N/A"
+              }}
+              </td>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
+              >
+              {{
+                reservation.type_event == "Match || Entraînement "
+                  ? event.nom_event
+                  : "N/A"
+              }}
               </td>
             </tr>
          
@@ -118,12 +175,29 @@
   </template>
   <script>
   import bootstrap from "@/assets/img/bootstrap.jpg";
+import axios from "axios";
   export default {
     data() {
       return {
         bootstrap,
+        events:[],
       };
     },
+     methods :{
+
+    async getReservations () {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/events",{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.maintenances = response.data.data;
+        console.log(response.data.data);
+      }).catch(err => console.log(err))
+    }
+    },
+    mounted() {
+    this.getEvents();
+  }
   };
   </script>
   

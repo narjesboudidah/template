@@ -41,21 +41,6 @@
                   <div class="w-full lg:w-6/12 px-4 mb-3">
                     <label
                       class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                      for="nom-match"
-                    >
-                      Nom du Match :
-                    </label>
-                    <input v-model="this.form.nom_match"
-                      type="text"
-                      id="nom-match"
-                      name="nom-match"
-                      placeholder="Nom du Match"
-                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-                    />
-                  </div>
-                  <div class="w-full lg:w-6/12 px-4 mb-3">
-                    <label
-                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                       for="type-match"
                     >
                       Type du Match :
@@ -89,8 +74,8 @@
                       <option
                         v-for="team in this.equipes"
                         :key="team.id"
-                        :value="team.nom_equipe"
-                        :label="team.nom_equipe"
+                        :value="team.nom_equipe1"
+                        :label="team.nom_equipe1"
                       />
                     </select>
                   </div>
@@ -111,8 +96,8 @@
                       <option
                         v-for="team in this.equipes"
                         :key="team.id"
-                        :value="team.nom_equipe"
-                        :label="team.nom_equipe"
+                        :value="team.nom_equipe2"
+                        :label="team.nom_equipe2"
                       />
                     </select>
                   </div>
@@ -245,7 +230,7 @@
                     >
                       Nom de l'équipe 
                     </label>
-                    <select v-model="this.form.nom_equipe2"
+                    <select v-model="this.form.nom_equipe"
                       id="nom-equipe"
                       name="nom-equipe"
                       required
