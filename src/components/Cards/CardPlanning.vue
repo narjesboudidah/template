@@ -149,7 +149,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="match in this.matchs">
+            <tr v-for="match in this.matchs" :key="match.id">
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
               >
