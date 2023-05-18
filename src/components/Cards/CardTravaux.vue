@@ -73,6 +73,16 @@
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
+              Heure Début
+            </th>
+            <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+             Heure Fin
+            </th>
+            <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
               Description
             </th>
             <th
@@ -80,10 +90,15 @@
             >
               Etat
             </th>
+            <th
+              class="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center"
+            >
+              Statut
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr v-for="maintenance in this.maintenances" :key="maintenance.id" >
             <td
               style="margin-right: 2rem"
               class="px-6   border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
@@ -93,32 +108,42 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3"> Moez </span>
+              <span class="ml-3"> {{ maintenance.nom || "null" }} </span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              stade
+            {{ maintenance.stade || "null" }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-              04-05-2023
+            {{ maintenance.date_debut }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-              05-05-2023
+            {{ maintenance.date_fin }}
+            </td>
+            <td
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+            >
+            {{ maintenance.heure_debut }}
+            </td>
+            <td
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+            >
+            {{ maintenance.heure_fin }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              -nouveaux escaliers / nouveaux gason
+            {{maintenance.description || "decrire les traveaux"}}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-bold text-xss whitespace-nowrap text-center text-red-600"
             >
-              urgent
+            {{ maintenance.statut }}
             </td>
           </tr>
          
@@ -129,11 +154,29 @@
 </template>
 <script>
 import bootstrap from "@/assets/img/bootstrap.jpg";
+import axios from "axios";
 export default {
   data() {
     return {
       bootstrap,
+      maintenances : [],
     };
   },
+  methods: {
+    async getMaintenances () {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/maintenances",{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.maintenances = response.data.data;
+        console.log(response.data.data);
+      }).catch(err => console.log(err))
+    },
+
+  mounted() {
+    this.getMaintenances();
+  }
+}
 };
 </script>
+

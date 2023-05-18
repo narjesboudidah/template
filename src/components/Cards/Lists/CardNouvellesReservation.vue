@@ -62,7 +62,7 @@
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
-              Note
+             Stade
             </th>
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
@@ -90,12 +90,22 @@
             </th>
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+              Type Match
+            </th>
+            <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+              Nom Equipe Adversaire
+            </th>
+            <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             > Action
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr v-for="reservation in this.reservations" :key="reservation.id" >
             <td
               style="margin-top: 0.1rem; margin-right: 2rem"
               class="px-6 align-middle  border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
@@ -105,37 +115,55 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3"> Etoile </span>
+              <span class="ml-3">  {{ reservation.nom || "null" }} </span>
             </td>
             <td
             class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              stade zone soussa
+            {{ reservation.stade || "null" }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-              04-05-2023
+            {{ reservation.date_debut }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-              05-05-2023
+            {{ reservation.date_fin }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-              13:00
+            {{ reservation.heure_debut }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-             14:30
+            {{ reservation.heure_fin }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
             >
-              Match
+            {{reservation.type_reservation || "type reservation"}}
+            </td>
+            <td
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+            >
+              {{
+                reservation.type_reservation == "Match"
+                  ? reservation.type_match
+                  : "N/A"
+              }}
+            </td>
+            <td
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+            >
+              {{
+                reservation.type_reservation == "Match"
+                  ? reservation.nom_equipe_adversaire
+                  : "N/A"
+              }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
@@ -143,12 +171,14 @@
               <button
                 class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
+                v-on:click="this.accepter(reservation.id)"
               >
                 <i class="fas fa-check"></i>
               </button>
               <button
                 class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
+                v-on:click="this.refuser(reservation.id)"
               >
                 <i class="fa fa-ban"></i>
               </button>
@@ -162,11 +192,45 @@
 </template>
 <script>
 import bootstrap from "@/assets/img/bootstrap.jpg";
+import axios from "axios";
 export default {
   data() {
     return {
       bootstrap,
+      reservations: [],
     };
   },
+  methods :{
+
+    async getReservations () {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/reservations",{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.maintenances = response.data.data;
+        console.log(response.data.data);
+      }).catch(err => console.log(err))
+    },
+
+    async accepter(id)  {
+      let token = localStorage.getItem("userToken");
+      await axios.post(`http://127.0.0.1:8000/api/reservations/accepter/${id}`,{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => { 
+        console.log(response.data.message);
+      }).catch(err => console.log(err))
+    },
+    async refuser(id) {
+      let token = localStorage.getItem("userToken");
+      await axios.get(`http://127.0.0.1:8000/api/reservation/refuser/${id}`,{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => { 
+        console.log(response.data.message);
+      }).catch(err => console.log(err))
+    }
+  },
+  mounted() {
+    this.getReservations();
+  }
 };
 </script>

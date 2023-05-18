@@ -32,25 +32,6 @@
               min="{{ new Date().toISOString().slice(0, 10) }}"
             />
           </div>
-          <div class="w-full lg:w-6/12 px-4 mb-3">
-            <label
-            for="date-fin-maintenance"
-            class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-            >
-            Date fin:
-          </label>
-          <input 
-           v-model="this.form.date_fin"
-          type="date"
-          id="date-fin-maintenance"
-          name="date-fin-maintenance"
-          placeholder="Date fin de maintenance"
-          required
-          class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-          aria-describedby="date-fin-maintenance-helper"
-          />
-        </div>
-        
         <div class="w-full lg:w-6/12 px-4 mb-3">
           <label
             for="heure-debut-maintenance"
@@ -69,6 +50,25 @@
             aria-describedby="heure-debut-maintenance-helper"
           />
         </div>
+          <div class="w-full lg:w-6/12 px-4 mb-3">
+            <label
+            for="date-fin-maintenance"
+            class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+            >
+            Date fin:
+          </label>
+          <input 
+           v-model="this.form.date_fin"
+          type="date"
+          id="date-fin-maintenance"
+          name="date-fin-maintenance"
+          placeholder="Date fin de maintenance"
+          required
+          class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+          aria-describedby="date-fin-maintenance-helper"
+          />
+        </div>
+          
         
         <div class="w-full lg:w-6/12 px-4 mb-3">
           <label
@@ -88,29 +88,6 @@
             aria-describedby="heure-fin-maintenance-helper"
           />
         </div>
-        <div class="w-full lg:w-6/12 px-4 mb-3">
-            <label
-              class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-              for="nom"
-            >
-              Nom du Stade:
-            </label>
-            <select
-              v-model="this.form.stade_id"
-              required
-              class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-            >
-              <option value="">Choisissez un stade</option>
-              <option 
-              v-for="team in this.stades"
-                        :key="team.id"
-                        :value="team.id"
-                        :label="team.nom"
-              >
-              </option>
-            </select>
-          </div>
-          
           <div class="w-full lg:w-6/12 px-4 mb-3">
             <label
               class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
@@ -143,6 +120,29 @@
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               ></textarea>
             </div>
+            <div class="w-full lg:w-6/12 px-4 mb-3">
+            <label
+              class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+              for="nom"
+            >
+              Nom du Stade:
+            </label>
+            <select
+              v-model="this.form.stade_id"
+              required
+              class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+            >
+              <option value="">Choisissez un stade</option>
+              <option 
+              v-for="team in this.stades"
+                        :key="team.id"
+                        :value="team.id"
+                        :label="team.nom"
+              >
+              </option>
+            </select>
+          </div>
+          
         </div>
       </form>
       <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-center">
@@ -209,18 +209,17 @@ export default {
     },
    
     submit: async function() {
-        let token = localStorage.getItem("userToken");
-        console.log(this.form);
-        await axios.post("http://127.0.0.1:8000/api/maintenances",this.form,{headers: {
-          'Authorization': `Bearer ${token}`
-        }}).then((result) => {
-          console.log(result.data.data);
-          // if (result.status != 201){
-          //   console.log("error");
-          //   return;
-          // }
-        });
-      },
+    let token = localStorage.getItem("userToken");
+    console.log(this.form);
+    await axios.post("http://127.0.0.1:8000/api/maintenances",this.form,{headers: {
+      'Authorization': `Bearer ${token}`
+    }}).then((result) => {
+      if (result.status != 201){
+        console.log("error");
+        return;
+      }
+    })
+  },
 },  
 mounted() {
   this.getStades();

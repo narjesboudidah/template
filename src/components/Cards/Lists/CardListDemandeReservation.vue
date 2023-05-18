@@ -34,7 +34,7 @@
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
-              Note
+              Stade
             </th>
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
@@ -61,15 +61,15 @@
             >
               Type réservation
             </th>
-            <th
+             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
-              Type Match
+            Type du Match 
             </th>
-            <th
+              <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
-              Nom Equipe Adversaire
+            Nom de l'équipe adversaire
             </th>
             <th
               class="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center"
@@ -88,12 +88,12 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3"> {{ reservation.nom || "null" }}</span>
+              <span class="ml-3"> {{ reservation.admin_equipe_id|| "null" }}</span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              {{ reservation.note }}
+              {{ reservation.stade_id }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
@@ -175,10 +175,9 @@ export default {
   methods: {
     async getReservations() {
       let token = localStorage.getItem("userToken");
-      await axios
-        .get("http://127.0.0.1:8000/api/reservations", {
+      await axios.get("http://127.0.0.1:8000/api/reservations", {
           headers: {
-            Authorization: `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,
           },
         })
         .then((response) => {
@@ -204,7 +203,7 @@ export default {
           null,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+             'Authorization': `Bearer ${token}`
             },
           }
         );
@@ -218,7 +217,7 @@ export default {
       await axios
         .get(`http://127.0.0.1:8000/api/reservation/refuser/${id}`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,
           },
         })
         .then((response) => {

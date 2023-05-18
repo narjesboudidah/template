@@ -39,7 +39,6 @@ import Stades from "@/views/admin/Stades.vue";
 //***Historiques***/
 import Historique from "@/views/admin/Historiques/Historique.vue";
 import HistoriqueDemande from "@/views/admin/Historiques/HistoriqueDemande.vue";
-import HistoriqueN from "@/views/admin/Historiques/HistoriqueN.vue";
 
 //***Forms***/
 import MaintenanceForm from "@/views/admin/Forms/MaintenanceForm.vue";
@@ -204,10 +203,8 @@ const routes = [
         path: "/form/HistoriqueDemande",
         component: HistoriqueDemande,
       },
+     
       {
-        path: "/form/HistoriqueN",
-        component: HistoriqueN,
-      }, {
         path: "/form/historique",
         component: Historique,
       },

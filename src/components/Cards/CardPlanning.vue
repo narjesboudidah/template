@@ -1,23 +1,25 @@
 <template>
+<div>
   <div
     class="relative break-words bg-white shadow-lg rounded"
     style="border-radius: 1rem;padding: 1rem;width: 1110px;height: 550px;
   margin-left: 7.5rem;"
   >
 
-      <div class="px-4" style="width: 7rem; position: absolute;right: 0;">
-                    <select v-model="this.form.nom"
+      <div class="px-4">
+                    <select v-model="this.form.stade_id"
                       id="nom"
                       name="nom"
                       required
-                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2 rounded-md text-sm shadow"
+                      @change="handleStade"
+                      class="border-2 w-full border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2 rounded-md text-sm shadow"
                     >
-                      <option value="">Stade</option>
+                      <option value="" disabled>Stade</option>
                       <option
                         v-for="team in this.stades"
-                        :key="team.id"
-                        :value="team.nom"
-                        :label="team.nom"
+                        :key="team?.id"
+                        :value="team?.id"
+                        :label="team?.nom"
                       />
                     </select>
     </div>    
@@ -109,7 +111,180 @@
           </button>
         </div>
   </div>
+  <div class="flex" style="margin-left: 9.5rem;margin-top: 1rem;">
+        <div style="margin: 0.5rem;">
+          <div
+      class="relative flex flex-col min-w-0 break-words bg-emerald-570 w-full mb-6 shadow-lg rounded"
+      style="border-radius: 1rem; max-height: 31.7rem"
+    >
+      <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <div class="flex flex-wrap items-center">
+          <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+            <h3 class="font-semibold text-base text-blueGray-700">
+              Liste des matchs 
+            </h3>
+        </div>
+        </div>
+      </div>
+      <div class="block w-full overflow-x-auto">
+        <!-- Projects table -->
+        <table class="items-center w-full bg-transparent border-collapse">
+          <thead>
+            <tr>
+              <th
+                class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+                Nom Equipe
+              </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+              Nom Event
+              </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+              Type Event
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="match in this.matchs" :key="match.id">
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
+              >
+              {{ match.date }}
+              </td>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+              >
+                {{ match.nom }}
+              </td>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+              >
+                {{ match.nom }}
+              </td>
+            </tr>
+         
+          </tbody>
+        </table>
+      </div>
+    </div>
+      </div>
+      <div style="margin: 0.5rem;">
+        <div
+      class="relative flex flex-col min-w-0 break-words bg-emerald-580 w-full mb-6 shadow-lg rounded"
+      style="border-radius: 1rem; max-height: 31.7rem"
+    >
+      <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <div class="flex flex-wrap items-center">
+          <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+            <h3 class="font-semibold text-base text-blueGray-700">
+              Liste des maintenances 
+            </h3>
+        </div>
+        </div>
+      </div>
+      <div class="block w-full overflow-x-auto">
+        <!-- Projects table -->
+        <table class="items-center w-full bg-transparent border-collapse">
+          <thead>
+            <tr>
+              <th
+                class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+                Nom Equipe
+              </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+              Nom Event
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
+              >
+              12:00
+              </td>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+              >
+                Nom Event
+              </td>
+            </tr>
+         
+          </tbody>
+        </table>
+      </div>
+    </div>
+      </div>
+      <div style="margin: 0.5rem;">
+        <div
+      class="relative flex flex-col min-w-0 break-words bg-emerald-570 w-full mb-6 shadow-lg rounded"
+      style="border-radius: 1rem; max-height: 31.7rem"
+    >
+      <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <div class="flex flex-wrap items-center">
+          <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+            <h3 class="font-semibold text-base text-blueGray-700">
+              Liste des evenements 
+            </h3>
+        </div>
+        </div>
+      </div>
+      <div class="block w-full overflow-x-auto">
+        <!-- Projects table -->
+        <table class="items-center w-full bg-transparent border-collapse">
+          <thead>
+            <tr>
+              <th
+                class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+                Nom Equipe
+              </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+              Nom Event
+              </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+              Type Event
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
+              >
+              12:00
+              </td>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+              >
+                Nom Event
+              </td>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+              >
+                Type Event
+              </td>
+            </tr>
+         
+          </tbody>
+        </table>
+      </div>
+    </div>
+      </div>
+      </div>
 
+</div>
 </template>
 <script>
 import axios from "axios";
@@ -117,19 +292,41 @@ export default {
   data() {
     return {
       form : {
-          nom: ""
+          stade_id: ""
         },
-      stades : []
+      stades : [],
+      userRole: '',
+      matchs : [],
+      events : [],
+      maintenances : [],
       }
     },
   methods: {
+    handleStade : async function() {
+      let token = localStorage.getItem("userToken");
+      console.log('=======>',`http://127.0.0.1:8000/api/stade/${this.form.stade_id}`);
+      await axios.get(`http://127.0.0.1:8000/api/stade/${this.form.stade_id}/events`,{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.events = response.data.data;
+      }).catch(err => console.log(err))
+      await axios.get(`http://127.0.0.1:8000/api/stade/${this.form.stade_id}/matchs`,{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.matchs = response.data.data;
+      }).catch(err => console.log(err))
+      await axios.get(`http://127.0.0.1:8000/api/stade/${this.form.stade_id}/maintenances`,{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.maintenances = response.data.data;
+      }).catch(err => console.log(err))
+    },
     async getStades () {
       let token = localStorage.getItem("userToken");
       await axios.get("http://127.0.0.1:8000/api/stades",{headers: {
         'Authorization': `Bearer ${token}`
       }}).then((response) => {
         this.stades = response.data.data;
-        console.log(this.stades);
       }).catch(err => console.log(err))
     }
     },
