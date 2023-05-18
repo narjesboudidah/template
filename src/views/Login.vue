@@ -96,7 +96,6 @@
 <script>
 // axios imported to link front with back 
 import axios from "axios";
-//import { useRouter } from "vue-router";
 import photo from "@/assets/img/photo.png";
 //const router = useRouter();
 export default {

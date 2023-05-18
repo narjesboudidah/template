@@ -49,7 +49,7 @@
         <!-- Projects table -->
         <table class="items-center w-full bg-transparent border-collapse">
           <thead>
-            <tr>
+            <tr  >
               <th
                 class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
               >
@@ -112,12 +112,12 @@
                   class="h-12 w-12 bg-white rounded-full border"
                   alt="..."
                 />
-                <span class="ml-3"> {{ event.nom || "null" }}  </span>
+                <span class="ml-3"> {{ event.equipe1_id || "null" }}  </span>
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
               >
-              {{ event.stade  }}
+              {{ event.stade_id }}
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
@@ -140,11 +140,11 @@
               {{ event.heure_fin }}
               </td>
               <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
               >
               {{
-               event.type_event == "Evénements spéciaux || Entraînement"
-                  ? event.nom_equipe_adversaire
+                reservation.type_event == "Match || Entraînement "
+                  ? event.nom_event
                   : "N/A"
               }}
               </td>
@@ -158,16 +158,15 @@
               }}
               </td>
               <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
               >
               {{
-                reservation.type_event == "Match || Entraînement "
-                  ? event.nom_event
+               event.type_event == "Evénements spéciaux || Entraînement"
+                  ? event.equipe2_id
                   : "N/A"
               }}
               </td>
             </tr>
-         
           </tbody>
         </table>
       </div>
@@ -185,7 +184,7 @@ import axios from "axios";
     },
      methods :{
 
-    async getReservations () {
+    async getEvents () {
       let token = localStorage.getItem("userToken");
       await axios.get("http://127.0.0.1:8000/api/events",{headers: {
         'Authorization': `Bearer ${token}`

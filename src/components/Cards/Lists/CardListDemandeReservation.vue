@@ -88,12 +88,12 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3"> {{ reservation.nom || "null" }}</span>
+              <span class="ml-3"> {{ reservation.admin_equipe_id|| "null" }}</span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              {{ reservation.stade }}
+              {{ reservation.stade_id }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
