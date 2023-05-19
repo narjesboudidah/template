@@ -83,12 +83,12 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3"> {{ maintenance.nom || "null" }} </span>
+              <span class="ml-3"> {{ maintenance.admin_ste_id || "null" }} </span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              {{ maintenance.stade || "null" }}
+              {{ maintenance.stade_id || "null" }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
@@ -163,7 +163,7 @@ export default {
       }}).then((response) => {
         this.maintenances = response.data.data;
         console.log(response.data.data);
-      }).catch(err => console.log(err))
+      }).catch(err => console.log(err));
       // this.maintenances.forEach(async (idx,elem) => {
       //   await axios.get(`http://127.0.0.1:8000/api/user/${elem.admin_ste_id}`,{headers: {
       //   'Authorization': `Bearer ${token}`
@@ -182,6 +182,7 @@ export default {
         console.log(response.data.message);
       }).catch(err => console.log(err))
     },
+
     async refuser(id) {
       let token = localStorage.getItem("userToken");
       await axios.get(`http://127.0.0.1:8000/api/maintenance/refuser/${id}`,{headers: {

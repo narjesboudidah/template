@@ -79,7 +79,7 @@
             </router-link>
           </button>
         </div>
-        <div v-if="userRole === 'Admin Ste'" 
+        <div v-if="userRole === 'Admin Ste'"
         class="relative px-4 text-right" style="width: 13rem; position: absolute;
           bottom: 1%;
           left: 50%;
