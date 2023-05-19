@@ -115,12 +115,12 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3">  {{ reservation.nom || "null" }} </span>
+              <span class="ml-3">  {{ reservation.admin_equipe_id || "null" }} </span>
             </td>
             <td
             class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-            {{ reservation.stade || "null" }}
+            {{ reservation.stade_id || "null" }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
@@ -204,22 +204,43 @@ export default {
 
     async getReservations () {
       let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/reservations",{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => {
-        this.maintenances = response.data.data;
-        console.log(response.data.data);
-      }).catch(err => console.log(err))
+  const today = new Date().toISOString().split('T')[0];
+
+  try {
+    const response = await axios.get("http://127.0.0.1:8000/api/reservations/filter", {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      params: {
+        date: today.substring(0, 10),
+      },
+    });
+
+    this.reservations = response.data.data;
+    console.log(response.data.data);
+  } catch (err) {
+    console.log(err);
+  }
+},
+
+async accepter(id) {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.post(
+          `http://127.0.0.1:8000/api/reservations/accept/${id}`,
+          null,
+          {
+            headers: {
+             'Authorization': `Bearer ${token}`
+            },
+          }
+        );
+        console.log(response.data.message);
+      } catch (err) {
+        console.log(err);
+      }
     },
 
-    async accepter(id)  {
-      let token = localStorage.getItem("userToken");
-      await axios.post(`http://127.0.0.1:8000/api/reservations/accepter/${id}`,{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => { 
-        console.log(response.data.message);
-      }).catch(err => console.log(err))
-    },
     async refuser(id) {
       let token = localStorage.getItem("userToken");
       await axios.get(`http://127.0.0.1:8000/api/reservation/refuser/${id}`,{headers: {

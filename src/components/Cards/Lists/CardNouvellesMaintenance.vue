@@ -63,10 +63,10 @@
           <tr v-for="maintenance in maintenances" :key="maintenance.id">
             <td class="px-6 align-middle  border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center" style="margin-top: 1.1rem; margin-right: 2rem">
               <img :src="bootstrap" class="h-12 w-12 bg-white rounded-full border" alt="..." />
-              <span class="ml-3">{{ getSteName(maintenance.admin_ste_id) }}</span>
+              <span class="ml-3">{{ maintenance.admin_ste_id }}</span>
             </td>
             <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
-              {{ maintenance.stade }}
+              {{ maintenance.stade_id }}
             </td>
             <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center">
               {{ maintenance.date_debut }}
@@ -110,21 +110,20 @@ export default {
     return {
       bootstrap,
       maintenances: [],
-      users: [],
     };
   },
   methods: {
     async getMaintenances() {
       let token = localStorage.getItem("userToken");
-      const date = new Date();
+      const today = new Date().toISOString().split('T')[0];
 
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/maintenances", {
+        const response = await axios.get("http://127.0.0.1:8000/api/maintenances/filter", {
           headers: {
-           'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,
           },
           params: {
-            created_date: date.toISOString(),
+            date: today.substring(0, 10),
           },
         });
 
@@ -134,6 +133,7 @@ export default {
         console.log(err);
       }
     },
+
     async accepter(id) {
       let token = localStorage.getItem("userToken");
       try {
@@ -160,24 +160,9 @@ export default {
         console.log(err);
       }
     },
-    async getSteName(id) {
-      let token = localStorage.getItem("userToken");
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/user/${id}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          },
-        });
-        return response.data.nom;
-      } catch (err) {
-        console.log(err);
-        return "";
-      }
-    },
   },
   mounted() {
     this.getMaintenances();
-    this.getSteName();
   },
 };
 </script>

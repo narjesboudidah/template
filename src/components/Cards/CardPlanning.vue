@@ -47,11 +47,11 @@
       </div>
     </div>
 
-        <div v-if="userRole === 'admin Equipe'" 
-     class="relative px-4 text-right" style="width: 13rem; position: absolute;
-  bottom: 1%;
-  left: 50%;
-  transform: translate(-50%, 10%);margin-bottom: 1rem;"
+        <div v-if="userRole === 'Admin Equipe'" 
+         class="relative px-4 text-right" style="width: 13rem; position: absolute;
+        bottom: 1%;
+        left: 50%;
+        transform: translate(-50%, 10%);margin-bottom: 1rem;"
         >
       
           <button
@@ -79,7 +79,7 @@
             </router-link>
           </button>
         </div>
-        <div v-if="userRole === 'admin Ste'" 
+        <div v-if="userRole === 'Admin Ste'" 
         class="relative px-4 text-right" style="width: 13rem; position: absolute;
           bottom: 1%;
           left: 50%;
@@ -292,7 +292,7 @@ export default {
   data() {
     return {
       form : {
-          stade_id: ""
+          stade_id: "",
         },
       stades : [],
       userRole: '',
@@ -328,6 +328,20 @@ export default {
       }}).then((response) => {
         this.stades = response.data.data;
       }).catch(err => console.log(err))
+    },
+
+    async getUser() {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+      }).then((result) => {
+        this.userRole = result.data.role;
+
+      }).catch((err) => {
+          console.log(err);
+      })
     }
     },
   mounted() {
@@ -401,6 +415,8 @@ export default {
       });
     });
     this.getStades();
+   this.getUser();
+   console.log(this.userRole);
   },
 };
 </script>

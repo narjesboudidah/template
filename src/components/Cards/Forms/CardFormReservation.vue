@@ -21,7 +21,9 @@
               Nom Stade
             </label>
             <select
-              v-model="this.form.nom"
+              v-model="form.stade_id"
+                    id="nom"
+                    name="nom"
               required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
             >
@@ -29,9 +31,8 @@
               <option
                 v-for="stade in this.stades"
                 :key="stade.id"
-                :value="stade.nom"
-                :label="stade.nom"
-              ></option>
+                :value="stade.id"
+              > {{ stade.nom }} </option>
             </select>
           </div>
           <div class="w-full lg:w-6/12 px-4 mb-3">
@@ -128,9 +129,7 @@
               <option>Evénements spéciaux</option>
             </select>
 
-            <div v-if="this.form.type_reservation === 'Evénements spéciaux'">
-
-            <div class="w-full lg:w-6/12 px-4 mb-3">
+            <div v-if="this.form.type_reservation === 'Evénements spéciaux'" class="w-full lg:w-6/12 px-4 mb-3">
                   <label
                     class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                     for="nom-event"
@@ -142,11 +141,10 @@
                     type="text"
                     id="nom-event"
                     name="nom-event"
-                    placeholder="Nomevent"
+                    placeholder="nom_event"
                     class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
                   />
                   </div>
-                </div>
             <div v-if="this.form.type_reservation === 'Match'">
               <h6
                 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase"
@@ -176,24 +174,47 @@
                 <div class="w-full lg:w-6/12 px-4 mb-3">
                   <label
                     class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                    for="nom-equipe2"
+                    for="nom-equipe1"
                   >
-                    Nom de l'équipe adversaire:
+                    Nom de l'équipe 1:
                   </label>
                   <select
-                    v-model="this.form.nom_equipe_adversaire"
-                    id="nom-equipe2"
-                    name="nom-equipe2"
-                    required
+                    v-model="this.form.equipe1_id"
+                    id="nom-equipe1"
+                    name="nom-equipe1"
                     class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
                   >
                     <option value="">Choisissez une équipe</option>
                     <option
                       v-for="team in this.equipes"
                       :key="team.id"
-                      :value="team.nom_equipe"
-                      :label="team.nom_equipe"
-                    />
+                      :value="team.id"
+                    >
+                    {{ team.nom_equipe }}
+                  </option>
+                  </select>
+                </div>
+                <div class="w-full lg:w-6/12 px-4 mb-3">
+                  <label
+                    class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                    for="nom-equipe2"
+                  >
+                    Nom de l'équipe 2:
+                  </label>
+                  <select
+                    v-model="this.form.equipe2_id"
+                    id="nom-equipe2"
+                    name="nom-equipe2"
+                    class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+                  >
+                    <option value="">Choisissez une équipe</option>
+                    <option
+                      v-for="team in this.equipes"
+                      :key="team.id"
+                      :value="team.id"
+                    >
+                    {{ team.nom_equipe }}
+                  </option>
                   </select>
                 </div>
               </div>
@@ -228,17 +249,22 @@ export default {
   data() {
     return {
       form: {
-        stade: "",
+        stade_id: "",
         date_debut: "",
         date_fin: "",
         heure_debut: "",
         heure_fin: "",
         type_reservation: "",
-        type_match: "",
-        nom_match: "",
-        nom_equipe_reservation: "",
-        nom: "",
-        nom_event:""
+        type_match: null,
+        nom_event: null,
+        equipe1_id: null,
+        equipe2_id: null,
+      },
+      stade: {
+        nom:"",
+      },
+      equipe: {
+        nom_equipe:"",
       },
       equipes: [],
       stades: [],
@@ -259,6 +285,7 @@ export default {
         endDateInput.setCustomValidity("");
       }
     },
+    
     async getEquipes() {
       let token = localStorage.getItem("userToken");
       await axios
@@ -287,24 +314,21 @@ export default {
         })
         .catch((err) => console.log(err));
     },
-  },
-  submit: async function () {
-    let token = localStorage.getItem("userToken");
-    console.log(this.form);
-    await axios
-      .post("http://127.0.0.1:8000/api/reservations", this.form, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((result) => {
-        if (result.status != 201) {
+    submit: async function() {
+      let token = localStorage.getItem("userToken");
+      console.log(this.form);
+      await axios.post("http://127.0.0.1:8000/api/reservations",this.form,{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((result) => {
+        if (result.status != 201){
           console.log("error");
           return;
         }
+        
         console.log(result.data);
-      })
-      .catch((err) => console.log(err.message));
+      }).catch(err => console.log(err.message));
+    },
+
   },
   mounted() {
     this.getEquipes();
