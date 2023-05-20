@@ -34,13 +34,13 @@
       <div class="mt-50 py-3 border-t border-blueGray-200 text-center">
         <div class="flex flex-wrap justify-center">
           
-          <button
+          <button v-if="hasPermission('Modifier Equipe')"
             class="bg-white-500 text-black-200 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
           >
             <i class="fas fa-pen"></i>
           </button>
-          <button
+          <button v-if="hasPermission('Supprimer Equipe')"
             class="bg-white-500 text-black-200 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
           >
@@ -69,6 +69,7 @@
 </template>
 <script>
 import equipelogo from "@/assets/img/Real-Madrid.png";
+import axios from "axios";
 
 export default {
   props: {
@@ -78,14 +79,34 @@ export default {
   data() {
     return {
       equipelogo,
+      permissions: [],
       url: `/profile/EquipeProfile/${this.props?.equipe?.id}`
     }
   },
   methods: {
     toEquipe() {
       this.$router.push(`/profile/EquipeProfile/${this.$props.equipe?.id}`)
-    }
-  }
+    },
+    async getUser() {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.permissions = response.data.permissions;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    hasPermission(permission) {
+      return this.permissions.includes(permission);
+    },
+  },
+  mounted() {
+    this.getUser();
+  },
   
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
+      <div v-if="hasPermission('Ajout Equipe')" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
         <card-ajout-equipe />
       </div>
       <div v-if="equipes.length" class="flex flex-wrap">
@@ -30,7 +30,8 @@
     },
     data() {
       return {
-        equipes: []
+        equipes: [],
+        permissions: [],
       }
     },
     methods: {
@@ -41,10 +42,27 @@
       }}).then((response) => {
         this.equipes = response.data.data;
       }).catch(err => console.log(err))
-    }
+    },
+    async getUser() {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.permissions = response.data.permissions;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    hasPermission(permission) {
+      return this.permissions.includes(permission);
+    },
   },
   mounted() {
     this.getEquipes();
+    this.getUser();
   }
   };
   </script>

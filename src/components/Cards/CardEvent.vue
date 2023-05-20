@@ -18,7 +18,7 @@
                 filter_alt
               </span>
             </button>
-          <button
+          <button v-if="hasPermission('Ajout Event')"
             class="icon-sidebar-click"
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
@@ -180,6 +180,7 @@ import axios from "axios";
       return {
         bootstrap,
         events:[],
+        permissions: [],
       };
     },
      methods :{
@@ -192,10 +193,27 @@ import axios from "axios";
         this.maintenances = response.data.data;
         console.log(response.data.data);
       }).catch(err => console.log(err))
-    }
+    },
+    async getUserPermission() {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.permissions = response.data.permissions;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    hasPermission(permission) {
+      return this.permissions.includes(permission);
+    },
     },
     mounted() {
     this.getEvents();
+   this.getUserPermission();
   }
   };
   </script>

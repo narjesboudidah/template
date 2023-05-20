@@ -90,10 +90,10 @@
               {{ maintenance.etat }}
             </td>
             <td class="border-t-0 border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <button v-if="userRole === 'Admin Federation'" class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="accepter(maintenance.id)">
+              <button v-if="hasPermission('Confirmer Maintenance')" class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="accepter(maintenance.id)">
                 <i class="fas fa-check"></i>
               </button>
-              <button v-if="userRole === 'Admin Federation'" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="refuser(maintenance.id)">
+              <button v-if="hasPermission('Annuler Maintenance')" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="refuser(maintenance.id)">
                 <i class="fa fa-ban"></i>
               </button>
               <button v-if="userRole === 'Admin Ste'" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="annuler(maintenance.id)">
@@ -116,6 +116,7 @@ export default {
     return {
       bootstrap,
       maintenances: [],
+      permissions: [],
       userRole: '',
     };
   },
@@ -193,8 +194,25 @@ export default {
           console.log(err);
       })
     },
+    async getUserPermission() {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.permissions = response.data.permissions;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    hasPermission(permission) {
+      return this.permissions.includes(permission);
+    },
   },
   mounted() {
+   this.getUserPermission();
    this.getUser();
    console.log(this.userRole);
     this.getMaintenances();

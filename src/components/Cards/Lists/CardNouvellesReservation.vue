@@ -168,17 +168,24 @@
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
             >
-              <button
+              <button v-if="hasPermission('Confirmer Reservation')"
                 class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 v-on:click="this.accepter(reservation.id)"
               >
                 <i class="fas fa-check"></i>
               </button>
-              <button
+              <button v-if="hasPermission('Annuler Reservation')"
                 class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 v-on:click="this.refuser(reservation.id)"
+              >
+                <i class="fa fa-ban"></i>
+              </button>
+              <button v-if="userRole === 'Admin Equipe'"
+                class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                v-on:click="this.annuler(reservation.id)"
               >
                 <i class="fa fa-ban"></i>
               </button>
@@ -198,6 +205,8 @@ export default {
     return {
       bootstrap,
       reservations: [],
+      permissions: [],
+      userRole: '',
     };
   },
   methods :{
@@ -248,9 +257,54 @@ async accepter(id) {
       }}).then((response) => { 
         console.log(response.data.message);
       }).catch(err => console.log(err))
-    }
+    },
+    async annuler(id) {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/reservation/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        console.log(response.data.message);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getUser() {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+      }).then((result) => {
+        this.userRole = result.data.role;
+
+      }).catch((err) => {
+          console.log(err);
+      })
+    },
+    async getUserPermission() {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.permissions = response.data.permissions;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    hasPermission(permission) {
+      return this.permissions.includes(permission);
+    },
   },
   mounted() {
+   this.getUserPermission();
+   this.getUser();
+   console.log(this.userRole);
     this.getReservations();
   }
 };
