@@ -33,7 +33,7 @@
           </a>
         </router-link>
 
-        <router-link
+        <router-link v-if="userRole === 'Admin Federation'"
           to="/admin/settings/role"
           v-slot="{ href, navigate, isActive }"
         >
@@ -59,7 +59,7 @@
           </a>
         </router-link>
 
-        <router-link
+        <router-link v-if="userRole === 'Admin Federation'"
           to="/admin/settings/permission"
           v-slot="{ href, navigate, isActive }"
         >
@@ -86,7 +86,7 @@
         </router-link>
 
         <!-- Notification -->
-        <router-link to="/form/HistoriqueN" v-slot="{ href, navigate, isActive }">
+        <router-link v-if="userRole === 'Admin Federation'" to="/form/HistoriqueN" v-slot="{ href, navigate, isActive }">
           <a
             style="font-family: inherit, serif; font-size: 15px"
             :href="href"
@@ -109,7 +109,7 @@
           >
         </router-link>
 
-        <router-link
+        <router-link v-if="userRole === 'Admin Federation'"
           to="/form/HistoriqueDemande"
           v-slot="{ href, navigate, isActive }"
         >
@@ -134,7 +134,7 @@
             Historique des Demandes</a
           >
         </router-link>
-        <router-link
+        <router-link v-if="userRole === 'Admin Federation'"
           to="/form/historique"
           v-slot="{ href, navigate, isActive }"
         >
@@ -188,3 +188,33 @@
     </div>
   </div>
 </template>
+<script>
+import axios from 'axios';
+export default {
+  data() {
+    return {
+      userRole: '',
+    };
+  },
+  methods: {
+    async getUser() {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+      }).then((result) => {
+        this.userRole = result.data.role;
+
+      }).catch((err) => {
+          console.log(err);
+      })
+    }
+  },
+  mounted() {
+   this.getUser();
+   console.log(this.userRole);
+  },
+};
+
+</script>

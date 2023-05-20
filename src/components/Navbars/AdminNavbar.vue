@@ -34,7 +34,7 @@
       </form>
       <!-- User -->
       <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
-        <router-link to="/profile">
+        <router-link to="/profile/admin">
           <a>
             <span style="color: white" class="material-symbols-outlined">
               person

@@ -8,8 +8,8 @@
         <card-bar-chart />
       </div>
     </div>
-    <div v-if="userRole === 'Admin Federation' || userRole === 'Admin Equipe'" class="flex flex-wrap mt-4">
-      <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
+    <div class="flex flex-wrap mt-4">
+      <div v-if="userRole === 'Admin Federation' || userRole === 'Admin Equipe'" class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
         <card-nouvelles-reservation />
       </div>
       <div class="w-full xl:w-4/12 px-4">
