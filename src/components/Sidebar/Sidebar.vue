@@ -154,7 +154,7 @@
 
           <!--LISTE DES DEMANDES-->
           <li class="items-center">
-            <router-link v-if="userRole === 'Admin Federation' || userRole === 'Admin Equipe'"
+            <router-link v-if="userRole === 'Admin Federation' || userRole === 'Admin Ste' || userRole === 'Admin Equipe'"
               to="/admin/listeDemande"
               v-slot="{ href, navigate, isActive }"
             >

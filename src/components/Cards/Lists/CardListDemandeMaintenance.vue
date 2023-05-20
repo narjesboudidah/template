@@ -66,10 +66,11 @@
             >
               Etat
             </th>
-            <th
-              class="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center"
-            >
+            <th v-if="userRole === 'Admin Federation'" class="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
               Action
+            </th>
+            <th v-if="userRole === 'Admin Ste'" class="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
+              Annuler
             </th>
           </tr>
         </thead>
@@ -120,21 +121,14 @@
             >
             {{ maintenance.etat }}
             </td>
-            <td
-              class="border-t-0  border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
-            >
-              <button
-                class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-                v-on:click="this.accepter(maintenance.id)"
-              >
+            <td class="border-t-0 border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+              <button v-if="userRole === 'Admin Federation'" class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="accepter(maintenance.id)">
                 <i class="fas fa-check"></i>
               </button>
-              <button
-                class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-                v-on:click="this.refuser(maintenance.id)"
-              >
+              <button v-if="userRole === 'Admin Federation'" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="refuser(maintenance.id)">
+                <i class="fa fa-ban"></i>
+              </button>
+              <button v-if="userRole === 'Admin Ste'" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="annuler(maintenance.id)">
                 <i class="fa fa-ban"></i>
               </button>
             </td>
@@ -152,6 +146,7 @@ export default {
     return {
       bootstrap,
       maintenances : [],
+      userRole: '',
     };
   },
 
@@ -190,10 +185,38 @@ export default {
       }}).then((response) => { 
         console.log(response.data.message);
       }).catch(err => console.log(err))
-    }
+    },
+    async annuler(id) {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/maintenance/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        console.log(response.data.message);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getUser() {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+      }).then((result) => {
+        this.userRole = result.data.role;
+
+      }).catch((err) => {
+          console.log(err);
+      })
+    },
   },
   mounted() {
+   this.getUser();
+   console.log(this.userRole);
     this.getMaintenances();
-  }
+  },
 };
 </script>
