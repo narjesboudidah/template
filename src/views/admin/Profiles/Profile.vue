@@ -62,11 +62,23 @@
                 >
                   Jenna Stones
                 </h3>
-                <div
+                <div v-if="userRole === 'Admin Federation'"
                   class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-semibold uppercase"
                 >
                   <i class="fas fa-user mr-2 text-lg text-blueGray-400"></i>
-                  Admin Fédèration
+                  Admin Fédération
+                </div>
+                <div v-if="userRole === 'Admin Equipe'"
+                  class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-semibold uppercase"
+                >
+                  <i class="fas fa-user mr-2 text-lg text-blueGray-400"></i>
+                  Admin Equipe
+                </div>
+                <div v-if="userRole === 'Admin Ste'"
+                  class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-semibold uppercase"
+                >
+                  <i class="fas fa-user mr-2 text-lg text-blueGray-400"></i>
+                  Admin Ste
                 </div>
               </div>
               <div class="mt-10 py-10 border-blueGray-200 text-center">
@@ -75,34 +87,32 @@
                     <div class="w-full lg:w-6/12 px-4 mb-3">
                       <label
                         class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                        for="nom-admin"
+                        for="nom"
                       >
                         Nom :
                       </label>
                       <input
                         type="text"
-                        id="nom-admin"
-                        name="nom-admin"
-                        placeholder="Nom"
-                        value="nom"
-                        required
+                        id="nom"
+                        name="nom"
+                        :placeholder="user.nom"
+                        v-model="form.nom"
                         class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
                       />
                     </div>
                     <div class="w-full lg:w-6/12 px-4 mb-3">
                       <label
                         class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                        for="prenom-admin"
+                        for="prenom"
                       >
                         Prénom :
                       </label>
                       <input
                         type="text"
-                        id="prenom-admin"
-                        name="prenom-admin"
-                        placeholder="Prénom"
-                        value="prénom"
-                        required
+                        id="prenom"
+                        name="prenom"
+                        :placeholder="user.prenom"
+                        v-model="form.prenom"
                         class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
                       />
                     </div>
@@ -117,9 +127,8 @@
                         type="tel"
                         id="telephone"
                         name="telephone"
-                        placeholder="Téléphone"
-                        value="77777777"
-                        required
+                        :placeholder="user.telephone"
+                        v-model="form.telephone"
                         pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                         class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
                       />
@@ -135,9 +144,8 @@
                         type="email"
                         id="email"
                         name="email"
-                        placeholder="Email"
-                        value="test@gmail.com"
-                        required
+                        :placeholder="user.email"
+                        v-model="form.email"
                         class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
                       />
                     </div>
@@ -153,50 +161,9 @@
                         type="text"
                         id="adresse"
                         name="adresse"
-                        placeholder="Adresse"
-                        value="adresse"
-                        required
+                        :placeholder="this.user.adresse"
+                        v-model="form.adresse"
                         class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-                      />
-                    </div>
-                  </div>
-
-                  <h6
-                    class="text-blueGray-400 text-sm mt-33 mb-6 font-bold uppercase"
-                  >
-                    Mot de passe
-                  </h6>
-                  <div class="flex flex-wrap">
-                    <div class="w-full lg:w-6/12 px-4 mb-3">
-                      <label
-                        class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                        for="mot-de-passe"
-                      >
-                        Nouveau Mot de passe :
-                      </label>
-                      <input
-                        type="password"
-                        id="mot-de-passe"
-                        name="mot-de-passe"
-                        placeholder="Nouveau Mot de passe"
-                        required
-                        class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-                      />
-                    </div>
-                    <div class="w-full lg:w-6/12 px-4 mb-3">
-                      <label
-                        class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                        for="mot-de-passe"
-                      >
-                        Confirmer Nouveau Mot de passe :
-                      </label>
-                      <input
-                        type="password"
-                        id="mot-de-passe"
-                        name="mot-de-passe"
-                        placeholder="Confirmer Nouveau Mot de passe"
-                        required
-                        class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow bg-blueGray-300"
                       />
                     </div>
                   </div>
@@ -209,6 +176,7 @@
                     class="boutton-click active:bg-blueGray-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear"
                     type="button"
                     style="padding-right: 0.7rem; padding-left: 0.7rem"
+                    v-on:click="submit()"
                   >
                     Enregistrer
                   </button>
@@ -224,13 +192,110 @@
 </template>
 <script>
 import team2 from "@/assets/img/Real-Madrid.png";
+import axios from "axios";
 
 export default {
   data() {
     return {
       team2,
+      form: {
+        nom: "",
+        prenom: "",
+        telephone: "",
+        email: "",
+        adresse: "",
+      },
+      user: {
+        nom: "",
+        prenom: "",
+        telephone: "",
+        email: "",
+        adresse: "",
+      },
+      userRole: '',
     };
   },
-  components: {},
+  methods: {
+    async submit() {
+  try {
+    const token = localStorage.getItem("userToken");
+    console.log(this.form);
+    const response = await axios.put(
+      "http://127.0.0.1:8000/api/userUpdate",
+      this.form,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    this.$swal({
+      icon: "success",
+      title: "Your work has been saved",
+      showConfirmButton: false,
+      timer: 5500,
+    });
+
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+
+    this.$swal({
+      icon: "warning",
+      title: error.message,
+      showConfirmButton: false,
+      timer: 5500,
+    });
+  }
+},
+
+    async getUser() {
+      try {
+        const token = localStorage.getItem("userToken");
+        const headers = { Authorization: `Bearer ${token}` };
+
+        const response = await axios.get("http://127.0.0.1:8000/api/usershow", { headers });
+
+        this.user = response.data.data;
+        this.fillForm();
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getUserRole() {
+      try {
+        const token = localStorage.getItem("userToken");
+        const headers = { Authorization: `Bearer ${token}` };
+
+        const response = await axios.get("http://127.0.0.1:8000/api/user", { headers });
+
+        this.userRole = response.data.role;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    fillForm() {
+      if (this.form.nom !== this.user.nom) {
+        this.form.nom = this.user.nom;
+      }
+      if (this.form.prenom !== this.user.prenom) {
+        this.form.prenom = this.user.prenom;
+      }
+      if (this.form.telephone !== this.user.telephone) {
+        this.form.telephone = this.user.telephone;
+      }
+      if (this.form.email !== this.user.email) {
+        this.form.email = this.user.email;
+      }
+      if (this.form.adresse !== this.user.adresse) {
+        this.form.adresse = this.user.adresse;
+      }
+    },
+
+  },
+  mounted() {
+    this.getUserRole();
+    this.getUser();
+  },
+  components: {
+    // Importez et enregistrez les composants navbar et footer-component ici
+  },
 };
 </script>
