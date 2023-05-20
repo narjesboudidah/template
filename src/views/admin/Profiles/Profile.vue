@@ -60,7 +60,7 @@
                 <h3
                   class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2"
                 >
-                  Jenna Stones
+                  {{ this.user.nom }} {{ this.user.prenom }}
                 </h3>
                 <div v-if="userRole === 'Admin Federation'"
                   class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-semibold uppercase"
