@@ -228,7 +228,11 @@
           }
           console.log(result.data);
         }).catch(err => console.log(err.message));
-      }
+        window.location.href = '/admin/competition/match';
+      },
+      async annuler () {
+        window.location.href = '/admin/competition/match'; 
+      },
   },
     mounted() {
        this.getEquipes();

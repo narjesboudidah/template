@@ -1,7 +1,7 @@
 <template>
     <div
       class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
-      style="border-radius: 1rem; max-height: 31.7rem"
+      style="border-radius: 1rem; max-height: 54.5rem"
     >
       <div class="rounded-t mb-0 px-4 py-3 border-0">
         <div class="flex flex-wrap items-center">
@@ -44,114 +44,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="historique in this.historiques" :key="historique.id">
               <td
                 class="border-t-0  border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
               >
-                <img
-                  :src="bootstrap"
-                  class="h-12 w-12 bg-white rounded-full border"
-                  alt="..."
-                />
-                <span class="ml-3"> Moez </span>
+                <span class="ml-3"> {{ historique.admin_fed_id }} </span>
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
               >
-                Ajout stade
+              {{ historique.action }}
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
               >
-                04-05-2023
-              </td>
-            </tr>
-            <tr>
-              <td
-                class="border-t-0  border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
-              >
-                <img
-                  :src="bootstrap"
-                  class="h-12 w-12 bg-white rounded-full border"
-                  alt="..."
-                />
-                <span class="ml-3"> Moez </span>
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-              >
-                Ajout stade
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-              >
-                04-05-2023
-              </td>
-            </tr>
-            <tr>
-              <td
-                class="border-t-0  border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
-              >
-                <img
-                  :src="bootstrap"
-                  class="h-12 w-12 bg-white rounded-full border"
-                  alt="..."
-                />
-                <span class="ml-3"> Moez </span>
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-              >
-                Ajout stade
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-              >
-                04-05-2023
-              </td>
-            </tr>
-            <tr>
-              <td
-                class="border-t-0  border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
-              >
-                <img
-                  :src="bootstrap"
-                  class="h-12 w-12 bg-white rounded-full border"
-                  alt="..."
-                />
-                <span class="ml-3"> Moez </span>
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-              >
-                Ajout stade
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-              >
-                04-05-2023
-              </td>
-            </tr>
-            <tr>
-              <td
-                class="border-t-0 border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
-              >
-                <img
-                  :src="bootstrap"
-                  class="h-12 w-12 bg-white rounded-full border"
-                  alt="..."
-                />
-                <span class="ml-3"> Moez </span>
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-              >
-                Ajout stade
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-              >
-                04-05-2023
+              {{ historique.date }}
               </td>
             </tr>
           </tbody>
@@ -160,13 +67,45 @@
     </div>
   </template>
   <script>
-  import bootstrap from "@/assets/img/bootstrap.jpg";
+ import axios from "axios";
   export default {
     data() {
       return {
-        bootstrap,
+        historiques: [],
+        permissions: [],
       };
     },
+    methods: {
+    async getHistoriques() {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/historiques",{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.historiques = response.data.data;
+        console.log(response.data.data);
+      })
+    },  
+    async getUserPermission() {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.permissions = response.data.permissions;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    hasPermission(permission) {
+      return this.permissions.includes(permission);
+    },
+  },
+  mounted() {
+    this.getHistoriques();
+   this.getUserPermission();
+  }
   };
   </script>
   

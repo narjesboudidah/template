@@ -7,7 +7,7 @@
         <div class="flex flex-wrap items-center">
           <div class="relative w-full px-4 max-w-full flex-grow flex-1">
             <h3 class="font-semibold text-base text-blueGray-700">
-              Liste des demandes de reservations
+              Historique des demandes de reservations
             </h3>
           </div>
           <div
@@ -71,16 +71,21 @@
             >
             Type du Match 
             </th>
-              <th
+            <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
-            Nom de l'équipe adversaire
+            Nom de l'équipe 1
             </th>
-              <th
+            <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+            Nom de l'équipe 2
+            </th>
+            <th
                 class="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center"
               >
                 Statut
-              </th>
+            </th>
               <th
                 class="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center"
               >
@@ -89,71 +94,83 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="reservation in this.reservations" :key="reservation.id">
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
               >
-                123456
+              {{ reservation.admin_fed_id }}
               </td>
               <td
                 class="border-t-0 border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
               >
-                <img
-                  :src="bootstrap"
-                  class="h-12 w-12 bg-white rounded-full border"
-                  alt="..."
-                />
-                <span class="ml-3"> Moez </span>
+                <span class="ml-3"> {{ reservation.admin_equipe_id }} </span>
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
               >
-                stade
+              {{ reservation.stade_id }}
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
               >
-                04-05-2023
+              {{ reservation.date_debut }}
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
               >
-                05-05-2023
+              {{ reservation.date_fin }}
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
               >
-               10:00
+              {{ reservation.heure_debut }}
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
               >
-               12:00
+              {{ reservation.heure_fin }}
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
               >
-                -match
+              {{ reservation.type_reservation }}
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-bold text-xss whitespace-nowrap text-center text-red-600"
               >
-                national
+              {{
+                reservation.type_reservation == "Match"
+                  ? reservation.type_match
+                  : "N/A"
+              }}
               </td>
               <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+              >
+                {{
+                  reservation.type_reservation == "Match"
+                    ? reservation.equipe1_id
+                    : "N/A"
+                }}
+              </td>
+              <td
+                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+              >
+                {{
+                  reservation.type_reservation == "Match"
+                    ? reservation.equipe2_id
+                    : "N/A"
+                }}
+              </td>
+              <td 
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-bold text-xss whitespace-nowrap text-center text-emerald-600"
               >
-                Accepter
+              {{ reservation.statut }}
               </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
               >
-              etoile 
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-              >
-               17/05/2023
+              {{ reservation.updated_at }}
               </td>
               </tr>
           </tbody>
@@ -162,13 +179,45 @@
     </div>
   </template>
   <script>
-  import bootstrap from "@/assets/img/bootstrap.jpg";
+  import axios from "axios";
   export default {
     data() {
       return {
-        bootstrap,
+        reservations : [],
       };
     },
+    methods: {
+    async getReservations() {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/ReservationFilterstatut", {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          this.reservations = response.data.data;
+          console.log(response.data.data);
+        })
+        .catch((err) => console.log(err));
+    },
+    async getUser() {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+      }).then((result) => {
+        this.userRole = result.data.role;
+
+      }).catch((err) => {
+          console.log(err);
+      })
+    },
+  },
+  mounted() {
+   this.getUser();
+    this.getReservations();
+  },
   };
   </script>
   

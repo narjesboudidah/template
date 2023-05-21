@@ -79,6 +79,7 @@
           class="boutton-annuler bg-blueGray-500 text-blueGray-400 active:bg-red-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear"
           type="button"
           style="padding-right: 0.7rem; padding-left: 0.7rem"
+          @click="annuler()"
         >
           annuler
         </button>
@@ -137,7 +138,11 @@ export default {
         }}).then((result) => {
           console.log(result.data);
         }).catch(err => console.log(err.message));
-    },
+        window.location.href = '/plan';
+      },
+      async annuler () {
+        window.location.href = '/plan'; 
+      },
 },  
 mounted() {
   this.getStades();

@@ -85,31 +85,7 @@
           </a>
         </router-link>
 
-        <!-- Notification -->
-        <router-link v-if="userRole === 'Admin Federation'" to="/form/HistoriqueN" v-slot="{ href, navigate, isActive }">
-          <a
-            style="font-family: inherit, serif; font-size: 15px"
-            :href="href"
-            @click="navigate"
-            class="text-xs py-3 block"
-            :class="[
-              isActive
-                ? 'box-sidebar hover:text-red-600 '
-                : 'text-blueGray-700 hover:text-blueGray-500',
-            ]"
-          >
-            <span
-              class="material-symbols-outlined"
-              @click="navigate"
-              :class="[isActive ? 'icon-sidebar-click ' : 'icon-sidebar']"
-            >
-              history_toggle_off
-            </span>
-            Historique des Notifications</a
-          >
-        </router-link>
-
-        <router-link v-if="userRole === 'Admin Federation'"
+        <router-link v-if="userRole === 'Admin Federation' && hasPermission('Consulter Historiques')"
           to="/form/HistoriqueDemande"
           v-slot="{ href, navigate, isActive }"
         >
@@ -134,7 +110,7 @@
             Historique des Demandes</a
           >
         </router-link>
-        <router-link v-if="userRole === 'Admin Federation'"
+        <router-link v-if="userRole === 'Admin Federation' && hasPermission('Consulter Historiques')"
           to="/form/historique"
           v-slot="{ href, navigate, isActive }"
         >
@@ -194,6 +170,7 @@ export default {
   data() {
     return {
       userRole: '',
+      permissions: [],
     };
   },
   methods: {
@@ -209,9 +186,26 @@ export default {
       }).catch((err) => {
           console.log(err);
       })
-    }
+    },
+    async getUserPermission() {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.permissions = response.data.permissions;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    hasPermission(permission) {
+      return this.permissions.includes(permission);
+    },
   },
   mounted() {
+   this.getUserPermission();
    this.getUser();
    console.log(this.userRole);
   },

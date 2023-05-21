@@ -53,6 +53,10 @@
               <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">Informations sur le Match</h6>
               <div class="flex flex-wrap">
                 <div class="w-full lg:w-6/12 px-4 mb-3">
+                  <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="nom-event">Nom event :</label>
+                  <input v-model="this.form.nom_event" type="text" id="nom-event" name="nom-event" placeholder="nom_event" class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow" />
+                </div>
+                <div class="w-full lg:w-6/12 px-4 mb-3">
                   <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="type-match">Type du Match :</label>
                   <select v-model="this.form.type_match" id="type_match" name="type_match" required class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow">
                     <option>National</option>
@@ -68,9 +72,9 @@
                 </div>
                 <div class="w-full lg:w-6/12 px-4 mb-3">
                   <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="nom-equipe2">Nom de l'équipe 2:</label>
-                  <select v-model="this.form.equipe2_id" id="nom-equipe2_id" name="nom-equipe2" required class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow">
+                  <select v-model="this.form.equipe2_id" id="equipe2_id" name="equipe2_id" required class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow">
                     <option value="">Choisissez une équipe</option>
-                    <option v-for="equipe in equipes" :key="equipe.id" :value="equipe.nom_equipe">{{ equipe.id }}</option>
+                    <option v-for="equipe in equipes" :key="equipe.id" :value="equipe.id">{{ equipe.nom_equipe }}</option>
                   </select>
                 </div>
               </div>
@@ -80,7 +84,7 @@
       </form>
       <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-center">
         <button class="boutton-click active:bg-blueGray-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear" type="button" style="padding-right: 0.7rem; padding-left: 0.7rem" @click="submit()">confirmer</button>
-        <button class="boutton-annuler bg-blueGray-500 text-blueGray-400 active:bg-red-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear" type="button" style="padding-right: 0.7rem; padding-left: 0.7rem">annuler</button>
+        <button class="boutton-annuler bg-blueGray-500 text-blueGray-400 active:bg-red-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear" type="button" style="padding-right: 0.7rem; padding-left: 0.7rem" @click="annuler()">annuler</button>
       </div>
     </div>
   </div>
@@ -161,7 +165,11 @@ export default {
         }}).then((result) => {
           console.log(result.data);
         }).catch(err => console.log(err.message));
-    },
+        window.location.href = '/plan';
+      },
+      async annuler () {
+        window.location.href = '/plan'; 
+      },
   },
   mounted() {
     this.getEquipes();

@@ -154,6 +154,7 @@ export default {
       } catch (err) {
         console.log(err);
       }
+      window.location.reload();
     },
     async refuser(id) {
       let token = localStorage.getItem("userToken");
@@ -167,6 +168,7 @@ export default {
       } catch (err) {
         console.log(err);
       }
+      window.location.reload();
     },
     async annuler(id) {
       let token = localStorage.getItem("userToken");
@@ -180,6 +182,7 @@ export default {
       } catch (err) {
         console.log(err);
       }
+      window.location.reload();
     },
     async getUser() {
       let token = localStorage.getItem("userToken");

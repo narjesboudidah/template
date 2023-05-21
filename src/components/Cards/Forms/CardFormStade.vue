@@ -213,8 +213,8 @@
         <button
           class=" boutton-annuler bg-blueGray-500 text-blueGray-400 active:bg-red-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear "
           type="button"
-          
           style="padding-right: 0.7rem; padding-left: 0.7rem"
+          v-on:click="annuler()"
         >
           annuler
         </button>
@@ -255,7 +255,11 @@ export default {
         
         console.log(result.data);
       }).catch(err => console.log(err.message));
-    }
+      window.location.href = '/admin/stades';
+      },
+      async annuler () {
+        window.location.href = '/admin/stades'; 
+      },
   } 
 }
 </script>

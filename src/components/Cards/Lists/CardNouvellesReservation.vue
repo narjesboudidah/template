@@ -96,7 +96,12 @@
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
-              Nom Equipe Adversaire
+            Nom de l'équipe 1
+            </th>
+            <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+            Nom de l'équipe 2
             </th>
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
@@ -161,7 +166,16 @@
             >
               {{
                 reservation.type_reservation == "Match"
-                  ? reservation.nom_equipe_adversaire
+                  ? reservation.equipe1_id
+                  : "N/A"
+              }}
+            </td>
+            <td
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+            >
+              {{
+                reservation.type_reservation == "Match"
+                  ? reservation.equipe2_id
                   : "N/A"
               }}
             </td>
@@ -248,6 +262,7 @@ async accepter(id) {
       } catch (err) {
         console.log(err);
       }
+      window.location.reload();
     },
 
     async refuser(id) {
@@ -257,6 +272,7 @@ async accepter(id) {
       }}).then((response) => { 
         console.log(response.data.message);
       }).catch(err => console.log(err))
+      window.location.reload();
     },
     async annuler(id) {
       let token = localStorage.getItem("userToken");
@@ -270,6 +286,7 @@ async accepter(id) {
       } catch (err) {
         console.log(err);
       }
+      window.location.reload();
     },
     async getUser() {
       let token = localStorage.getItem("userToken");

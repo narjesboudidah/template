@@ -153,7 +153,7 @@ export default {
   methods: {
     async getMaintenances () {
       let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/maintenances",{headers: {
+      await axios.get("http://127.0.0.1:8000/api/MaintenancesFS",{headers: {
         'Authorization': `Bearer ${token}`
       }}).then((response) => {
         this.maintenances = response.data.data;
@@ -176,6 +176,7 @@ export default {
       }}).then((response) => { 
         console.log(response.data.message);
       }).catch(err => console.log(err))
+      window.location.reload();
     },
 
     async refuser(id) {
@@ -185,6 +186,7 @@ export default {
       }}).then((response) => { 
         console.log(response.data.message);
       }).catch(err => console.log(err))
+      window.location.reload();
     },
     async annuler(id) {
       let token = localStorage.getItem("userToken");
@@ -198,6 +200,7 @@ export default {
       } catch (err) {
         console.log(err);
       }
+      window.location.reload();
     },
     async getUser() {
       let token = localStorage.getItem("userToken");

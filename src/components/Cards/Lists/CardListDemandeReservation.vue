@@ -66,10 +66,15 @@
             >
             Type du Match 
             </th>
-              <th
+            <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
-            Nom de l'équipe adversaire
+            Nom de l'équipe 1
+            </th>
+            <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+            Nom de l'équipe 2
             </th>
             <th
               class="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center"
@@ -134,7 +139,16 @@
             >
               {{
                 reservation.type_reservation == "Match"
-                  ? reservation.nom_equipe_adversaire
+                  ? reservation.equipe1_id
+                  : "N/A"
+              }}
+            </td>
+            <td
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+            >
+              {{
+                reservation.type_reservation == "Match"
+                  ? reservation.equipe2_id
                   : "N/A"
               }}
             </td>
@@ -184,7 +198,7 @@ export default {
   methods: {
     async getReservations() {
       let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/reservations", {
+      await axios.get("http://127.0.0.1:8000/api/Reservationstatut", {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -220,6 +234,7 @@ export default {
       } catch (err) {
         console.log(err);
       }
+      window.location.reload();
     },
     async refuser(id) {
       let token = localStorage.getItem("userToken");
@@ -233,6 +248,7 @@ export default {
           console.log(response.data.message);
         })
         .catch((err) => console.log(err));
+      window.location.reload();
     },
     async annuler(id) {
       let token = localStorage.getItem("userToken");
@@ -246,6 +262,7 @@ export default {
       } catch (err) {
         console.log(err);
       }
+      window.location.reload();
     },
     async getUser() {
       let token = localStorage.getItem("userToken");
