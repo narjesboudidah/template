@@ -94,7 +94,7 @@
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-pink-400 text-xss text-center p-4"
             >
-              {{ admin.role || "Should MySQL LEFT JOIN the role" }}
+              {{ admin.role[0].name || "Should MySQL LEFT JOIN the role" }}
             </td>
             <td
               class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
