@@ -7,11 +7,10 @@
   >
 
       <div class="px-4">
-                    <select v-model="this.form.stade_id"
+                    <select v-model="selectedStade"
                       id="nom"
                       name="nom"
-                      required
-                      @change="handleStade"
+                      @change="fetchEvents(); fetchMatchs(); fetchMaintenances()"
                       class="border-2 w-full border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2 rounded-md text-sm shadow"
                     >
                       <option value="" disabled>Stade</option>
@@ -111,117 +110,7 @@
           </button>
         </div>
   </div>
-  <div class="flex" style="margin-left: 9.5rem;margin-top: 1rem;">
-        <div style="margin: 0.5rem;">
-          <div
-      class="relative flex flex-col min-w-0 break-words bg-emerald-570 w-full mb-6 shadow-lg rounded"
-      style="border-radius: 1rem; max-height: 31.7rem"
-    >
-      <div class="rounded-t mb-0 px-4 py-3 border-0">
-        <div class="flex flex-wrap items-center">
-          <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-            <h3 class="font-semibold text-base text-blueGray-700">
-              Liste des matchs 
-            </h3>
-        </div>
-        </div>
-      </div>
-      <div class="block w-full overflow-x-auto">
-        <!-- Projects table -->
-        <table class="items-center w-full bg-transparent border-collapse">
-          <thead>
-            <tr>
-              <th
-                class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-              >
-                Nom Equipe
-              </th>
-              <th
-                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-              >
-              Nom Event
-              </th>
-              <th
-                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-              >
-              Type Event
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="match in this.matchs" :key="match.id">
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-              >
-              {{ match.date }}
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-              >
-                {{ match.nom }}
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-              >
-                {{ match.nom }}
-              </td>
-            </tr>
-         
-          </tbody>
-        </table>
-      </div>
-    </div>
-      </div>
-      <div style="margin: 0.5rem;">
-        <div
-      class="relative flex flex-col min-w-0 break-words bg-emerald-580 w-full mb-6 shadow-lg rounded"
-      style="border-radius: 1rem; max-height: 31.7rem"
-    >
-      <div class="rounded-t mb-0 px-4 py-3 border-0">
-        <div class="flex flex-wrap items-center">
-          <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-            <h3 class="font-semibold text-base text-blueGray-700">
-              Liste des maintenances 
-            </h3>
-        </div>
-        </div>
-      </div>
-      <div class="block w-full overflow-x-auto">
-        <!-- Projects table -->
-        <table class="items-center w-full bg-transparent border-collapse">
-          <thead>
-            <tr>
-              <th
-                class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-              >
-                Nom Equipe
-              </th>
-              <th
-                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-              >
-              Nom Event
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-              >
-              12:00
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-              >
-                Nom Event
-              </td>
-            </tr>
-         
-          </tbody>
-        </table>
-      </div>
-    </div>
-      </div>
+    <div class="flex" style="margin-left: 9.5rem;margin-top: 1rem;">
       <div style="margin: 0.5rem;">
         <div
       class="relative flex flex-col min-w-0 break-words bg-emerald-570 w-full mb-6 shadow-lg rounded"
@@ -259,22 +148,22 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
+            <tr v-for="event in this.events" :key="event.id">
+              <th
+                class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
               >
-              12:00
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+                {{ event.equipe1_id }}
+              </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
               >
-                Nom Event
-              </td>
-              <td
-                class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
+              {{ event.nom_event }}
+              </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
               >
-                Type Event
-              </td>
+              {{ event.type_event }}
+              </th>
             </tr>
          
           </tbody>
@@ -282,7 +171,117 @@
       </div>
     </div>
       </div>
+      <div style="margin: 0.5rem;">
+        <div
+      class="relative flex flex-col min-w-0 break-words bg-emerald-570 w-full mb-6 shadow-lg rounded"
+      style="border-radius: 1rem; max-height: 31.7rem"
+    >
+      <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <div class="flex flex-wrap items-center">
+          <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+            <h3 class="font-semibold text-base text-blueGray-700">
+              Liste des matchs 
+            </h3>
+        </div>
+        </div>
       </div>
+      <div class="block w-full overflow-x-auto">
+        <!-- Projects table -->
+        <table class="items-center w-full bg-transparent border-collapse">
+          <thead>
+            <tr>
+              <th
+                class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+                Heure
+              </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+              Nom Equipes
+              </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+              Adresse
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="match in this.matchs" :key="match.id">
+              <th
+                class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+                {{ match.heure }}
+              </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+              {{ match.equipe1_id }} et {{ match.equipe2_id }}
+              </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+              {{ match.competition_id }}
+              </th>
+            </tr>
+         
+          </tbody>
+        </table>
+      </div>
+    </div>
+      </div>
+      <div style="margin: 0.5rem;">
+        <div
+      class="relative flex flex-col min-w-0 break-words bg-emerald-570 w-full mb-6 shadow-lg rounded"
+      style="border-radius: 1rem; max-height: 31.7rem"
+    >
+      <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <div class="flex flex-wrap items-center">
+          <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+            <h3 class="font-semibold text-base text-blueGray-700">
+              Liste des maintenances 
+            </h3>
+        </div>
+        </div>
+      </div>
+      <div class="block w-full overflow-x-auto">
+        <!-- Projects table -->
+        <table class="items-center w-full bg-transparent border-collapse">
+          <thead>
+            <tr>
+              <th
+                class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+                Nom Ste
+              </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+              Etat
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="maintenance in this.maintenances" :key="maintenance.id">
+              <th
+                class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+                {{ maintenance.admin_ste_id }}
+              </th>
+              <th
+                class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+              >
+              {{ maintenance.etat }}
+              </th>
+            </tr>
+         
+          </tbody>
+        </table>
+      </div>
+    </div>
+      </div>
+    </div>
 
 </div>
 </template>
@@ -291,9 +290,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      form : {
-          stade_id: "",
-        },
+      selectedStade: null,
       stades : [],
       userRole: '',
       matchs : [],
@@ -302,25 +299,6 @@ export default {
       }
     },
   methods: {
-    handleStade : async function() {
-      let token = localStorage.getItem("userToken");
-      console.log('=======>',`http://127.0.0.1:8000/api/stade/${this.form.stade_id}`);
-      await axios.get(`http://127.0.0.1:8000/api/stade/${this.form.stade_id}/events`,{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => {
-        this.events = response.data.data;
-      }).catch(err => console.log(err))
-      await axios.get(`http://127.0.0.1:8000/api/stade/${this.form.stade_id}/matchs`,{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => {
-        this.matchs = response.data.data;
-      }).catch(err => console.log(err))
-      await axios.get(`http://127.0.0.1:8000/api/stade/${this.form.stade_id}/maintenances`,{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => {
-        this.maintenances = response.data.data;
-      }).catch(err => console.log(err))
-    },
     async getStades () {
       let token = localStorage.getItem("userToken");
       await axios.get("http://127.0.0.1:8000/api/stades",{headers: {
@@ -329,6 +307,52 @@ export default {
         this.stades = response.data.data;
       }).catch(err => console.log(err))
     },
+    
+    async fetchEvents() {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/events/filterStade/${this.selectedStade}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      this.events = response.data.data;
+    } catch (err) {
+      console.log(err);
+    }
+  },
+   async fetchMatchs() {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/matchs/filterStade/${this.selectedStade}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      this.matchs = response.data.data;
+    } catch (err) {
+      console.log(err);
+    }
+  },
+   async fetchMaintenances() {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/maintenances/filterStade/${this.selectedStade}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      this.maintenances = response.data.data;
+    } catch (err) {
+      console.log(err);
+    }
+  },
 
     async getUser() {
       let token = localStorage.getItem("userToken");
