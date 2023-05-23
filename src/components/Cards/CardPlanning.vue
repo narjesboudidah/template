@@ -353,7 +353,6 @@ export default {
       console.log(err);
     }
   },
-
     async getUser() {
       let token = localStorage.getItem("userToken");
       await axios.get("http://127.0.0.1:8000/api/user", {
