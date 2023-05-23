@@ -63,6 +63,11 @@
             <th class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center">
               Nom de l'équipe 2
             </th>
+             <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -101,6 +106,27 @@
             <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center">
               {{ event.type_event === 'Match' ? event.equipe2_id : 'N/A' }}
             </td>
+            <td
+              class="border-t-0 border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
+            >
+              <router-link to="/form/AjoutAdmin" v-slot="{ href, navigate }">
+                <button
+                  :href="href"
+                  @click="navigate"
+                  class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                >
+                  <i class="fas fa-pen"></i>
+                </button>
+              </router-link>
+              <button
+                class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                v-on:click="this.deleteEvent(admin.id)"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -135,6 +161,15 @@ export default {
         console.log(error);
       }
     },
+    async deleteEvent(id) {
+      let token = localStorage.getItem("userToken");
+      await axios
+        .delete(`http://127.0.0.1:8000/api/event/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+    },
     async getUserPermission() {
       try {
         const token = localStorage.getItem("userToken");
@@ -154,6 +189,7 @@ export default {
   },
   mounted() {
     this.getEvents();
+    this.deleteEvent();
     this.getUserPermission();
   },
 };
