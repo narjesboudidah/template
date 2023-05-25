@@ -3,8 +3,6 @@ import { createWebHistory, createRouter } from "vue-router";
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 // styles
-import VCalendar from 'v-calendar';
-import 'v-calendar/style.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "@/assets/styles/tailwind.css";
 
@@ -258,7 +256,6 @@ const routes = [
 
 
 const app = createApp(App);
-app.use(VCalendar, {});
 app.use(VueSweetalert2);
 const router = createRouter({
   history: createWebHistory(),
