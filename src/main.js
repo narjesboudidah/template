@@ -3,7 +3,6 @@ import { createWebHistory, createRouter } from "vue-router";
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 // styles
-
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "@/assets/styles/tailwind.css";
 
