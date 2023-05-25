@@ -1,6 +1,7 @@
 <template>
     <div class="mt-4">
       <card-planning/>
+      <VCalendar borderless />
     </div>
   </template>
   <script>
