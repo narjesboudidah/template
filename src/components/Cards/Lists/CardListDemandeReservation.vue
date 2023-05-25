@@ -257,6 +257,21 @@ export default {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
+        }).then(() => {
+          this.$swal({
+            icon: "succes",
+            title: " Réservation Supprimé ",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        })
+        .catch(() => {
+          this.$swal({
+            icon: "error",
+            title: "Erreur",
+            showConfirmButton: false,
+            timer: 1000,
+          });
         });
         console.log(response.data.message);
       } catch (err) {

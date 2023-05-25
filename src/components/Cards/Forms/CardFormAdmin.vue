@@ -268,8 +268,8 @@ export default {
         this.$swal({
           icon: 'succes',
           title: 'Ajout avec succé',
-          showConfirmButton: false,
-          timer: 1000
+          showConfirmButton: true,
+          timer: 360000
         })
         console.log(result.data);
       }).catch(err => this.$swal({

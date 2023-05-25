@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
+      <div v-if="hasPermission('Ajout Match')" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
           <card-ajout-match/>
         </div>
       <div v-if="matchs.length" class="flex flex-wrap">
@@ -24,7 +24,8 @@
     },
     data() {
       return {
-        matchs: []
+        matchs: [],
+        permissions: [],
       }
     },
   methods: {
@@ -36,10 +37,27 @@
         this.matchs = response.data.data;
       }).catch(err => console.log(err))
       console.log('matchs' , this.matchs);
-    }
+    },
+    async getUser() {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.permissions = response.data.permissions;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    hasPermission(permission) {
+      return this.permissions.includes(permission);
+    },
   },
   mounted() {
     this.getMatchs();
+    this.getUser();
   }
   };
   </script>

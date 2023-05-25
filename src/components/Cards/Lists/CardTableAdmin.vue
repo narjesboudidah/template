@@ -1,12 +1,11 @@
 <template>
   <div
     style="border-radius: 1rem; max-height: 31.7rem"
-    class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
-    :class="[color === 'light' ? 'bg-white' : 'bg-blueGray-50 text-white']"
+    class="relative bg-white flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
   >
     <div class="rounded-t mb-0 px-4 py-3 border-0">
       <div class="flex flex-wrap items-center">
-        <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+        <div class="relative  w-full px-4 max-w-full flex-grow flex-1">
           <h3 class="font-semibold text-base text-blueGray-700">
             Liste des utilisateurs
           </h3>
@@ -88,7 +87,7 @@
           <!--admin instance in table admins with key admin_id-->
           <tr v-for="admin in this.admins" :key="admin.id">
             <td
-              class="px-77 border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
+              class="px-77 bg-white border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
               <img
                 :src="bootstrap"
@@ -99,25 +98,24 @@
               <span class="ml-3"> {{ admin.prenom + " " + admin.nom }} </span>
             </td>
             <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-pink-400 text-xss text-center p-4"
+              class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-pink-400 text-xss text-center p-4"
             >
               {{ admin.role[0].name || "Should MySQL LEFT JOIN the role" }}
             </td>
             <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700  text-center p-4"
+              class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700  text-center p-4"
             >
               {{  admin.role[0].name === 'Admin Equipe' ? admin.nom_equipe :'N/A' }}
             </td>
             <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700  text-center p-4"
+              class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700  text-center p-4"
             >
               {{ admin.role[0].name === 'Admin Ste' ? admin.nom_ste:'N/A' }}
             </td>
             <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700  text-center p-4"
+              class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700  text-center p-4"
             >
               {{ admin.email }}
-              {{ admin.role[0].name || "Should MySQL LEFT JOIN the role" }}
             </td>
             <td
               class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
@@ -125,7 +123,7 @@
               {{ admin.telephone }}
             </td>
             <td
-              class="border-t-0 border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
+              class="border-t-0 bg-white border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
             >
               <router-link to="/form/AjoutAdmin" v-slot="{ href, navigate }">
                 <button
