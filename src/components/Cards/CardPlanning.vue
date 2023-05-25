@@ -67,7 +67,7 @@
             :key="week"
           >
             <td v-for="day in week" :key="day" @click="selectDate(day); fetchEvents(); fetchMatchs(); fetchMaintenances();">
-              <div :style="isDateReserved(day,currentMonth) ? 'background-color: pink;' : 'background-color: white;'">
+              <div :style="isDateReserved(day) ? 'background-color: pink;' : 'background-color: white;'">
                 {{ day }}
               </div>
             </td>
@@ -488,10 +488,10 @@ export default {
       }
     },
 
-    async isDateReserved(day,currentMonth) {
+    async isDateReserved(day) {
       const selectedDay = new Date(day);
 
-      const formattedMonth = String(currentMonth);
+      const formattedMonth = String(this.currentMonth);
       const formattedDay = String(selectedDay.getDate()).padStart(2, '0');
       const formattedDate = `${formattedMonth}-${formattedDay}`;
 
