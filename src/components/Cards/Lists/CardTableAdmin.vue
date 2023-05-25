@@ -19,12 +19,12 @@
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
           >
-          <router-link
+            <router-link
               to="/form/AjoutAdmin"
               v-slot="{ href, navigate, isActive }"
             >
               <a
-                 style="font-family: inherit,serif;font-size: 15px;"
+                style="font-family: inherit, serif; font-size: 15px"
                 :href="href"
                 @click="navigate"
                 class=""
@@ -32,10 +32,11 @@
                   isActive
                     ? 'box-sidebar hover:text-red-600 '
                     : 'hover:text-blueGray-500',
-                ]">
-            <i class="fas fa-plus mr-2"></i> Ajouter Admin
-            </a>
-      </router-link>
+                ]"
+              >
+                <i class="fas fa-plus mr-2"></i> Ajouter Admin
+              </a>
+            </router-link>
           </button>
         </div>
       </div>
@@ -76,7 +77,7 @@
           <!--admin instance in table admins with key admin_id-->
           <tr v-for="admin in this.admins" :key="admin.id">
             <td
-              class="px-7  border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
+              class="px-7 border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
               <img
                 :src="bootstrap"
@@ -84,7 +85,7 @@
                 alt="..."
               />
               <!--prendre le nom et le prenom du BD -->
-              <span class="ml-3"> {{ admin.prenom +" "+admin.nom }} </span>
+              <span class="ml-3"> {{ admin.prenom + " " + admin.nom }} </span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
@@ -102,21 +103,18 @@
               {{ admin.telephone }}
             </td>
             <td
-              class="border-t-0  border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
+              class="border-t-0 border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
             >
-            <router-link
-              to="/form/AjoutAdmin"
-              v-slot="{ href, navigate }"
-            >
-            <button
-              :href="href"
-                @click="navigate"
-              class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-              type="button"
-            >
-              <i class="fas fa-pen"></i>
-            </button>
-          </router-link>
+              <router-link to="/form/AjoutAdmin" v-slot="{ href, navigate }">
+                <button
+                  :href="href"
+                  @click="navigate"
+                  class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                >
+                  <i class="fas fa-pen"></i>
+                </button>
+              </router-link>
               <button
                 class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
@@ -135,48 +133,58 @@
 import bootstrap from "@/assets/img/bootstrap.jpg";
 import axios from "axios";
 export default {
-    props:{
-      type: [],
-    },
-    data() {
-      return{
+  props: {
+    type: [],
+  },
+  data() {
+    return {
       bootstrap,
       admins: [],
-    }},
+    };
+  },
 
-    mounted() {
+  mounted() {
     this.getUsers();
   },
 
   methods: {
     async getUsers() {
       let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/users",{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => {
-        this.admins = response.data.data;
-      })
+      await axios
+        .get("http://127.0.0.1:8000/api/users", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          this.admins = response.data.data;
+        });
     },
-    async deleteUser(id){
+    async deleteUser(id) {
       let token = localStorage.getItem("userToken");
-      await axios.delete(`http://127.0.0.1:8000/api/user/${id}`,{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then(() => {
-        this.$swal({
-          icon: 'succes',
-          title: 'Deleted User',
-          showConfirmButton: false,
-          timer: 5500
+      await axios
+        .delete(`http://127.0.0.1:8000/api/user/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         })
-      }).catch(()=> {
-        this.$swal({
-          icon: 'error',
-          title: 'cannot delete user',
-          showConfirmButton: false,
-          timer: 5500
+        .then(() => {
+          this.$swal({
+            icon: "succes",
+            title: "Deleted User",
+            showConfirmButton: false,
+            timer: 5500,
+          });
         })
-      })
-    }
-  }
+        .catch(() => {
+          this.$swal({
+            icon: "error",
+            title: "cannot delete user",
+            showConfirmButton: false,
+            timer: 5500,
+          });
+        });
+    },
+  },
 };
 </script>
