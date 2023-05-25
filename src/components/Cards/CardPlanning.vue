@@ -65,7 +65,10 @@
             v-for="week in weeks"
             :key="week"
           >
-            <td v-for="day in week" :key="day" @click="selectDate(day);fetchEvents(); fetchMatchs();fetchMaintenances();">
+            <td v-for="day in week" 
+            :key="day" 
+            @click="selectDate(day);fetchEvents(); fetchMatchs();fetchMaintenances();"
+            :style="isDateReserved(day) ? 'background-color: pink;' : 'background-color: white;'">
               {{ day }}
             </td>
           </tr>
@@ -316,6 +319,7 @@
 
 <script>
 import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -323,11 +327,12 @@ export default {
       daysOfWeek: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
       weeks: [],
       selectedDate: "",
-      stades : [],
+      stades: [],
       userRole: '',
-      matchs : [],
-      events : [],
-      maintenances : [],
+      matchs: [],
+      events: [],
+      maintenances: [],
+      LEvents: [],
     };
   },
   methods: {
@@ -336,7 +341,7 @@ export default {
       currentMonth.setMonth(currentMonth.getMonth() - 1);
       const year = currentMonth.getFullYear();
       const month = currentMonth.getMonth() + 1;
-      this.currentMonth = `${year}-${month}`;
+      this.currentMonth = `${year}-${month.toString().padStart(2, "0")}`;
       this.generateWeeks();
     },
 
@@ -345,24 +350,15 @@ export default {
       currentMonth.setMonth(currentMonth.getMonth() + 1);
       const year = currentMonth.getFullYear();
       const month = currentMonth.getMonth() + 1;
-      this.currentMonth = `${year}-${month}`;
+      this.currentMonth = `${year}-${month.toString().padStart(2, "0")}`;
       this.generateWeeks();
     },
 
     async selectDate(day) {
-      // Obtenir la date actuelle
-      const currentDate = new Date();
-
-      // Obtenir l'année et le mois actuels
-      const year = currentDate.getFullYear();
+      const [year, month] = this.currentMonth.split("-");
       const formattedYear = String(year);
-      const month = currentDate.getMonth() + 1;
       const formattedMonth = String(month).padStart(2, "0");
-
-      // Formater le jour sélectionné en ajoutant un zéro au début si nécessaire
       const formattedDay = String(day).padStart(2, "0");
-
-      // Construire la date sélectionnée au format YYYY-MM-DD
       this.selectedDate = `${formattedYear}-${formattedMonth}-${formattedDay}`;
     },
 
@@ -394,84 +390,124 @@ export default {
 
       this.weeks = weeks;
     },
-    async getStades () {
+
+    async getStades() {
       let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/stades",{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => {
-        this.stades = response.data.data;
-      }).catch(err => console.log(err))
-    },
-    
-    async fetchEvents() {
-      let token = localStorage.getItem("userToken");
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/events/filter/${this.selectedDate}/${this.selectedStade}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      this.events = response.data.data;
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  async fetchMatchs() {
-      let token = localStorage.getItem("userToken");
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/matchs/filter/${this.selectedDate}/${this.selectedStade}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      this.matchs = response.data.data;
-    } catch (err) {
-      console.log(err);
-    }
-  },
-   async fetchMaintenances() {
-      let token = localStorage.getItem("userToken");
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/maintenances/filter/${this.selectedDate}/${this.selectedStade}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      this.maintenances = response.data.data;
-    } catch (err) {
-      console.log(err);
-    }
-  },
-    async getUser() {
-      let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/user", {
+      await axios
+        .get("http://127.0.0.1:8000/api/stades", {
           headers: {
             'Authorization': `Bearer ${token}`
           }
-      }).then((result) => {
-        this.userRole = result.data.role;
+        })
+        .then((response) => {
+          this.stades = response.data.data;
+        })
+        .catch(err => console.log(err))
+    },
 
-      }).catch((err) => {
+    async getEvents() {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/events/filterStade/${this.selectedStade}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.LEvents = response.data.data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async fetchEvents() {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/events/filter/${this.selectedDate}/${this.selectedStade}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.events = response.data.data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async fetchMatchs() {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/matchs/filter/${this.selectedDate}/${this.selectedStade}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.matchs = response.data.data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async fetchMaintenances() {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/maintenances/filter/${this.selectedDate}/${this.selectedStade}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.maintenances = response.data.data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async getUser() {
+      let token = localStorage.getItem("userToken");
+      await axios
+        .get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        .then((result) => {
+          this.userRole = result.data.role;
+        })
+        .catch((err) => {
           console.log(err);
-      })
-    }
+        })
+    },
+
+    async isDateReserved(day) {
+      // Vérifier si un événement existe pour la date et le stade sélectionnés
+      const eventExists = this.LEvents.some((levent) => {
+        const eventStartDate = new Date(levent.date_debut);
+        const eventEndDate = new Date(levent.date_fin);
+        const selectedDay = new Date(day);
+
+        return (
+          selectedDay >= eventStartDate &&
+          selectedDay <= eventEndDate &&
+          levent.stade_id === this.selectedStade
+        );
+      });
+
+      // Renvoyer true si un événement existe, sinon renvoyer false
+      return eventExists;
+    },
   },
-  mounted() {
+  async mounted() {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
     this.currentMonth = `${year}-${month}`;
 
     this.generateWeeks();
-    this.getStades();
-    this.getUser();
+    await this.getStades();
+    await this.getUser();
+    await this.getEvents();
     console.log(this.userRole);
   },
 };
+
+
 </script>
