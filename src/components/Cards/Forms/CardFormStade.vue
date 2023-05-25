@@ -247,14 +247,21 @@ export default {
       console.log(this.form);
       await axios.post("http://127.0.0.1:8000/api/stades",this.form,{headers: {
         'Authorization': `Bearer ${token}`
-      }}).then((result) => {
-        if (result.status != 201){
-          console.log("error");
-          return;
-        }
-        
+      }
+    }).then((result) => {
+        this.$swal({
+          icon: 'succes',
+          title: 'Ajout avec succé',
+          showConfirmButton: false,
+          timer: 1000
+        })
         console.log(result.data);
-      }).catch(err => console.log(err.message));
+      }).catch(err => this.$swal({
+        icon: 'warning',
+        title: err.message,
+        showConfirmButton: false,
+        timer: 1000
+      }));
       window.location.href = '/admin/stades';
       },
       async annuler () {

@@ -103,6 +103,54 @@
             </option>
           </select>
         </div>
+         <div v-if="this.form.role === 'Admin Equipe'" class="w-full">
+        <div class="w-full lg:w-6/12 px-4 mb-3">
+          <label
+                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                      for="nom-equipe1"
+                    >
+                      Nom de l'équipe :
+                    </label>
+                    <select v-model="this.form.nom_equipe"
+                      id="nom-equipe"
+                      name="nom-equipe"
+                      required
+                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+                    >
+                      <option value="">Choisissez une équipe</option>
+                      <option
+                        v-for="team in this.equipes"
+                        :key="team.id"
+                        :value="team.nom_equipe"
+                        :label="team.nom_equipe"
+                      />
+                    </select>
+        </div>
+        </div>
+         <div v-if="this.form.role === 'Admin Ste'" class="w-full">
+        <div class="w-full lg:w-6/12 px-4 mb-3">
+          <label
+                      class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
+                      for="nom-equipe1"
+                    >
+                      Nom Societe de Maintenance
+                    </label>
+                    <select v-model="this.form.nom_ste"
+                      id="nom-ste"
+                      name="nom-ste"
+                      required
+                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+                    >
+                      <option value="">Choisissez une societe</option>
+                      <option
+                        v-for="team in this.societe_maintenances"
+                        :key="team.id"
+                        :value="team.nom_ste"
+                        :label="team.nom_ste"
+                      />
+                    </select>
+        </div>
+        </div>
       </form>
       <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-center">
         <button
@@ -197,6 +245,8 @@ export default {
         password: "",
         permissions: [],
         role: "",
+        nom_equipe:"",
+        nom_ste:"",
       }
     }
   },
@@ -217,22 +267,44 @@ export default {
       }).then((result) => {
         this.$swal({
           icon: 'succes',
-          title: 'Your work has been saved',
+          title: 'Ajout avec succé',
           showConfirmButton: false,
-          timer: 5500
+          timer: 1000
         })
         console.log(result.data);
       }).catch(err => this.$swal({
         icon: 'warning',
         title: err.message,
         showConfirmButton: false,
-        timer: 5500
+        timer: 1000
       }));
       window.location.href = '/admin/users'; 
     },
     async annuler () {
       window.location.href = '/admin/users'; 
+    },
+     async getEquipes () {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/equipes",{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.equipes = response.data.data;
+        console.log(this.equipes);
+      }).catch(err => console.log(err))
+    },
+    async getSte () {
+      let token = localStorage.getItem("userToken");
+      await axios.get("http://127.0.0.1:8000/api/societeMaintenances",{headers: {
+        'Authorization': `Bearer ${token}`
+      }}).then((response) => {
+        this.equipes = response.data.data;
+        console.log(this.equipes);
+      }).catch(err => console.log(err))
     }
+  },
+  mounted() {
+    this.getSte();
+    this.getEquipes();
   }
 };
 </script>

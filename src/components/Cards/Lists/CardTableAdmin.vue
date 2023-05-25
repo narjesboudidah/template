@@ -46,25 +46,36 @@
       <table class="items-center w-full bg-transparent border-collapse">
         <thead>
           <tr>
-            <th
-              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            
+            <th  
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center "
             >
               Nom
             </th>
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
-              Email
+             Rôle
             </th>
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
-              Rôle
+              Nom Equipe
             </th>
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
-              Date de création
+              Nom Ste
+            </th>
+            <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+            Email
+            </th>
+            <th
+              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+            >
+              Téléphone
             </th>
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
@@ -77,7 +88,7 @@
           <!--admin instance in table admins with key admin_id-->
           <tr v-for="admin in this.admins" :key="admin.id">
             <td
-              class="px-7 border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
+              class="px-77 border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
               <img
                 :src="bootstrap"
@@ -88,14 +99,24 @@
               <span class="ml-3"> {{ admin.prenom + " " + admin.nom }} </span>
             </td>
             <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              {{ admin.email }}
-            </td>
-            <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-pink-400 text-xss text-center p-4"
             >
-              {{ admin.role || "Should MySQL LEFT JOIN the role" }}
+              {{ admin.role[0].name || "Should MySQL LEFT JOIN the role" }}
+            </td>
+            <td
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700  text-center p-4"
+            >
+              {{  admin.role[0].name === 'Admin Equipe' ? admin.nom_equipe :'N/A' }}
+            </td>
+            <td
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700  text-center p-4"
+            >
+              {{ admin.role[0].name === 'Admin Ste' ? admin.nom_ste:'N/A' }}
+            </td>
+            <td
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700  text-center p-4"
+            >
+              {{ admin.email }}
             </td>
             <td
               class="px-6 bg-white align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
@@ -143,10 +164,6 @@ export default {
     };
   },
 
-  mounted() {
-    this.getUsers();
-  },
-
   methods: {
     async getUsers() {
       let token = localStorage.getItem("userToken");
@@ -171,20 +188,23 @@ export default {
         .then(() => {
           this.$swal({
             icon: "succes",
-            title: "Deleted User",
+            title: " Admin Supprimé ",
             showConfirmButton: false,
-            timer: 5500,
+            timer: 1000,
           });
         })
         .catch(() => {
           this.$swal({
             icon: "error",
-            title: "cannot delete user",
+            title: "Impossible de supprimer Admin",
             showConfirmButton: false,
-            timer: 5500,
+            timer: 1000,
           });
         });
     },
+  },
+  mounted() {
+    this.getUsers();
   },
 };
 </script>

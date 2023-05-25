@@ -168,6 +168,22 @@ export default {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+        })
+        .then(() => {
+          this.$swal({
+            icon: "succes",
+            title: "Evenement supprimé",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        })
+        .catch(() => {
+          this.$swal({
+            icon: "error",
+            title: "Impossible de supprimer event",
+            showConfirmButton: false,
+            timer: 1000,
+          });
         });
     },
     async getUserPermission() {

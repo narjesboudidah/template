@@ -7,39 +7,10 @@
       <div class="flex flex-wrap items-center">
         <div class="relative w-full px-4 max-w-full flex-grow flex-1">
           <h3 class="font-semibold text-base text-blueGray-700 ">
-            Traveaux
+            Travaux
           </h3>
         </div>
     
-        <div
-          class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
-        >
-          <button
-            class=" icon-sidebar-click"
-            type="button"
-            style="padding-right: 0.7rem; padding-left: 0.7rem"
-           >
-           <router-link
-              to="/admin/Maintenance"
-              v-slot="{ href, navigate, isActive }"
-            >
-              <a
-                 style="font-family: inherit,serif;font-size: 15px;"
-                :href="href"
-                @click="navigate"
-                class=""
-                :class="[
-                  isActive
-                    ? 'box-sidebar hover:text-red-600 '
-                    : 'hover:text-blueGray-500',
-                ]"
-              
-          >
-          voir tous
-          </a>
-           </router-link>
-          </button>
-        </div>
       </div>
     </div>
     <div class="block w-full overflow-x-auto">
@@ -69,12 +40,12 @@
             <th
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap px-6 align-middle  border border-solid border-blueGray-50 py-3 font-bold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
-              Projet1
+              Ween
             </th>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
-              VL
+              Rades
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
@@ -98,12 +69,12 @@
             <th
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left text-left"
             >
-              Projet 2
+              Ween
             </th>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
-              Ste2
+              Stade HS
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
@@ -117,35 +88,6 @@
                     <div
                       style="width: 70%;"
                       class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left text-left"
-            >
-              Projet3
-            </th>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
-            >
-              VL
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
-            >
-              <div class="flex items-center">
-                <span class="mr-2">80%</span>
-                <div class="relative w-full">
-                  <div
-                    class="overflow-hidden h-2 text-xs flex rounded bg-purple-200"
-                  >
-                    <div
-                      style="width: 80%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"
                     ></div>
                   </div>
                 </div>
@@ -175,35 +117,6 @@
                     <div
                       style="width: 75%;"
                       class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-lightBlue-500"
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left text-left"
-            >
-              Projet5
-            </th>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
-            >
-              VL
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
-            >
-              <div class="flex items-center">
-                <span class="mr-2">30%</span>
-                <div class="relative w-full">
-                  <div
-                    class="overflow-hidden h-2 text-xs flex rounded bg-orange-200"
-                  >
-                    <div
-                      style="width: 30%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
                     ></div>
                   </div>
                 </div>

@@ -2853,6 +2853,10 @@ select {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+.px-15 {
+  padding-left: 3rem;
+  padding-right: 1rem;
+}
 
 .px-44 {
   padding-left: 32rem;
@@ -2872,10 +2876,16 @@ select {
   padding-left: 1.60rem;
   padding-right: 1.60rem;
 }
+.px-66 {
+  padding-left: 1rem;
+}
 .px-7 {
   padding-left: 3rem;
 }
-
+.px-77 {
+  padding-left: 10rem;
+  padding-right: 2rem;
+}
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;

@@ -65,13 +65,6 @@
                       v-model="form.password"
                     />
                   </div>
-                  <div>
-                    <div class="w-1/2">
-                      <a href="javascript:void(0)" class="text-blueGray-500">
-                        <small style="color:#a0a78e;">Forgot password?</small>
-                      </a>
-                    </div>
-                  </div>
 
                   <div class="text-center mt-6">
                     <button 

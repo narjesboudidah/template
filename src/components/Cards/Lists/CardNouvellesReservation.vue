@@ -19,9 +19,7 @@
             </span>
           </button>
         </div>
-        <div
-          class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
-        >
+        <div class="text-right">
           <button
             class="icon-sidebar-click"
             type="button"
