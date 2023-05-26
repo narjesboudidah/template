@@ -17,13 +17,13 @@
           <div class="w-full lg:w-6/12 px-4 mb-3">
             <label
               class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-              for="type-event">
+              for="type_event">
               Type event :
             </label>
               <select
                 v-model="this.form.type_event"
-                id="type-event"
-                name="type-event"
+                id="type_event"
+                name="type_event"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               >
@@ -41,7 +41,7 @@
                   <div class="w-full lg:w-6/12 px-4 mb-3">
                     <label
                       class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                      for="type-match"
+                      for="type_match"
                     >
                       Type du Match :
                     </label>
@@ -60,13 +60,13 @@
                   <div class="w-full lg:w-6/12 px-4 mb-3">
                     <label
                       class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                      for="nom-equipe1"
+                      for="equipe1_id"
                     >
                       Nom de l'équipe 1:
                     </label>
-                    <select v-model="this.form.nom_equipe1"
-                      id="nom-equipe1"
-                      name="nom-equipe1"
+                    <select v-model="this.form.equipe1_id"
+                      id="equipe1_id"
+                      name="equipe1_id"
                       required
                       class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
                     >
@@ -74,21 +74,21 @@
                       <option
                         v-for="team in this.equipes"
                         :key="team.id"
-                        :value="team.nom_equipe1"
-                        :label="team.nom_equipe1"
+                        :value="team.equipe1_id"
+                        :label="team.equipe1_id"
                       />
                     </select>
                   </div>
                   <div class="w-full lg:w-6/12 px-4 mb-3">
                     <label
                       class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                      for="nom-equipe2"
+                      for="equipe2_id"
                     >
                       Nom de l'équipe 2:
                     </label>
-                    <select v-model="this.form.nom_equipe2"
-                      id="nom-equipe2"
-                      name="nom-equipe2"
+                    <select v-model="this.form.equipe2_id"
+                      id="equipe2_id"
+                      name="equipe2_id"
                       required
                       class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
                     >
@@ -96,8 +96,8 @@
                       <option
                         v-for="team in this.equipes"
                         :key="team.id"
-                        :value="team.nom_equipe2"
-                        :label="team.nom_equipe2"
+                        :value="team.equipe2_id"
+                        :label="team.equipe2_id"
                       />
                     </select>
                   </div>
@@ -109,15 +109,15 @@
           <div class="w-full lg:w-6/12 px-4 mb-3" v-if="this.form.type_event === 'Evénements spéciaux'">
             <label
               class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-              for="nom-event"
+              for="nom_event"
             >
               Nom Event :
             </label>
             <input
               v-model="this.form.nom_event" 
               type="text"
-              id="nom-event"
-              name="nom-event"
+              id="nom_event"
+              name="nom_event"
               placeholder="Nom Event"
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
             />
@@ -125,12 +125,12 @@
           <div class="w-full lg:w-6/12 px-4 mb-3">
             <label
               class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-              for="nom"
+              for="stade_id"
             >
               Nom du Stade:
             </label>
             <select
-              v-model="this.form.nom"
+              v-model="this.form.stade_id"
               required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
             >
@@ -138,8 +138,8 @@
               <option 
               v-for="team in this.stades"
                         :key="team.id"
-                        :value="team.nom"
-                        :label="team.nom"
+                        :value="team.id"
+                        :label="team.id"
               >
                
               </option>
@@ -148,7 +148,7 @@
 
           <div class="w-full lg:w-6/12 px-4 mb-3">
             <label 
-              for="date-debut-competition"
+              for="date_debut"
               class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
             >
               Date début:
@@ -156,19 +156,18 @@
             <input
               v-model="this.form.date_debut"
               type="date"
-              id="date-debut-competition"
-              name="date-debut-competition"
-              placeholder="Date début de compétition"
+              id="date_debut"
+              name="date_debut"
+              placeholder="Date début de l'event"
               required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-              aria-describedby="date-debut-competition-helper"
-              min="{{ new Date().toISOString().slice(0, 10) }}"
+            
             />
           </div>
 
           <div class="w-full lg:w-6/12 px-4 mb-3">
             <label
-              for="date-fin-competition"
+              for="date-fin"
               class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
             >
               Date fin:
@@ -176,19 +175,16 @@
             <input 
               v-model="this.form.date_fin"
               type="date"
-              id="date-fin-competition"
-              name="date-fin-competition"
-              placeholder="Date fin de compétition"
+              id="date_fin"
+              name="date_fin"
+              placeholder="Date fin de l'event"
               required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-              aria-describedby="date-fin-competition-helper"
-              min="{{ new Date().toISOString().slice(0, 10) }}"
-              onchange="validateDate()"
             />
           </div>
           <div class="w-full lg:w-6/12 px-4 mb-3">
             <label
-              for="date-debut-Event"
+              for="heure_debut"
               class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
             >
               Heure début:
@@ -196,18 +192,17 @@
             <input
               v-model="this.form.heure_debut"
               type="time"
-              id="heure-debut-Event"
-              name="heure-debut-Event"
-              placeholder="heure-debut-event"
+              id="heure_debut"
+              name="heure_debut"
+              placeholder="heure_debut"
               required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-              aria-describedby="Heure-debut-Event-helper"
             />
           </div>
 
           <div class="w-full lg:w-6/12 px-4 mb-3">
             <label
-              for="Heure-fin-Event"
+              for="heure_fin"
               class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
             >
               Heure fin:
@@ -215,24 +210,24 @@
             <input
               v-model="this.form.heure_fin"
               type="time"
-              id="Heure-fin-Event"
-              name="Heure-fin-Event"
+              id="heure_fin"
+              name="heure_fin"
               placeholder="Heure fin de event"
               required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-              aria-describedby="Heure-fin-Event-helper"
+              
             />
           </div>
           <div class="w-full lg:w-6/12 px-4 mb-3" v-if="this.form.type_event === 'Entraînement'">
                     <label
                       class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
-                      for="nom-equipe"
+                      for="equipe1_id"
                     >
                       Nom de l'équipe 
                     </label>
-                    <select v-model="this.form.nom_equipe"
-                      id="nom-equipe"
-                      name="nom-equipe"
+                    <select v-model="this.form.equipe1_id"
+                      id="equipe1_id"
+                      name="equipe1_id"
                       required
                       class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
                     >
@@ -240,8 +235,8 @@
                       <option
                         v-for="team in this.equipes"
                         :key="team.id"
-                        :value="team.nom_equipe"
-                        :label="team.nom_equipe"
+                        :value="team.equipe1_id"
+                        :label="team.equipe1_id"
                       />
                     </select>
                   </div>
@@ -275,6 +270,7 @@ export default {
   data() {
         return{
           form : {
+            stade_id: 0,
             nom_event: "",
             type_event : "",
             date_debut: "",
@@ -282,31 +278,15 @@ export default {
             heure_debut : "",
             heure_fin : "",
             type_match : "",
-            nom_equipe1: "",
-            nom_equipe2: "",
-            nom_match: "",
-            nom_equipe:"",
-            nom:"",
+            equipe1_id: null,
+            equipe2_id: null,
           },
           equipes:[],
           stades:[],
       }},
 
   methods: {
-    validateDate() {
-      const startDateInput = document.querySelector("#date-debut-competition");
-      const endDateInput = document.querySelector("#date-fin-competition");
-      const startDate = new Date(startDateInput.value);
-      const endDate = new Date(endDateInput.value);
-
-      if (endDate < startDate) {
-        endDateInput.setCustomValidity(
-          "La date de fin doit être supérieure à la date de début."
-        );
-      } else {
-        endDateInput.setCustomValidity("");
-      }
-    },
+   
     async getEquipes () {
       let token = localStorage.getItem("userToken");
       await axios.get("http://127.0.0.1:8000/api/equipes",{headers: {
@@ -320,16 +300,22 @@ export default {
         let token = localStorage.getItem("userToken");
         console.log(this.form);
         await axios.post("http://127.0.0.1:8000/api/events",this.form,{headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         }}).then((result) => {
-          if (result.status != 201){
-            console.log("error");
-            return;
-          }
-          
-          console.log(result.data);
-        }).catch(err => console.log(err.message));
-        window.location.href = '/admin/events';
+        this.$swal({
+          icon: 'succes',
+          title: 'Ajout avec succé',
+          showConfirmButton: true,
+          timer: 70000
+        })
+        console.log(result.data);
+      }).catch(err => this.$swal({
+        icon: 'warning',
+        title: err.message,
+        showConfirmButton: true,
+        timer: 70000
+      }));
       },
       async annuler () {
         window.location.href = '/admin/events'; 
