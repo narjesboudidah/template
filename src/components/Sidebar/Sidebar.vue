@@ -27,6 +27,9 @@
             style="margin-right: 3px;"
             :src="image"
           />
+          <h3 class="text-blueGray-200 text-xl font-bold">
+                    Bienvenue sur <b style="color:#77a30b">PlanStadium</b> !
+                  </h3>
          <p style="margin-left: 3px; font-size: 16px; color:#47b839;">PlanStadium</p>
       </span>
       </router-link>

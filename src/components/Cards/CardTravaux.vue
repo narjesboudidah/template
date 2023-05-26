@@ -58,8 +58,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="maintenance in maintenances" :key="maintenance.id">
-            <td style="margin-right: 2rem" class="px-6 border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center">
+          <tr 
+          v-for="maintenance in maintenances" :key="maintenance.id">
+            <td 
+            style="margin-right: 2rem" 
+            class="px-6 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center">
               <img :src="bootstrap" class="h-12 w-12 bg-white rounded-full border" alt="..." />
               <span class="ml-3">{{ maintenance.admin_ste_id || 'null' }}</span>
             </td>
