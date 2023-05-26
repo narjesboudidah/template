@@ -18,13 +18,30 @@
             </select>
           </div>
           <div class="w-full lg:w-6/12 px-4 mb-3">
-            <label for="date-debut" class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2">Date début:</label>
-            <input v-model="this.form.date_debut" type="date" id="date-debut" name="date-debut" placeholder="date-debut" required class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow" aria-describedby="date-debut-helper" />
+            <label 
+            for="date-debut" 
+            class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2">
+            Date début:</label>
+            <input
+             v-model="this.form.date_debut" 
+             type="date" id="date-debut" 
+             name="date-debut" placeholder="date-debut" 
+             required class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
+             aria-describedby="date-debut-helper" />
           </div>
 
           <div class="w-full lg:w-6/12 px-4 mb-3">
-            <label for="date-fin" class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2">Date fin:</label>
-            <input v-model="this.form.date_fin" type="date" id="date-fin" name="date-fin" placeholder="date-fin" required class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow" aria-describedby="date-fin-helper" />
+            <label 
+            for="date-fin" 
+            class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2">
+            Date fin:</label>
+            <input 
+            v-model="this.form.date_fin" 
+            type="date" id="date-fin" 
+            name="date-fin" placeholder="date-fin" 
+            required
+            class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow" 
+            aria-describedby="date-fin-helper" />
           </div>
 
           <div class="w-full lg:w-6/12 px-4 mb-3">
