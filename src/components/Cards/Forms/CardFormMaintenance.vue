@@ -138,10 +138,6 @@ export default {
         }}).then((result) => {
           console.log(result.data);
         }).catch(err => console.log(err.message));
-        window.location.href = '/plan';
-      },
-      async annuler () {
-        window.location.href = '/plan'; 
       },
 },  
 mounted() {
