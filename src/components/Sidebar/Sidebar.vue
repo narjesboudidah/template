@@ -27,6 +27,7 @@
             style="margin-right: 3px;"
             :src="image"
           />
+         
          <p style="margin-left: 3px; font-size: 16px; color:#47b839;">PlanStadium</p>
       </span>
       </router-link>

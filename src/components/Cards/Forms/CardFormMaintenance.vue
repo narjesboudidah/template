@@ -74,12 +74,17 @@
         </div>
       </form>
       <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-center">
-        <button class="boutton-click active:bg-blueGray-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear" type="button" style="padding-right: 0.7rem; padding-left: 0.7rem" @click="submit()">confirmer</button>
+        <button class="boutton-click active:bg-blueGray-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear" 
+        type="button" 
+        style="padding-right: 0.7rem; padding-left: 0.7rem;"
+         @click="submit()"
+         >confirmer
+        </button>
         <button
           class="boutton-annuler bg-blueGray-500 text-blueGray-400 active:bg-red-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear"
           type="button"
           style="padding-right: 0.7rem; padding-left: 0.7rem"
-          @click="annuler()"
+          v-on:click="annuler()"
         >
           annuler
         </button>
@@ -135,10 +140,26 @@ export default {
         await axios.post("http://localhost:8000/api/maintenances",this.form,{headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
-        }}).then((result) => {
-          console.log(result.data);
-        }).catch(err => console.log(err.message));
+        }}).then(() => {
+          this.$swal({
+            icon: "succes",
+            title: " Demande envoyé ",
+            showConfirmButton: false,
+            timer: 5500,
+          }); window.location.href = '/plan/planning';
+        })
+        .catch(() => {
+          this.$swal({
+            icon: "error",
+            title: "Erreur",
+            showConfirmButton: false,
+            timer: 5500,
+          });
+        });
       },
+      async annuler () {
+      window.location.href = '/plan/planning'; 
+    },
 },  
 mounted() {
   this.getStades();

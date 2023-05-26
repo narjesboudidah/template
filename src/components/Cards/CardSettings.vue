@@ -29,7 +29,7 @@
             >
             settings_account_box
             </span>
-            Modifier Profile
+             Profile
           </a>
         </router-link>
 
@@ -157,7 +157,7 @@
             >
             logout
           </span>
-          Logout
+          Se déconnecté 
         </a>
         </router-link>
       </div>

@@ -30,7 +30,8 @@
       <table class="items-center w-full bg-transparent border-collapse">
         <thead>
           <tr>
-            <th class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center">
+            <th v-if="userRole === 'Admin Federation'"
+            class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center">
               Nom Admin Equipe
             </th>
             <th class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center">
@@ -63,7 +64,7 @@
             <th class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center">
               Nom de l'équipe 2
             </th>
-             <th
+             <th 
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
               Actions
@@ -72,7 +73,8 @@
         </thead>
         <tbody>
           <tr v-for="event in events" :key="event.id">
-            <td class="border-t-0 border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center">
+            <td v-if="userRole === 'Admin Federation'"
+            class="border-t-0 border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center">
               <img :src="bootstrap" class="h-12 w-12 bg-white rounded-full border" alt="..." />
               <span class="ml-3">{{ event.equipe1_id || 'null' }}</span>
             </td>
@@ -106,11 +108,12 @@
             <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center">
               {{ event.type_event === 'Match' ? event.equipe2_id : 'N/A' }}
             </td>
-            <td
+            <td 
               class="border-t-0 border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
             >
-              <router-link to="/form/AjoutAdmin" v-slot="{ href, navigate }">
-                <button
+              <router-link v-if="userRole === 'Admin Federation' "
+              to="/form/AjoutAdmin" v-slot="{ href, navigate }">
+                <button 
                   :href="href"
                   @click="navigate"
                   class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -202,10 +205,10 @@ export default {
     hasPermission(permission) {
       return this.permissions.includes(permission);
     },
+   
   },
   mounted() {
     this.getEvents();
-    this.deleteEvent();
     this.getUserPermission();
   },
 };

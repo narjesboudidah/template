@@ -52,7 +52,7 @@
       <table class="items-center w-full bg-transparent border-collapse">
         <thead>
           <tr>
-            <th
+            <th v-if="userRole === 'Admin Federation'"
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
               Nom
@@ -101,15 +101,16 @@
             >
             Nom de l'équipe 2
             </th>
-            <th
+            <th 
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             > Action
             </th>
+            
           </tr>
         </thead>
         <tbody>
           <tr v-for="reservation in this.reservations" :key="reservation.id" >
-            <td
+            <td v-if="userRole === 'Admin Federation'"
               style="margin-top: 0.1rem; margin-right: 2rem"
               class="px-6 align-middle  border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
@@ -178,7 +179,7 @@
               }}
             </td>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
+              class="border-t-0 px-6 align-middle border-solid border-blueGray-50 text-xs whitespace-nowrap p-4 text-center"
             >
               <button v-if="hasPermission('Confirmer Reservation')"
                 class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -193,6 +194,13 @@
                 v-on:click="this.refuser(reservation.id)"
               >
                 <i class="fa fa-ban"></i>
+              </button>
+              <button v-if="userRole === 'Admin Equipe'"
+                class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                v-on:click="this.modifier(reservation.id)"
+              >
+                <i class="fa fa-pen"></i>
               </button>
               <button v-if="userRole === 'Admin Equipe'"
                 class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -301,6 +309,7 @@ async accepter(id) {
       }
       window.location.reload();
     },
+
     async getUser() {
       let token = localStorage.getItem("userToken");
       await axios.get("http://127.0.0.1:8000/api/user", {
@@ -313,6 +322,20 @@ async accepter(id) {
       }).catch((err) => {
           console.log(err);
       })
+    },
+    async update(id) {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.update(`http://127.0.0.1:8000/api/reservation/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        console.log(response.data.message);
+      } catch (err) {
+        console.log(err);
+      }
+      window.location.reload();
     },
     async getUserPermission() {
       try {
