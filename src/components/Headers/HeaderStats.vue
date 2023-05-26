@@ -2,16 +2,7 @@
   <!-- Header -->
   <div
     class="relative md:pt-32 pb-32 pt-12"
-    style="
-      background-image: url('https://images.unsplash.com/photo-1595407409955-32f127603183?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1865&q=80');
-      background-position-y: 50%;
-      background-size: cover;
-      background-repeat: no-repeat;
-      border-radius: 1rem;
-      margin-top: 2rem;
-      margin-right: 1rem;
-      margin-left:  4.5rem;
-    "
+    :style="imageStyle"
   >
     <div
       style="
@@ -66,9 +57,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import CardStats from "@/components/Cards/CardStats.vue";
-
+import axios from "axios";
 export default {
   components: {
     CardStats,
@@ -78,30 +68,58 @@ export default {
       users: 0,
       stades: 0,
       equipes: 0,
-      ste_maintenance: 0
+      ste_maintenance: 0,
+      imageUrls: [
+        //'https://images.pexels.com/photos/3571569/pexels-photo-3571569.jpeg?auto=compress&cs=tinysrgb&w=600',
+        //'https://images.pexels.com/photos/1657338/pexels-photo-1657338.jpeg?auto=compress&cs=tinysrgb&w=600',
+'https://images.unsplash.com/flagged/photo-1552987246-c68926651688?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
+      ],
+      //intervalDuration: 1000, // 10 secondes
+      currentIndex: 0
     };
+  },
+  computed: {
+    imageStyle() {
+      return {
+        backgroundImage: `url('${this.imageUrls[this.currentIndex]}')`,
+        backgroundPositionY: '50%',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        borderRadius: '1rem',
+        marginTop: '2rem',
+        marginRight: '1rem',
+        marginLeft: '4.5rem'
+      };
+    }
   },
   methods: {
     async fetchData() {
-        let token = localStorage.getItem("userToken");
-        await axios.get("http://127.0.0.1:8000/api/stats",{headers: {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/stats", {
+          headers: {
             'Authorization': `Bearer ${token}`
-        }}).then((response)=>{
+          }
+        });
         this.users = response.data.users;
         this.stades = response.data.stades;
         this.equipes = response.data.equipes;
         this.ste_maintenance = response.data.ste_maintenance;
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(error);
-      })
+      }
+    },
+    changeImage() {
+      this.currentIndex = (this.currentIndex + 1) % this.imageUrls.length;
     }
   },
   mounted() {
     this.fetchData();
+    setInterval(this.changeImage, this.intervalDuration);
   },
 };
 </script>
+
 <style scoped>
 .min-h-screen-75 {
   height: calc(100vh - 0rem);

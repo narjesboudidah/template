@@ -16,19 +16,18 @@
       </button>
       <!-- Brand -->
       <router-link
-        class="md:block text-left md:pb-2  mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-1"
+        class="md:block md:pb-2  mr-0 inline-block whitespace-nowrap text-sm font-bold p-4 px-1"
         to="/"
       >
-      <span 
-          class="w-13 h-13 text-sm bg-white inline-flex items-center justify-center rounded-full px-01"
-        >
+      <span class="w-13 h-13 text-sm bg-white inline-flex items-center rounded-full px-01" style="margin-left:-6rem;">
       <img
             alt="..."
-            style="margin-right: 3px;"
+            style="margin-right: 1.5px;"
             :src="image"
           />
-         
-         <p style="margin-left: 3px; font-size: 16px; color:#47b839;">PlanStadium</p>
+          <h3 class="text-blueGray-200 font-bold" style="color:#47b839;font-size: 16px">
+            PlanStadium
+          </h3>
       </span>
       </router-link>
       <!-- User -->
