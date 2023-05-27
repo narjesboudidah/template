@@ -391,7 +391,6 @@
 
 <script>
 import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
-import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
 import image from "@/assets/img/photo.png";
 import axios from 'axios';
 export default {
@@ -422,7 +421,6 @@ export default {
   },
   components: {
     NotificationDropdown,
-    UserDropdown,
    
   },
   mounted() {

@@ -2571,6 +2571,9 @@ select {
 .-mt-64 {
   margin-top: -16rem;
 }
+.-mt-66 {
+  margin-top: -24rem;
+}
 
 .last\:mr-0:last-child {
   margin-right: 0px;
@@ -2855,7 +2858,7 @@ select {
 }
 .px-15 {
   padding-left: 3rem;
-  padding-right: 1rem;
+  padding-right: -32rem;
 }
 
 .px-44 {

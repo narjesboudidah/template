@@ -8,11 +8,7 @@
           </h3>
         </div>
         <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-          <button type="button" class="text-blueGray-700">
-            <span class="material-symbols-outlined icon-sidebar">
-              filter_alt
-            </span>
-          </button>
+        <admin-dropdown/>
         </div>
       </div>
     </div>
@@ -93,6 +89,7 @@
 
 <script>
 import bootstrap from '@/assets/img/bootstrap.jpg';
+import AdminDropdown from "@/components/Dropdowns/AdminDropdown.vue";
 import axios from 'axios';
 
 export default {
@@ -102,6 +99,10 @@ export default {
       maintenances: [],
       userRole: '',
     };
+  },
+
+  components: {
+    AdminDropdown,
   },
   methods: {
     async getMaintenances() {

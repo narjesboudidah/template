@@ -8,9 +8,7 @@
           </h3>
         </div>
         <div class="relative w-full px-15 max-w-full flex-grow flex-1 text-right">
-          <button type="button" class="text-blueGray-700">
-            <span class="material-symbols-outlined icon-sidebar">filter_alt</span>
-          </button>
+        <admin-dropdown/>
         </div>
         <div class="text-right">
           <button class="icon-sidebar-click" type="button" style="padding-right: 0.7rem; padding-left: 0.7rem">
@@ -115,6 +113,7 @@
 
 <script>
 import bootstrap from "@/assets/img/bootstrap.jpg";
+import AdminDropdown from "@/components/Dropdowns/AdminDropdown.vue";
 import axios from "axios";
 
 export default {
@@ -125,6 +124,9 @@ export default {
       permissions: [],
       userRole: '',
     };
+  },
+  components: {
+    AdminDropdown,
   },
   methods: {
     async getMaintenances() {
@@ -183,6 +185,21 @@ export default {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
+        }).then(() => {
+          this.$swal({
+            icon: "succes",
+            title: " Demande Supprimé ",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        })
+        .catch(() => {
+          this.$swal({
+            icon: "error",
+            title: "Erreur",
+            showConfirmButton: false,
+            timer: 1000,
+          });
         });
         console.log(response.data.message);
       } catch (err) {

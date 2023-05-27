@@ -13,11 +13,7 @@
         <div
           class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
         >
-          <button type="button" class="text-blueGray-700">
-            <span class="material-symbols-outlined icon-sidebar">
-              filter_alt
-            </span>
-          </button>
+        <admin-dropdown/>
         </div>
       </div>
     </div>
@@ -131,7 +127,8 @@
               type="button" @click="update(maintenance.id)">
                 <i class="fa fa-pen"></i>
               </button>
-              <button v-if="userRole === 'Admin Ste'" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="annuler(maintenance.id)">
+              <button v-if="userRole === 'Admin Ste'" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" 
+              @click="annuler(maintenance.id)">
                 <i class="fa fa-ban"></i>
               </button>
             </td>
@@ -143,6 +140,7 @@
 </template>
 <script>
 import bootstrap from "@/assets/img/bootstrap.jpg";
+import AdminDropdown from "@/components/Dropdowns/AdminDropdown.vue";
 import axios from "axios";
 export default {
   data() {
@@ -152,7 +150,9 @@ export default {
       userRole: '',
     };
   },
-
+  components: {
+    AdminDropdown,
+  },
   methods: {
     async getMaintenances () {
       let token = localStorage.getItem("userToken");
@@ -198,6 +198,21 @@ export default {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
+        }).then(() => {
+          this.$swal({
+            icon: "succes",
+            title: " Demande Supprimé ",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        })
+        .catch(() => {
+          this.$swal({
+            icon: "error",
+            title: "Erreur",
+            showConfirmButton: false,
+            timer: 1000,
+          });
         });
         console.log(response.data.message);
       } catch (err) {

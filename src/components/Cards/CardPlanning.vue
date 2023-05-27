@@ -114,7 +114,7 @@
         class="relative px-4 text-right" style="width: 13rem; position: absolute;
           bottom: 1%;
           left: 50%;
-          transform: translate(-50%, 10%);margin-bottom: 1rem;"
+          transform: translate(-50%, 10%);margin-bottom: 3rem;"
         >
           <button
             class="icon-sidebar-click mt-4 w-full"
