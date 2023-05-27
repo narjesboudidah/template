@@ -2,10 +2,10 @@
   <div>
     <navbar />
     <main class="profile-page">
-      <section class="relative block h-500-px">
+      <section class="relative block h-400-px">
         <div
-          class="absolute top-0 w-full h-full bg-center bg-cover"
-          style="
+          class="absolute top-25 w-full h-full bg-center bg-cover"
+          style="border-radius: 1rem;
             background-image: url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
           "
         >
@@ -28,13 +28,13 @@
             y="0"
           >
             <polygon
-              class="text-blueGray-200 fill-current"
+              class="text-blueGray-100 fill-current"
               points="2560 0 2560 100 0 100"
             ></polygon>
           </svg>
         </div>
       </section>
-      <section class="relative py-16 bg-blueGray-200">
+      <section class="relative py-16 bg-blueGray-100">
         <div class="container mx-auto px-4">
           <div
             class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64"
@@ -52,7 +52,7 @@
                 </div>
                 <div class="icon-profile">
                   <router-link to="/admin/settings">
-                    <span class="material-symbols-outlined"> arrow_back </span>
+                    <span class="material-symbols-outlined "> arrow_back </span>
                   </router-link>
                 </div>
               </div>
@@ -81,15 +81,15 @@
                   Admin Ste
                 </div>
               </div>
-              <div class="mt-10 py-10 border-blueGray-200 text-center">
+              <div class="mt-10 py-11 border-blueGray-200">
                 <form>
                   <div class="flex flex-wrap">
                     <div class="w-full lg:w-6/12 px-4 mb-3">
-                      <label
+                      <label style="margin-left:0.5rem;"
                         class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                         for="nom"
                       >
-                        Nom :
+                        Nom 
                       </label>
                       <input
                         type="text"
@@ -101,11 +101,11 @@
                       />
                     </div>
                     <div class="w-full lg:w-6/12 px-4 mb-3">
-                      <label
+                      <label style="margin-left:0.5rem;"
                         class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                         for="prenom"
                       >
-                        Prénom :
+                        Prénom 
                       </label>
                       <input
                         type="text"
@@ -117,11 +117,11 @@
                       />
                     </div>
                     <div class="w-full lg:w-6/12 px-4 mb-3">
-                      <label
+                      <label style="margin-left:0.5rem;"
                         class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                         for="telephone"
                       >
-                        Téléphone :
+                        Téléphone 
                       </label>
                       <input
                         type="tel"
@@ -134,13 +134,13 @@
                       />
                     </div>
                     <div class="w-full lg:w-6/12 px-4 mb-3">
-                      <label
+                      <label style="margin-left:0.5rem;"
                         class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                         for="email"
                       >
-                        Email :
+                        Email 
                       </label>
-                      <input
+                      <input style="margin-left:0.5rem;"
                         type="email"
                         id="email"
                         name="email"
@@ -151,11 +151,11 @@
                     </div>
 
                     <div class="w-full lg:w-6/12 px-4 mb-3">
-                      <label
+                      <label style="margin-left:0.5rem;"
                         class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                         for="adresse"
                       >
-                        Adresse :
+                        Adresse 
                       </label>
                       <input
                         type="text"
@@ -173,7 +173,7 @@
                   style="margin-top: 1rem"
                 >
                   <button
-                    class="boutton-click active:bg-blueGray-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear"
+                    class="boutton-clickk active:bg-blueGray-300 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear"
                     type="button"
                     style="padding-right: 0.7rem; padding-left: 0.7rem"
                     v-on:click="submit()"

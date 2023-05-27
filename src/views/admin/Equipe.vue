@@ -6,13 +6,8 @@
       <div v-if="equipes.length" class="flex flex-wrap">
         <div v-for="equipe in equipes" :key="equipe.id" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
           <card-equipe :equipe="equipe" />
-        </div>
-        <div class="w-full xl:w-4/12 px-4">
-          <card-bar-chart />
-        </div>
-        
+        </div>  
       </div>
-      
     </div>
   </template>
   <script>

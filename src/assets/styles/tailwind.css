@@ -1109,6 +1109,9 @@ select {
 .container {
   width: 100%;
 }
+.container-m {
+  width: 850%;
+}
 
 @media (min-width: 640px) {
   .container {
@@ -2236,6 +2239,9 @@ select {
 .h-500-px {
   height: 500px;
 }
+.h-400-px {
+  height: 420px;
+}
 
 .h-600-px {
   height: 600px;
@@ -2500,6 +2506,9 @@ select {
 .mt-10 {
   margin-top: 2.5rem;
 }
+.mt-11 {
+  margin-top: 2rem;
+}
 
 .mt-12 {
   margin-top: 3rem;
@@ -2522,6 +2531,9 @@ select {
 
 .mt-24 {
   margin-top: 6rem;
+}
+.mt-244 {
+  margin-top: -5rem;
 }
 
 .mb-24 {
@@ -2572,7 +2584,7 @@ select {
   margin-top: -16rem;
 }
 .-mt-66 {
-  margin-top: -24rem;
+  margin-top: 1rem;
 }
 
 .last\:mr-0:last-child {
@@ -2680,7 +2692,7 @@ select {
 }
 
 .opacity-50 {
-  opacity: 0.5;
+  opacity: 0.45;
 }
 
 .opacity-75 {
@@ -2898,6 +2910,10 @@ select {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
+.py-11 {
+  padding-top: -3rem;
+  padding-bottom: 2.5rem;
+}
 
 .py-12 {
   padding-top: 3rem;
@@ -3099,6 +3115,9 @@ select {
 
 .top-0 {
   top: 0px;
+}
+.top-25 {
+  top: 20px;
 }
 
 .right-0 {
@@ -3489,6 +3508,14 @@ select {
   font-weight: 600;
   color: #fff;
   background-image: linear-gradient(310deg,#17ad37da,#99ec2ddb);
+  padding: 5px;
+  border-radius: 0.5rem;
+  margin-right: 0.7rem !important;
+}
+.boutton-clickk {
+  font-weight: 600;
+  color: #fff;
+  background-image: linear-gradient(310deg,#28262ada,#555963db);
   padding: 5px;
   border-radius: 0.5rem;
   margin-right: 0.7rem !important;
