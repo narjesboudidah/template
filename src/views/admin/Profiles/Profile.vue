@@ -9,35 +9,17 @@
             background-image: url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
           "
         >
-          <span
+          <span style="border-radius: 1rem;"
             id="blackOverlay"
             class="w-full h-full absolute opacity-50 bg-black"
           ></span>
         </div>
-        <div
-          class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
-          style="transform: translateZ(0)"
-        >
-          <svg
-            class="absolute bottom-0 overflow-hidden"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            version="1.1"
-            viewBox="0 0 2560 100"
-            x="0"
-            y="0"
-          >
-            <polygon
-              class="text-blueGray-100 fill-current"
-              points="2560 0 2560 100 0 100"
-            ></polygon>
-          </svg>
-        </div>
+        
       </section>
-      <section class="relative py-16 bg-blueGray-100">
-        <div class="container mx-auto px-4">
-          <div
-            class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64"
+      <section class="relative" >
+        <div class="container mx-auto px-4" >
+          <div 
+            class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-664" style="max-height: 37rem;"
           >
             <div class="px-6">
               <div class="flex flex-wrap justify-center">
@@ -56,7 +38,7 @@
                   </router-link>
                 </div>
               </div>
-              <div class="text-center mt-12">
+              <div class="text-center mt-122">
                 <h3
                   class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2"
                 >

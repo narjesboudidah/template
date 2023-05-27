@@ -216,15 +216,6 @@ export default {
           console.log(response.data.data);
         })
         .catch((err) => console.log(err));
-      // this.reservations.forEach(async (idx,elem) => {
-      //   await axios.get(`http://127.0.0.1:8000/api/user/${elem.admin_equipe_id}`,{headers: {
-      //   'Authorization': `Bearer ${token}`
-      // }}).then((response) => {
-      //     // this.nom_admins_equipes.push(response.data.data.nom);
-      //     this.reservations[idx].nom_admin_equipe = response.data.data.nom;
-      //   }).catch(err => console.log(err))
-
-      // })
     },
     async accepter(id) {
       let token = localStorage.getItem("userToken");
