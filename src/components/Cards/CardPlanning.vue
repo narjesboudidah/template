@@ -104,7 +104,7 @@
         <tbody>
           <tr v-for="week in weeks" :key="week">
             <td style="border: none;padding: 1rem;" v-for="day in week" :key="day" @click="selectDate(day); fetchEvents(); fetchMatchs(); fetchMaintenances();">
-              <div :style="isDateReserved(day) ? 'background-color: #EB5E28;' : 'background-color: white;'">
+              <div :id="'day-'+currentMonth+'-'+day" :style="{'background-color':isDateReserved(day)}">
                 {{ day }}
               </div>
             </td>
@@ -294,6 +294,8 @@
 
 <script>
 import axios from 'axios';
+import moment from 'moment';
+import $ from 'jquery';
 
 export default {
   data() {
@@ -464,26 +466,44 @@ export default {
     },
 
     async isDateReserved(day) {
-      const selectedDay = new Date(day);
+      var currentday=this.currentMonth+'-'+day;
+      var selectedDay = new Date(currentday);
+      var formattedDate=moment(selectedDay).format("YYYY-MM-DD");
+     // console.log('currentday',currentday ,'selectedDay', selectedDay , 'formattedDate', formattedDate);
+     // console.log(selectedDay);
+     // console.log(formattedDate);
 
-      const formattedMonth = String(this.currentMonth);
-      const formattedDay = String(selectedDay.getDate()).padStart(2, '0');
-      const formattedDate = `${formattedMonth}-${formattedDay}`;
 
+      var isselected=false;
       for (const levent of this.LEvents) {
-        const eventStartDate = String(levent.date_debut);
-        const eventEndDate = String(levent.date_fin);
+        
+        const eventStartDateDebut = new Date(levent.date_debut);
+        const eventEndDateFin = new Date(levent.date_fin);
+      const eventStartDate=moment(eventStartDateDebut).format("YYYY-MM-DD");
+      const eventEndDate=moment(eventEndDateFin).format("YYYY-MM-DD");
+      //console.log('eventStartDate',eventStartDate ,'eventEndDate', eventEndDate , 'formattedDate', formattedDate);
         if (
           formattedDate >= eventStartDate &&
           formattedDate <= eventEndDate &&
           this.selectedStade === levent.stade_id
         ) {
-          return true; // Event found, return true
-        }
-        console.log(formattedDate);
-        return false; // No event found, return false
+          isselected=true; // Event found, return true
+        } // No event found, return false
       }
-
+      if(isselected == true){
+        $("#"+currentday).css(
+              "background-color",
+              "red"
+          );
+        return 'red';
+      }else{
+        $("#"+currentday).css(
+              "background-color",
+              "white"
+          );
+        return 'white';
+      }
+      //console.log('isselected',isselected ,'formattedDate', formattedDate);
     },
   },
   async mounted() {
