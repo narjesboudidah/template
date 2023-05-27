@@ -17,7 +17,7 @@
         id="nom"
         name="nom"
         class="border-2 w-full border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2 rounded-md text-sm shadow"
-        @change="getEvents"
+        @change="getEvents(); getMaintenances()"
       >
         <option value="" disabled>Stade</option>
         <option
@@ -312,6 +312,7 @@ export default {
       events: [],
       maintenances: [],
       LEvents: [],
+      LMaintenances: [],
     };
   },
   methods: {
@@ -397,6 +398,23 @@ export default {
         );
         this.LEvents = response.data.data;
         console.log(this.LEvents);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getMaintenances() {
+      let token = localStorage.getItem('userToken');
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/maintenances/filterStade/${this.selectedStade}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        this.LMaintenances = response.data.data;
+        console.log(this.LMaintenances);
       } catch (err) {
         console.log(err);
       }
@@ -520,33 +538,60 @@ export default {
     await this.generateWeeks();
     await this.getUser();
     await this.getEvents();
+    await this.getMaintenances();
     console.log(this.userRole);
   },
   computed: {
     getDateBackground() {
-      return (day) => {
-        const currentDay = this.currentMonth + '-' + day;
-        const selectedDay = new Date(currentDay);
-        const formattedDate = moment(selectedDay).format("YYYY-MM-DD");
+  return (day) => {
+    const currentDay = this.currentMonth + '-' + day;
+    const selectedDay = new Date(currentDay);
+    const formattedDate = moment(selectedDay).format("YYYY-MM-DD");
 
-        for (const levent of this.LEvents) {
-          const eventStartDateDebut = new Date(levent.date_debut);
-          const eventEndDateFin = new Date(levent.date_fin);
-          const eventStartDate = moment(eventStartDateDebut).format("YYYY-MM-DD");
-          const eventEndDate = moment(eventEndDateFin).format("YYYY-MM-DD");
+    let isEventFound = false;
+    let isMaintenanceFound = false;
 
-          if (
-            formattedDate >= eventStartDate &&
-            formattedDate <= eventEndDate &&
-            this.selectedStade === levent.stade_id
-          ) {
-            return 'red';
-          }
-        }
+    for (const levent of this.LEvents) {
+      const eventStartDateDebut = new Date(levent.date_debut);
+      const eventEndDateFin = new Date(levent.date_fin);
+      const eventStartDate = moment(eventStartDateDebut).format("YYYY-MM-DD");
+      const eventEndDate = moment(eventEndDateFin).format("YYYY-MM-DD");
 
-        return 'white';
-      };
+      if (
+        formattedDate >= eventStartDate &&
+        formattedDate <= eventEndDate &&
+        this.selectedStade === levent.stade_id
+      ) {
+        isEventFound = true;
+        break; // Sortir de la boucle dès qu'un événement est trouvé
+      }
     }
+
+    for (const lmaintenance of this.LMaintenances) {
+      const eventStartDateDebut = new Date(lmaintenance.date_debut);
+      const eventEndDateFin = new Date(lmaintenance.date_fin);
+      const eventStartDate = moment(eventStartDateDebut).format("YYYY-MM-DD");
+      const eventEndDate = moment(eventEndDateFin).format("YYYY-MM-DD");
+
+      if (
+        formattedDate >= eventStartDate &&
+        formattedDate <= eventEndDate &&
+        this.selectedStade === lmaintenance.stade_id
+      ) {
+        isMaintenanceFound = true;
+        break; // Sortir de la boucle dès qu'une maintenance est trouvée
+      }
+    }
+
+    if (isMaintenanceFound) {
+      return 'Coral';
+    } else if (isEventFound) {
+      return 'Silver';
+    } else {
+      return 'white';
+    }
+  };
+},
   }
 };
 
