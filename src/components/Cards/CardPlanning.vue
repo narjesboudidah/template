@@ -103,12 +103,14 @@
         </thead>
         <tbody>
           <tr v-for="week in weeks" :key="week">
-            <td style="border: none;padding: 1rem;" v-for="day in week" :key="day" @click="selectDate(day); fetchEvents(); fetchMatchs(); fetchMaintenances();">
-              <div :id="'day-'+currentMonth+'-'+day" :style="{'background-color':isDateReserved(day)}">
-                {{ day }}
-              </div>
-            </td>
-          </tr>
+        <td style="border: none; padding: 1rem;" v-for="day in week" :key="day" @click="selectDate(day); fetchEvents(); fetchMatchs(); fetchMaintenances();">
+          <div :id="'day-' + currentMonth + '-' + day">
+            <div :style="{ 'background-color': getDateBackground(day) }">
+              {{ day }}
+            </div>
+          </div>
+        </td>
+      </tr>
         </tbody>
       </table>
       
@@ -495,15 +497,17 @@ export default {
               "background-color",
               "red"
           );
+          console.log('red');
         return 'red';
       }else{
         $("#"+currentday).css(
               "background-color",
               "white"
           );
+        console.log('white');
         return 'white';
       }
-      //console.log('isselected',isselected ,'formattedDate', formattedDate);
+      
     },
   },
   async mounted() {
@@ -518,6 +522,32 @@ export default {
     await this.getEvents();
     console.log(this.userRole);
   },
+  computed: {
+    getDateBackground() {
+      return (day) => {
+        const currentDay = this.currentMonth + '-' + day;
+        const selectedDay = new Date(currentDay);
+        const formattedDate = moment(selectedDay).format("YYYY-MM-DD");
+
+        for (const levent of this.LEvents) {
+          const eventStartDateDebut = new Date(levent.date_debut);
+          const eventEndDateFin = new Date(levent.date_fin);
+          const eventStartDate = moment(eventStartDateDebut).format("YYYY-MM-DD");
+          const eventEndDate = moment(eventEndDateFin).format("YYYY-MM-DD");
+
+          if (
+            formattedDate >= eventStartDate &&
+            formattedDate <= eventEndDate &&
+            this.selectedStade === levent.stade_id
+          ) {
+            return 'red';
+          }
+        }
+
+        return 'white';
+      };
+    }
+  }
 };
 
 </script>
