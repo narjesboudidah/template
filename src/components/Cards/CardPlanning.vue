@@ -17,7 +17,7 @@
         id="nom"
         name="nom"
         class="border-2 w-full border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2 rounded-md text-sm shadow"
-        @change="getEvents(); getMaintenances()"
+        @change="getEvents(); getMaintenances(); getMatchs()"
       >
         <option value="" disabled>Stade</option>
         <option
@@ -115,8 +115,6 @@
       </table>
       
     </div>
-
-   
         
         </div>
           <div class="flex" style="margin-left: 9.5rem;margin-top: 1rem;">
@@ -313,6 +311,7 @@ export default {
       maintenances: [],
       LEvents: [],
       LMaintenances: [],
+      LMatchs: [],
     };
   },
   methods: {
@@ -420,6 +419,24 @@ export default {
       }
     },
 
+    async getMatchs() {
+      let token = localStorage.getItem('userToken');
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/matchs/filterStade/${this.selectedStade}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        this.LMatchs = response.data.data;
+        console.log(this.LMatchs);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     async fetchEvents() {
       let token = localStorage.getItem('userToken');
       try {
@@ -466,6 +483,7 @@ export default {
           }
         );
         this.maintenances = response.data.data;
+        console.log(this.maintenances);
       } catch (err) {
         console.log(err);
       }
@@ -539,6 +557,7 @@ export default {
     await this.getUser();
     await this.getEvents();
     await this.getMaintenances();
+    await this.getMatchs();
     console.log(this.userRole);
   },
   computed: {
@@ -550,6 +569,7 @@ export default {
 
     let isEventFound = false;
     let isMaintenanceFound = false;
+    let isMatchFound = false;
 
     for (const levent of this.LEvents) {
       const eventStartDateDebut = new Date(levent.date_debut);
@@ -583,10 +603,28 @@ export default {
       }
     }
 
+    for (const lmatch of this.LMatchs) {
+      const eventStartDateDebut = new Date(lmatch.date);
+      const eventEndDateFin = new Date(lmatch.date);
+      const eventStartDate = moment(eventStartDateDebut).format("YYYY-MM-DD");
+      const eventEndDate = moment(eventEndDateFin).format("YYYY-MM-DD");
+
+      if (
+        formattedDate >= eventStartDate &&
+        formattedDate <= eventEndDate &&
+        this.selectedStade === lmatch.stade_id
+      ) {
+        isMatchFound = true;
+        break; // Sortir de la boucle dès qu'une maintenance est trouvée
+      }
+    }
+
     if (isMaintenanceFound) {
       return 'Coral';
     } else if (isEventFound) {
       return 'Silver';
+    } else if (isMatchFound){
+      return 'YellowGreen';
     } else {
       return 'white';
     }
