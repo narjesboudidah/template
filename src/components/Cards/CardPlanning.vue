@@ -1,6 +1,6 @@
 <template>
-  <div>
-  <div
+  <div style="margin-top: 5rem;">
+  <div 
     class="relative break-words bg-white shadow-lg rounded"
     style="
       border-radius: 1rem;
@@ -10,7 +10,8 @@
       margin-left: 7.5rem;
     "
   >
-    <div class="px-4">
+  <div style="display: flex;">
+    <div class="px-4" style="width: 10rem;">
       <select
         v-model="selectedStade"
         id="nom"
@@ -28,65 +29,42 @@
       </select>
 
     </div>
-    <div class="wrapper">
-      <div
-        style="
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 1rem;
-          background-color: #f2f2f2;
-        "
-      >
-        <button @click="previousMonth">&lt;</button>
-        <h2 style="margin: 0;color:">{{ currentMonth }}</h2>
-        <button @click="nextMonth">&gt;</button>
-      </div>
-      <table style="width: 100%; border-collapse: collapse; margin-top: 10px">
-        <thead>
-          <tr
-            style="text-align: center; padding: 0.5rem; border: 1px solid #ccc"
+    <div v-if="userRole === 'Admin Ste'"
+        class="relative px-4 text-right" style="width: 13rem;
+          left: 66%;top: 10%;"
+        >
+          <button
+            class="icon-sidebar-click w-full"
+            type="button"
+            style="padding-right: 0.7rem; padding-left: 0.7rem;"
           >
-            <th
-              style="
-                text-align: center;
-                padding: 0.5rem;
-                border: 1px solid #ccc;
-              "
-              v-for="day in daysOfWeek"
-              :key="day"
+            <router-link 
+              to=/form/AjoutMaintenance
+              v-slot="{ href, navigate, isActive }"
             >
-              {{ day }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            style="text-align: center; padding: 0.5rem; border: 1px solid #ccc"
-            v-for="week in weeks"
-            :key="week"
-          >
-            <td v-for="day in week" :key="day" @click="selectDate(day); fetchEvents(); fetchMatchs(); fetchMaintenances();">
-              <div :style="isDateReserved(day) ? 'background-color: pink;' : 'background-color: white;'">
-                {{ day }}
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div style="margin-top: 1rem; text-align: center" v-if="selectedDate">
-        Date sélectionnée : {{ selectedDate }}
-      </div>
+              <a
+                style="font-family: inherit, serif; font-size: 15px"
+                :href="href"
+                @click="navigate"
+                class=""
+                :class="[
+                  isActive
+                    ? 'box-sidebar hover:text-red-600 '
+                    : 'hover:text-blueGray-500',
+                ]"
+              >
+                <i class="fas fa-plus mr-2"></i> Faire Maintenance
+              </a>
+            </router-link>
+          </button>
     </div>
     <div v-if="userRole === 'Admin Equipe'" 
-         class="relative px-4 text-right" style="width: 13rem; position: absolute;
-        bottom: 1%;
-        left: 50%;
-        transform: translate(-50%, 10%);margin-bottom: 1rem;"
+    class="relative px-4 text-right" style="width: 13rem;
+          left: 66%;top: 10%;"
         >
       
           <button
-            class="icon-sidebar-click mt-4 w-full"
+            class="icon-sidebar-click w-full"
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
           >
@@ -110,37 +88,34 @@
             </router-link>
           </button>
         </div>
-        <div v-if="userRole === 'Admin Ste'"
-        class="relative px-4 text-right" style="width: 13rem; position: absolute;
-          bottom: 1%;
-          left: 50%;
-          transform: translate(-50%, 10%);margin-bottom: 3rem;"
-        >
-          <button
-            class="icon-sidebar-click mt-4 w-full"
-            type="button"
-            style="padding-right: 0.7rem; padding-left: 0.7rem"
-          >
-            <router-link 
-              to=/form/AjoutMaintenance
-              v-slot="{ href, navigate, isActive }"
-            >
-              <a
-                style="font-family: inherit, serif; font-size: 15px"
-                :href="href"
-                @click="navigate"
-                class=""
-                :class="[
-                  isActive
-                    ? 'box-sidebar hover:text-red-600 '
-                    : 'hover:text-blueGray-500',
-                ]"
-              >
-                <i class="fas fa-plus mr-2"></i> Faire Maintenance
-              </a>
-            </router-link>
-          </button>
-        </div>
+      </div>
+    <div class="wrapper">
+      <div class="calendar-header">
+        <button class="prev-btn" @click="previousMonth">&lt;</button>
+        <h2 class="current-month">{{ currentMonth }}</h2>
+        <button class="next-btn" @click="nextMonth">&gt;</button>
+      </div>
+      <table class="calendar-table">
+        <thead>
+          <tr style="background-color: #fff;color: #63c132;">
+            <th v-for="day in daysOfWeek" :key="day">{{ day }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="week in weeks" :key="week">
+            <td style="border: none;padding: 1rem;" v-for="day in week" :key="day" @click="selectDate(day); fetchEvents(); fetchMatchs(); fetchMaintenances();">
+              <div :style="isDateReserved(day) ? 'background-color: #EB5E28;' : 'background-color: white;'">
+                {{ day }}
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+    </div>
+
+   
+        
         </div>
           <div class="flex" style="margin-left: 9.5rem;margin-top: 1rem;">
             <div style="margin: 0.5rem;">
@@ -151,7 +126,7 @@
             <div class="rounded-t mb-0 px-4 py-3 border-0">
               <div class="flex flex-wrap items-center">
                 <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-                  <h3 class="font-semibold text-base text-blueGray-700">
+                  <h3 class="font-semibold text-base text-blueGray-700" style="color: #63c132;">
                     Liste des evenements 
                   </h3>
               </div>
@@ -162,18 +137,18 @@
               <table class="items-center w-full bg-transparent border-collapse">
                 <thead>
                   <tr>
-                    <th
-                      class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+                    <th style="background-color: #ced4da;color: #fff;"
+                      class="px-6  align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
                     >
                       Nom Equipe
                     </th>
-                    <th
-                      class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+                    <th style="background-color: #ced4da;color: #fff;"
+                      class="px-6 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
                     >
                     Nom Event
                     </th>
-                    <th
-                      class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+                    <th style="background-color: #ced4da;color: #fff;"
+                      class="px-6 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
                     >
                     Type Event
                     </th>
@@ -211,7 +186,57 @@
             <div class="rounded-t mb-0 px-4 py-3 border-0">
               <div class="flex flex-wrap items-center">
                 <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-                  <h3 class="font-semibold text-base text-blueGray-700">
+                  <h3 class="font-semibold text-base text-blueGray-700" style="color: #63c132;">
+                    Liste des maintenances 
+                  </h3>
+              </div>
+              </div>
+            </div>
+            <div class="block w-full overflow-x-auto">
+              <!-- Projects table -->
+              <table class="items-center w-full bg-transparent border-collapse">
+                <thead>
+                  <tr>
+                    <th style="background-color: #ced4da;color: #fff;"
+                      class="px-6   align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+                    >
+                      Nom Ste
+                    </th>
+                    <th  style="background-color: #ced4da;color: #fff;"
+                      class="px-6  align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+                    >
+                    Etat
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="maintenance in this.maintenances" :key="maintenance.id">
+                    <th
+                      class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+                    >
+                      {{ maintenance.admin_ste_id }}
+                    </th>
+                    <th
+                      class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+                    >
+                    {{ maintenance.etat }}
+                    </th>
+                  </tr>
+              
+                </tbody>
+              </table>
+            </div>
+          </div>
+          </div>
+            <div style="margin: 0.5rem;">
+              <div
+            class="relative flex flex-col min-w-0 break-words bg-emerald-570 w-full mb-6 shadow-lg rounded"
+            style="border-radius: 1rem; max-height: 31.7rem"
+          >
+            <div class="rounded-t mb-0 px-4 py-3 border-0">
+              <div class="flex flex-wrap items-center">
+                <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+                  <h3 class="font-semibold text-base text-blueGray-700" style="color: #63c132;">
                     Liste des matchs 
                   </h3>
               </div>
@@ -222,18 +247,18 @@
               <table class="items-center w-full bg-transparent border-collapse">
                 <thead>
                   <tr>
-                    <th
-                      class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+                    <th style="background-color: #ced4da;color: #fff;"
+                      class="px-6 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
                     >
                       Heure
                     </th>
-                    <th
-                      class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+                    <th style="background-color: #ced4da;color: #fff;"
+                      class="px-6 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
                     >
                     Nom Equipes
                     </th>
-                    <th
-                      class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
+                    <th style="background-color: #ced4da;color: #fff;"
+                      class="px-6 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
                     >
                     Adresse
                     </th>
@@ -263,56 +288,6 @@
             </div>
           </div>
             </div>
-            <div style="margin: 0.5rem;">
-              <div
-            class="relative flex flex-col min-w-0 break-words bg-emerald-570 w-full mb-6 shadow-lg rounded"
-            style="border-radius: 1rem; max-height: 31.7rem"
-          >
-            <div class="rounded-t mb-0 px-4 py-3 border-0">
-              <div class="flex flex-wrap items-center">
-                <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-                  <h3 class="font-semibold text-base text-blueGray-700">
-                    Liste des maintenances 
-                  </h3>
-              </div>
-              </div>
-            </div>
-            <div class="block w-full overflow-x-auto">
-              <!-- Projects table -->
-              <table class="items-center w-full bg-transparent border-collapse">
-                <thead>
-                  <tr>
-                    <th
-                      class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-                    >
-                      Nom Ste
-                    </th>
-                    <th
-                      class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-                    >
-                    Etat
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="maintenance in this.maintenances" :key="maintenance.id">
-                    <th
-                      class="px-6  bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-                    >
-                      {{ maintenance.admin_ste_id }}
-                    </th>
-                    <th
-                      class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-                    >
-                    {{ maintenance.etat }}
-                    </th>
-                  </tr>
-              
-                </tbody>
-              </table>
-            </div>
-          </div>
-          </div>
           </div>
         </div>
 </template>
@@ -496,17 +471,17 @@ export default {
       const formattedDate = `${formattedMonth}-${formattedDay}`;
 
       for (const levent of this.LEvents) {
-        const eventStartDate = levent.date_debut;
-        const eventEndDate = levent.date_fin;
+        const eventStartDate = String(levent.date_debut);
+        const eventEndDate = String(levent.date_fin);
         if (
           formattedDate >= eventStartDate &&
           formattedDate <= eventEndDate &&
           this.selectedStade === levent.stade_id
         ) {
-          return false; // Event found, return true
+          return true; // Event found, return true
         }
         console.log(formattedDate);
-        return true; // No event found, return false
+        return false; // No event found, return false
       }
 
     },
