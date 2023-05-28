@@ -10,14 +10,10 @@
             Nouvelles demandes de réservation
           </h3>
         </div>
-        <div
+        <div v-if="userRole === 'Admin Federation'"
           class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
         >
-          <button type="button" class="text-blueGray-700">
-            <span class="material-symbols-outlined icon-sidebar">
-              filter_alt
-            </span>
-          </button>
+        <filtre-dropdown/>
         </div>
         <div class="text-right">
           <button
@@ -219,6 +215,7 @@
 </template>
 <script>
 import bootstrap from "@/assets/img/bootstrap.jpg";
+import FiltreDropdown from "@/components/Dropdowns/FiltreDropdown.vue";
 import axios from "axios";
 export default {
   data() {
@@ -228,6 +225,9 @@ export default {
       permissions: [],
       userRole: '',
     };
+  },
+  components: {
+    FiltreDropdown,
   },
   methods :{
 

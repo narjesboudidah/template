@@ -15,6 +15,20 @@
         >
         <admin-dropdown/>
         </div>
+        <div v-if="userRole === 'Admin Ste'"
+         class="text-right">
+          <button class="icon-sidebar-click" type="button" style="padding-right: 0.7rem; padding-left: 0.7rem">
+            <router-link
+             to=/form/AjoutMaintenance 
+             v-slot="{ href, navigate, isActive }">
+              <a :href="href" @click="navigate" class="" :class="[
+                  isActive ? 'box-sidebar hover:text-red-600 ' : 'hover:text-blueGray-500',
+                ]" style="font-family: inherit,serif;font-size: 15px;">
+                <i class="fas fa-plus mr-2"></i> Faire Maintenance
+              </a>
+            </router-link>
+          </button>
+        </div>
       </div>
     </div>
     <div class="block w-full overflow-x-auto">
@@ -69,6 +83,7 @@
             
           </tr>
         </thead>
+        
         <tbody>
           <tr v-for="maintenance in this.maintenances" :key="maintenance.id">
             <td v-if="userRole === 'Admin Federation'"
