@@ -7,7 +7,7 @@
             Nouvelles demandes de maintenance
           </h3>
         </div>
-        <div class="relative w-full px-15 max-w-full flex-grow flex-1 text-right">
+        <div v-if="userRole === 'Admin Federation'" class="relative w-full px-15 max-w-full flex-grow flex-1 text-right">
         <admin-dropdown/>
         </div>
         <div class="text-right">

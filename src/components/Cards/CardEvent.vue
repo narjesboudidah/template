@@ -8,11 +8,7 @@
           </h3>
         </div>
         <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-          <button type="button" class="text-blueGray-700">
-            <span class="material-symbols-outlined icon-sidebar">
-              filter_alt
-            </span>
-          </button>
+          <filtre-dropdown/>
           <button v-if="hasPermission('Ajout Event')" class="icon-sidebar-click" type="button" style="padding-right: 0.7rem; padding-left: 0.7rem">
             <router-link to="/form/AjoutEvent" v-slot="{ href, navigate, isActive }">
               <a :href="href" @click="navigate" style="font-family: inherit,serif;font-size: 15px;" :class="[
@@ -140,6 +136,7 @@
 <script>
 import bootstrap from "@/assets/img/bootstrap.jpg";
 import axios from "axios";
+import FiltreDropdown from "@/components/Dropdowns/FiltreDropdown.vue";
 
 export default {
   data() {
@@ -148,6 +145,9 @@ export default {
       events: [],
       permissions: [],
     };
+  },
+  components: {
+    FiltreDropdown,
   },
   methods: {
     async getEvents() {

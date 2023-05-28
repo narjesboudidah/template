@@ -29,65 +29,6 @@
       </select>
 
     </div>
-    <div v-if="userRole === 'Admin Ste'"
-        class="relative px-4 text-right" style="width: 13rem;
-          left: 66%;top: 10%;"
-        >
-          <button
-            class="icon-sidebar-click w-full"
-            type="button"
-            style="padding-right: 0.7rem; padding-left: 0.7rem;"
-          >
-            <router-link 
-              to=/form/AjoutMaintenance
-              v-slot="{ href, navigate, isActive }"
-            >
-              <a
-                style="font-family: inherit, serif; font-size: 15px"
-                :href="href"
-                @click="navigate"
-                class=""
-                :class="[
-                  isActive
-                    ? 'box-sidebar hover:text-red-600 '
-                    : 'hover:text-blueGray-500',
-                ]"
-              >
-                <i class="fas fa-plus mr-2"></i> Faire Maintenance
-              </a>
-            </router-link>
-          </button>
-    </div>
-    <div v-if="userRole === 'Admin Equipe'" 
-    class="relative px-4 text-right" style="width: 13rem;
-          left: 66%;top: 10%;"
-        >
-      
-          <button
-            class="icon-sidebar-click w-full"
-            type="button"
-            style="padding-right: 0.7rem; padding-left: 0.7rem"
-          >
-            <router-link  
-              to="/form/FaireReservation"
-              v-slot="{ href, navigate, isActive }"
-            >
-              <a
-                style="font-family: inherit, serif; font-size: 15px"
-                :href="href"
-                @click="navigate"
-                class=""
-                :class="[
-                  isActive
-                    ? 'box-sidebar hover:text-red-600 '
-                    : 'hover:text-blueGray-500',
-                ]"
-              >
-                <i class="fas fa-plus mr-2"></i> Faire Reservation
-              </a>
-            </router-link>
-          </button>
-        </div>
       </div>
     <div class="wrapper">
       <div class="calendar-header">

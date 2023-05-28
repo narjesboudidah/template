@@ -10,13 +10,23 @@
             Liste des demandes de réservations
           </h3>
         </div>
-        <div
+        <div 
           class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
         >
-          <button type="button" class="text-blueGray-700">
-            <span class="material-symbols-outlined icon-sidebar">
-              filter_alt
-            </span>
+        <filtre-dropdown/>
+        </div>
+        <div v-if="userRole === 'Admin Equipe'"
+         class="text-right">
+          <button class="icon-sidebar-click" type="button" style="padding-right: 0.7rem; padding-left: 0.7rem">
+            <router-link
+            to="/form/FaireReservation" 
+             v-slot="{ href, navigate, isActive }">
+              <a :href="href" @click="navigate" class="" :class="[
+                  isActive ? 'box-sidebar hover:text-red-600 ' : 'hover:text-blueGray-500',
+                ]" style="font-family: inherit,serif;font-size: 15px;">
+                <i class="fas fa-plus mr-2"></i> Faire Reservation
+              </a>
+            </router-link>
           </button>
         </div>
       </div>
@@ -203,6 +213,7 @@
 </template>
 <script>
 import bootstrap from "@/assets/img/bootstrap.jpg";
+import FiltreDropdown from "@/components/Dropdowns/FiltreDropdown.vue";
 import axios from "axios";
 export default {
   data() {
@@ -212,6 +223,9 @@ export default {
       permissions: [],
       userRole: '',
     };
+  },
+  components: {
+    FiltreDropdown,
   },
   methods: {
     async getReservations() {
