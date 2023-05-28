@@ -95,10 +95,20 @@
               />
               <span class="ml-3"> {{ reservation.admin_equipe_id|| "null" }}</span>
             </td>
-            <td
+            <td v-if="reservation.stade_id === 1"
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              {{ reservation.stade_id }}
+              Rades
+            </td>
+            <td v-if="reservation.stade_id === 2"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
+            >
+              Stade Olympique
+            </td>
+            <td v-if="reservation.stade_id === 3"
+              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
+            >
+              Stade El Menzah
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"

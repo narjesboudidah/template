@@ -69,12 +69,12 @@
             <th
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left text-left"
             >
-              Ween
+              Ama Group
             </th>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
-              Stade HS
+              Stade Olympique
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
@@ -98,12 +98,12 @@
             <th
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
-             Projet4
+             Sommi
             </th>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
             >
-              Ste 4
+             Stade El Menzah
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-left"
