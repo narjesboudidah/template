@@ -94,7 +94,7 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3"> {{ maintenance.admin_ste_id || "null" }} </span>
+              <span class="ml-3"> {{ getUsername(maintenance.admin_ste_id) || "null" }} </span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
@@ -163,6 +163,7 @@ export default {
       bootstrap,
       maintenances : [],
       userRole: '',
+      prenomuser: '',
     };
   },
   components: {
@@ -177,15 +178,6 @@ export default {
         this.maintenances = response.data.data;
         console.log(response.data.data);
       }).catch(err => console.log(err));
-      // this.maintenances.forEach(async (idx,elem) => {
-      //   await axios.get(`http://127.0.0.1:8000/api/user/${elem.admin_ste_id}`,{headers: {
-      //   'Authorization': `Bearer ${token}`
-      // }}).then((response) => {
-      //     // this.nom_admins_ste.push(response.data.data.nom);
-      //     this.maintenances[idx].nom_admin_ste = response.data.data.nom;
-      //   }).catch(err => console.log(err))
-        
-      // })
     },
     async accepter(id)  {
       let token = localStorage.getItem("userToken");
@@ -262,6 +254,20 @@ export default {
       }).catch((err) => {
           console.log(err);
       })
+    },
+    async getUsername(id) {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/user/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        this.prenomuser = response.data.nom;
+        console.log(this.prenomuser);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   mounted() {
