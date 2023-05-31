@@ -45,10 +45,10 @@
       </div>
       <div class="mt-50 py-3 border-t border-blueGray-200 text-center">
         <div class="flex flex-wrap justify-center">
-          <button v-if="hasPermission('Modifier Stade')" class="bg-white-500 text-blueGray-700 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+          <button v-if="hasPermission('Modifier Stade')" @click="toStade1()" class="bg-white-500 text-blueGray-700 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
             <i class="fas fa-pen"></i>
           </button>
-          <button v-if="hasPermission('Supprimer Stade')" class="bg-white-500 text-blueGray-700 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+          <button v-if="hasPermission('Supprimer Stade')" @click="supprimerStade(stade.id)" class="bg-white-500 text-blueGray-700 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
             <i class="fa fa-ban"></i>
           </button>
           <button class="bg-white-500 text-blueGray-700 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
@@ -80,7 +80,10 @@ export default {
   },
   methods: {
     toStade() {
-      this.$router.push(`/profile/stade/${this.$props.stade?.id}`)
+      this.$router.push(`/profile/stade/${this.stade?.id}`);
+    },
+    toStade1() {
+      this.$router.push(`/form/AjoutStade/${this.stade?.id}`);
     },
     async getUser() {
       try {
@@ -93,6 +96,34 @@ export default {
         this.permissions = response.data.permissions;
       } catch (error) {
         console.log(error);
+      }
+    },
+    async supprimerStade(id) {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/stade/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        }).then(() => {
+          this.$swal({
+            icon: "succes",
+            title: " Stade Supprimé ",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        })
+        .catch(() => {
+          this.$swal({
+            icon: "error",
+            title: "Erreur",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        });
+        console.log(response.data.message);
+      } catch (err) {
+        console.log(err);
       }
     },
     hasPermission(permission) {

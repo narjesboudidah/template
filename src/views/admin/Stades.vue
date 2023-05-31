@@ -1,9 +1,10 @@
 <template>
   <div>
+    <div v-if="stades.length" class="flex flex-wrap">
+      
     <div v-if="hasPermission('Ajout Stade')" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
       <CardAjoutStade />
     </div>
-    <div v-if="stades.length" class="flex flex-wrap">
       <div v-for="stade in stades" :key="stade.id" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
         <CardStade :stade="stade" />
       </div>
