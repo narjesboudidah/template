@@ -90,12 +90,7 @@
             <th
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
-            Nom de l'équipe 1
-            </th>
-            <th
-              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-            >
-            Nom de l'équipe 2
+            Équipe adverse:
             </th>
             <th 
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
@@ -153,15 +148,6 @@
               {{
                 reservation.type_reservation == "Match"
                   ? reservation.type_match
-                  : "N/A"
-              }}
-            </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-            >
-              {{
-                reservation.type_reservation == "Match"
-                  ? reservation.equipe1_id
                   : "N/A"
               }}
             </td>

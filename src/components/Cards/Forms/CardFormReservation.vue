@@ -77,14 +77,7 @@
                   </select>
                 </div>
                 <div class="w-full lg:w-6/12 px-4 mb-3">
-                  <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="nom-equipe1">Nom de l'équipe 1:</label>
-                  <select v-model="this.form.equipe1_id" id="equipe1_id" name="equipe1_id" required class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow">
-                    <option value="">Choisissez une équipe</option>
-                    <option v-for="equipe in equipes" :key="equipe.id" :value="equipe.id">{{ equipe.nom_equipe }}</option>
-                  </select>
-                </div>
-                <div class="w-full lg:w-6/12 px-4 mb-3">
-                  <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="nom-equipe2">Nom de l'équipe 2:</label>
+                  <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="nom-equipe2">Équipe adverse:</label>
                   <select v-model="this.form.equipe2_id" id="equipe2_id" name="equipe2_id" required class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow">
                     <option value="">Choisissez une équipe</option>
                     <option v-for="equipe in equipes" :key="equipe.id" :value="equipe.id">{{ equipe.nom_equipe }}</option>
@@ -189,11 +182,10 @@ export default {
         showConfirmButton: true,
         timer: 70000
       }));
-        window.location.href = '/plan';
       },
       async annuler () {
         
-        window.location.href = '/plan'; 
+        window.location.href = '/admin/ListeDemande'; 
       },
   },
   mounted() {
