@@ -35,11 +35,12 @@
                 <hr class="mt-6 border-b-1 border-blueGray-300" />
               </div>
               <div  class="flex-auto px-4 lg:px-10 py-10 pt-0">
-                <form>
+                <form @submit.prevent="submit" >
                   <div class="relative w-full mb-3">
                     <label  style="color:#6e8b27;"
                       class="block uppercase  text-xs font-bold mb-2"
                       htmlFor="grid-password"
+                      for="email"
                     >
                       Email
                     </label>
@@ -49,12 +50,14 @@
                       placeholder="Email"
                       v-model="form.email"
                     />
+                    <span class="error" style="color:red;" v-if="errors.email">{{errors.email }}</span>
                   </div>
 
                   <div class="relative w-full mb-3">
                     <label style="color:#6e8b27;"
                       class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                       htmlFor="grid-password"
+                      for="password"
                     >
                       Password
                     </label>
@@ -64,12 +67,13 @@
                       placeholder="Password"
                       v-model="form.password"
                     />
+                    <span class="error" style="color:red;" v-if="errors.password">{{ errors.password }}</span>
                   </div>
 
                   <div class="text-center mt-6">
                     <button 
                       class="text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
+                      type="submit"
                       style="background-color: #77a30b;"
                       v-on:click="submit()"
                     >
@@ -98,28 +102,45 @@ export default {
         email: "",
         password: ""
       },  
-      photo
+      photo,
+      errors: {} // Objet pour stocker les erreurs de validation
     };
   },
   methods: {
     //async to make synchronisation 
     submit: async function() {
-      //await for waiting the user write the coordinate and link with the back 
-      await axios.post("http://localhost:8000/api/login",this.form).then(async (result) => {
-        //make userid to define the user 
-        localStorage.setItem("userToken", result.data.token);
-        //stocke the user.id in a localstorage to not need to authentificate again 
-        const user  = localStorage.getItem("userToken");
-        if (result.status != 201){
-          console.log("error");
-          return;
-        }
-        this.$router.push("/admin/dashboard");
-        //after writing the email and pass we need to access to the dashboard
-        console.log(user);
-      }).catch(err => console.log(err.message));
+      this.errors = {}; // Réinitialisation des erreurs de validation
+       // Validation des champs
+    if (!this.form.email) {
+      this.errors.email = "Veuillez saisir une valide adresse e-mail.";
     }
-  } 
+
+    if (!this.form.password) {
+      this.errors.password = "Veuillez saisir un mot de passe.";
+    }
+
+    // Si des erreurs de validation existent, arrêtez l'exécution
+    if (Object.keys(this.errors).length > 0) {
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:8000/api/login", this.form);
+      const userToken = response.data.token;
+
+      localStorage.setItem("userToken", userToken);
+
+      // Rediriger vers le dashboard après la connexion réussie
+      this.$router.push("/admin/dashboard");
+
+      // Afficher le jeton utilisateur dans la console
+      console.log(userToken);
+    } catch (error) {
+      console.log(error.message);
+      // Gérer les erreurs de connexion ici
+    }
+  }
+}
 };
 </script>
 
