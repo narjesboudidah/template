@@ -85,7 +85,7 @@
         </thead>
         
         <tbody>
-          <tr v-for="maintenance in this.maintenances" :key="maintenance.id">
+          <tr v-for="maintenance in this.maintenances" :key="maintenance.id" :id="maintenance.admin_ste_id" >
             <td v-if="userRole === 'Admin Federation'"
               class="border-t-0   border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
@@ -94,7 +94,7 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3"> {{ getUsername(maintenance.admin_ste_id) || "null" }} </span>
+              <span class="ml-3" >{{ this.prenomuser }}</span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
@@ -157,83 +157,96 @@
 import bootstrap from "@/assets/img/bootstrap.jpg";
 import AdminDropdown from "@/components/Dropdowns/AdminDropdown.vue";
 import axios from "axios";
+
 export default {
   data() {
     return {
       bootstrap,
-      maintenances : [],
+      maintenances: [],
       userRole: '',
       prenomuser: '',
+      id: 1,
     };
   },
   components: {
     AdminDropdown,
   },
   methods: {
-    async getMaintenances () {
-      let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/MaintenancesFS",{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => {
+    async getMaintenances() {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get("http://127.0.0.1:8000/api/MaintenancesFS", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         this.maintenances = response.data.data;
         console.log(response.data.data);
-      }).catch(err => console.log(err));
+      } catch (err) {
+        console.log(err);
+      }
     },
-    async accepter(id)  {
-      let token = localStorage.getItem("userToken");
-      await axios.get(`http://127.0.0.1:8000/api/maintenance/accepter/${id}`,{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => { 
-        console.log(response.data.message);
-      }).catch(err => console.log(err))
-      window.location.reload();
-    },
-
-    async refuser(id) {
-      let token = localStorage.getItem("userToken");
-      await axios.get(`http://127.0.0.1:8000/api/maintenance/refuser/${id}`,{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => { 
-        console.log(response.data.message);
-      }).catch(err => console.log(err))
-      window.location.reload();
-    },
-    async annuler(id) {
-      let token = localStorage.getItem("userToken");
+    async accepter(id) {
       try {
-        const response = await axios.delete(`http://127.0.0.1:8000/api/maintenance/${id}`, {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/maintenance/accepter/${id}`, {
           headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        }).then(() => {
-          this.$swal({
-            icon: "succes",
-            title: " Demande Supprimé ",
-            showConfirmButton: false,
-            timer: 1000,
-          });
-        })
-        .catch(() => {
-          this.$swal({
-            icon: "error",
-            title: "Erreur",
-            showConfirmButton: false,
-            timer: 1000,
-          });
+            'Authorization': `Bearer ${token}`
+          }
         });
         console.log(response.data.message);
       } catch (err) {
+        console.log(err);
+      }
+      window.location.reload();
+    },
+    async refuser(id) {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/maintenance/refuser/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        console.log(response.data.message);
+      } catch (err) {
+        console.log(err);
+      }
+      window.location.reload();
+    },
+    async annuler(id) {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.delete(`http://127.0.0.1:8000/api/maintenance/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        this.$swal({
+          icon: "success",
+          title: "Demande Supprimée",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        console.log(response.data.message);
+      } catch (err) {
+        this.$swal({
+          icon: "error",
+          title: "Erreur",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         console.log(err);
       }
       window.location.reload();
     },
     async update(id) {
-      let token = localStorage.getItem("userToken");
       try {
-        const response = await axios.update(`http://127.0.0.1:8000/api/maintenance/${id}`, {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.put(`http://127.0.0.1:8000/api/maintenance/${id}`, null, {
           headers: {
-            'Authorization': `Bearer ${token}`,
-          },
+            'Authorization': `Bearer ${token}`
+          }
         });
         console.log(response.data.message);
       } catch (err) {
@@ -241,39 +254,50 @@ export default {
       }
       window.location.reload();
     },
-
     async getUser() {
-      let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/user", {
+      try {
+        const token = localStorage.getItem("userToken");
+        const result = await axios.get("http://127.0.0.1:8000/api/user", {
           headers: {
             'Authorization': `Bearer ${token}`
           }
-      }).then((result) => {
+        });
         this.userRole = result.data.role;
-
-      }).catch((err) => {
-          console.log(err);
-      })
+      } catch (err) {
+        console.log(err);
+      }
     },
+
     async getUsername(id) {
       try {
-        let token = localStorage.getItem("userToken");
-        const response = await axios.get(`http://127.0.0.1:8000/api/user/${id}`, {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/usernom/${id}`, {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
-        this.prenomuser = response.data.nom;
-        console.log(this.prenomuser);
+        const nom = response.data.data;
+        console.log(nom);
+        this.prenomuser = nom; // Mettre à jour la valeur de prenomuser avec le nom récupéré
       } catch (error) {
         console.log(error);
+        this.prenomuser = ""; // Mettre prenomuser à une chaîne vide en cas d'erreur
       }
     },
   },
-  mounted() {
-   this.getUser();
-   console.log(this.userRole);
-    this.getMaintenances();
+
+  async mounted() {
+    try {
+    await this.getUser();
+    await this.getMaintenances();
+    for (const maintenance of this.maintenances) {
+      await this.getUsername(maintenance.admin_ste_id);
+    }
+    console.log(this.userRole);
+  } catch (error) {
+    console.error(error);
+  }
   },
 };
 </script>
+
