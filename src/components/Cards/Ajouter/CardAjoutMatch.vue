@@ -3,7 +3,7 @@
       class="cadre-pointu relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16"
       style="border-radius: 1rem; height: 22.3rem"
     >
-      <div class="text-center justify-center mt-16">
+      <div class="text-center justify-center mt-20">
         <router-link to="/form/AjoutMatch" v-slot="{ href, navigate, isActive }">
           <a
             style="font-family: inherit, serif; font-size: 15px"
@@ -19,7 +19,7 @@
             <img
               alt="..."
               :src="gearlogo"
-              style="border: 0.5rem solid #fff; margin-left: 8rem"
+              style="border: 0.5rem solid #fff; margin-left: 11rem"
             />
   
             <h3

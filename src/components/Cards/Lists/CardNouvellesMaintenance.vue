@@ -11,6 +11,7 @@
         <admin-dropdown/>
         </div>
         <div class="text-right">
+          
           <button class="icon-sidebar-click" type="button" style="padding-right: 0.7rem; padding-left: 0.7rem">
             <router-link to="/admin/ListeDemande" v-slot="{ href, navigate, isActive }">
               <a :href="href" @click="navigate" class="" :class="[

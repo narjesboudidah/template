@@ -7,8 +7,11 @@
             Liste des événements
           </h3>
         </div>
-        <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+        <div class="relative w-full px-15 max-w-full flex-grow flex-1 text-right">
           <filtre-dropdown/>
+        </div>
+        <div class="text-right"
+        >
           <button v-if="hasPermission('Ajout Event')" class="icon-sidebar-click" type="button" style="padding-right: 0.7rem; padding-left: 0.7rem">
             <router-link to="/form/AjoutEvent" v-slot="{ href, navigate, isActive }">
               <a :href="href" @click="navigate" style="font-family: inherit,serif;font-size: 15px;" :class="[
@@ -130,7 +133,7 @@
         </tbody>
       </table>
     </div>
-  </div>
+    </div>
 </template>
 
 <script>

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-if="hasPermission('Ajout Competition')" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
-      <card-ajout-competition />
-    </div>
     <div v-if="competitions.length" class="flex flex-wrap">
+      <div v-if="hasPermission('Ajout Competition')" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
+        <card-ajout-competition />
+      </div>
       <div v-for="competition in competitions" :key="competition.id" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
         <card-competition :competition="competition" />
       </div>

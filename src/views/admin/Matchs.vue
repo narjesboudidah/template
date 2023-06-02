@@ -1,9 +1,9 @@
 <template>
     <div>
-      <div v-if="hasPermission('Ajout Match')" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
-          <card-ajout-match/>
-        </div>
       <div v-if="matchs.length" class="flex flex-wrap">
+        <div v-if="hasPermission('Ajout Match')" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
+            <card-ajout-match/>
+          </div>
         <div v-for="match in matchs" :key="match.id" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
           <card-match :match="match"/>
         </div>

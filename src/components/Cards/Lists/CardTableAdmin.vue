@@ -87,7 +87,7 @@
           <!--admin instance in table admins with key admin_id-->
           <tr v-for="admin in this.admins" :key="admin.id">
             <td
-              class="px-77 bg-white border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
+              class="px-77 bg-white border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap flex items-center"
             >
               <img
                 :src="bootstrap"
