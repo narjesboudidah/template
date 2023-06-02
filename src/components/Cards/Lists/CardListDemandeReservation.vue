@@ -89,7 +89,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="reservation in this.reservations" :key="reservation.id">
+          <tr v-for="reservation in this.reservations" :key="reservation.id" :id="reservation.admin_equipe_id" >
             <td v-if="userRole === 'Admin Federation'"
               class="border-t-0 border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
@@ -98,7 +98,7 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3"> {{ reservation.admin_equipe_id|| "null" }}</span>
+              <span class="ml-3" >{{ this.prenomuser }}</span>
             </td>
             <td v-if="reservation.stade_id === 1"
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
@@ -208,6 +208,8 @@ export default {
       reservations: [],
       permissions: [],
       userRole: '',
+      prenomuser: '',
+      id:1,
     };
   },
   components: {
@@ -215,30 +217,29 @@ export default {
   },
   methods: {
     async getReservations() {
-      let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/Reservationstatut", {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response =  await axios.get("http://127.0.0.1:8000/api/Reservationstatut", {
           headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          this.reservations = response.data.data;
-          console.log(response.data.data);
-        })
-        .catch((err) => console.log(err));
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        this.reservations = response.data.data;
+        console.log(response.data.data);
+      } catch (err) {
+        console.log(err);
+      }
     },
     async accepter(id) {
-      let token = localStorage.getItem("userToken");
       try {
+        const token= localStorage.getItem("userToken");
         const response = await axios.post(
           `http://127.0.0.1:8000/api/reservations/accept/${id}`,
-          null,
           {
             headers: {
              'Authorization': `Bearer ${token}`
-            },
-          }
-        );
+            }
+          });
         console.log(response.data.message);
       } catch (err) {
         console.log(err);
@@ -246,60 +247,58 @@ export default {
       window.location.reload();
     },
     async refuser(id) {
-      let token = localStorage.getItem("userToken");
-      await axios
-        .get(`http://127.0.0.1:8000/api/reservation/refuser/${id}`, {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/reservation/refuser/${id}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
+          }
+        });
           console.log(response.data.message);
-        })
-        .catch((err) => console.log(err));
+      } catch(err){
+      console.log(err);
+      }
       window.location.reload();
     },
     async annuler(id) {
-      let token = localStorage.getItem("userToken");
       try {
+        const token = localStorage.getItem("userToken");
         const response = await axios.delete(`http://127.0.0.1:8000/api/reservation/${id}`, {
           headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        }).then(() => {
-          this.$swal({
-            icon: "succes",
-            title: " Réservation Supprimé ",
-            showConfirmButton: false,
-            timer: 1000,
-          });
-        })
-        .catch(() => {
-          this.$swal({
-            icon: "error",
-            title: "Erreur",
-            showConfirmButton: false,
-            timer: 1000,
-          });
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        this.$swal({
+          icon: "success",
+          title: "Demande Supprimée",
+          showConfirmButton: false,
+          timer: 1000,
         });
         console.log(response.data.message);
       } catch (err) {
+        this.$swal({
+          icon: "error",
+          title: "Erreur",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+
         console.log(err);
       }
       window.location.reload();
     },
     async getUser() {
-      let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/user", {
+      try {
+        const token = localStorage.getItem("userToken");
+        const result = await axios.get("http://127.0.0.1:8000/api/user",{
           headers: {
             'Authorization': `Bearer ${token}`
           }
-      }).then((result) => {
-        this.userRole = result.data.role;
+      });this.userRole = result.data.role;
 
-      }).catch((err) => {
+      } catch (err) {
           console.log(err);
-      })
+      }
     },
     async getUserPermission() {
       try {
@@ -331,12 +330,36 @@ export default {
       }
       window.location.reload();
     },
+
+    async getUsername(id) {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/usernom/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const nom = response.data.data;
+        console.log(nom);
+        this.prenomuser = nom; // Mettre à jour la valeur de prenomuser avec le nom récupéré
+      } catch (error) {
+        console.log(error);
+        this.prenomuser = ""; // Mettre prenomuser à une chaîne vide en cas d'erreur
+      }
+    },
   },
-  mounted() {
-   this.getUserPermission();
-   this.getUser();
-   console.log(this.userRole);
-    this.getReservations();
-  },
+  async mounted() {
+    try {
+    await this.getUser();
+    await this.getUserPermission();
+    await this.getReservations();
+    for (const reservation of this.reservations) {
+      await this.getUsername(reservation.admin_equipe_id);
+    }
+    console.log(this.userRole);
+  } catch (error) {
+    console.error(error);
+  }
+}
 };
 </script>

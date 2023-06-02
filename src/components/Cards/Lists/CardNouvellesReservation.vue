@@ -100,7 +100,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="reservation in this.reservations" :key="reservation.id" >
+          <tr v-for="reservation in this.reservations" :key="reservation.id" :id="reservation.admin_equipe_id" >
             <td v-if="userRole === 'Admin Federation'"
               style="margin-top: 0.1rem; margin-right: 2rem"
               class="px-6 align-middle  border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
@@ -110,7 +110,7 @@
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="..."
               />
-              <span class="ml-3">  {{ reservation.admin_equipe_id || "null" }} </span>
+              <span class="ml-3" >{{ this.prenomuser }}</span>
             </td>
             <td
             class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
@@ -210,6 +210,8 @@ export default {
       reservations: [],
       permissions: [],
       userRole: '',
+      prenomuser: '',
+      id:1,
     };
   },
   components: {
@@ -339,12 +341,36 @@ async accepter(id) {
     hasPermission(permission) {
       return this.permissions.includes(permission);
     },
+
+    async getUsername(id) {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/usernom/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const nom = response.data.data;
+        console.log(nom);
+        this.prenomuser = nom; // Mettre à jour la valeur de prenomuser avec le nom récupéré
+      } catch (error) {
+        console.log(error);
+        this.prenomuser = ""; // Mettre prenomuser à une chaîne vide en cas d'erreur
+      }
+    },
   },
-  mounted() {
-   this.getUserPermission();
-   this.getUser();
-   console.log(this.userRole);
-    this.getReservations();
+  async mounted() {
+    try {
+    await this.getUser();
+    await this.getUserPermission();
+    await this.getReservations();
+    for (const reservation of this.reservations) {
+      await this.getUsername(reservation.admin_equipe_id);
+    }
+    console.log(this.userRole);
+  } catch (error) {
+    console.error(error);
   }
+}
 };
 </script>
