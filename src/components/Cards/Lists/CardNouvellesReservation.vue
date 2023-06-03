@@ -100,7 +100,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="reservation in this.reservations" :key="reservation.id" :id="reservation.admin_equipe_id" >
+          <tr v-for="reservation in this.reservations" :key="reservation.id" :id="reservation.admin_equipe_id" :id2="reservation.stade_id">
             <td v-if="userRole === 'Admin Federation'"
               style="margin-top: 0.1rem; margin-right: 2rem"
               class="px-6 align-middle  border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
@@ -112,10 +112,10 @@
               />
               <span class="ml-3" >{{ this.prenomuser }}</span>
             </td>
-            <td
+            <td 
             class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-            {{ reservation.stade_id || "null" }}
+            {{this.nomstade }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
@@ -211,7 +211,9 @@ export default {
       permissions: [],
       userRole: '',
       prenomuser: '',
+      nomstade:'',
       id:1,
+      id2:1,
     };
   },
   components: {
@@ -358,14 +360,36 @@ async accepter(id) {
         this.prenomuser = ""; // Mettre prenomuser à une chaîne vide en cas d'erreur
       }
     },
+    async getStadename(id) {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/stadenom/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const nom1 = response.data.data;
+        console.log(nom1);
+        this.nomstade = nom1; // Mettre à jour la valeur de  stadenom avec le nom récupéré
+      } catch (error) {
+        console.log(error);
+        this. nomstade = ""; // Mettre  stadenom à une chaîne vide en cas d'erreur
+      }
+    },
   },
   async mounted() {
     try {
+   
     await this.getUser();
     await this.getUserPermission();
     await this.getReservations();
     for (const reservation of this.reservations) {
+      await this.getStadename(reservation.stade_id);
+     
+    }
+    for (const reservation of this.reservations) {
       await this.getUsername(reservation.admin_equipe_id);
+     
     }
     console.log(this.userRole);
   } catch (error) {

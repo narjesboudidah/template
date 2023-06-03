@@ -56,17 +56,16 @@
                 Téléphone :
               </label>
               <input  v-model="this.form.tel"
-                type="tel"
+                type="string"
                 id="telephone"
                 name="telephone"
                 placeholder="Téléphone"
                 required
-                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               />
             </div>
   
-            <!--div class="w-full lg:w-6/12 px-4 mb-3">
+            <div class="w-full lg:w-6/12 px-4 mb-3">
               <label
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
                 for="logo"
@@ -75,13 +74,14 @@
               </label>
               <input
                 type="file"
+                v-on:change="handleFileChange"
                 id="logo"
                 name="logo"
                 accept="logo/*"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               />
-            </div>-->
+            </div>
             <div class="w-full lg:w-6/12 px-4 mb-3">
               <label
                 class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2"
@@ -167,7 +167,9 @@
           
           console.log(result.data);
         }).catch(err => console.log(err.message));
-        window.location.href = '/admin/ste';
+      },
+      handleFileChange(event) {
+        this.form.logo = event.target.files[0];
       },
       async annuler () {
         window.location.href = '/admin/ste'; 

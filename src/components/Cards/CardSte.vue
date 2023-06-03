@@ -4,11 +4,7 @@
       <div class="flex flex-wrap justify-center">
         <div class="w-full px-4 flex justify-center">
           <div class="relative">
-            <img
-              alt="..."
-              :src="gearlogo"
-              class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
-            />
+            <img alt="Image" :src="ste.imageUrl" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"/>
             <br>
           </div>
         </div>
@@ -50,24 +46,24 @@
 </template>
 
 <script>
-import gearlogo from "@/assets/img/maintenance.png";
 import axios from "axios";
 
 export default {
   props: {
     ste: {
       type: Object,
+      required: true,
     },
   },
   data() {
     return {
-      gearlogo,
       permissions: [],
+      imageUrl: ''
     };
   },
   methods: {
     toSte() {
-      this.$router.push(`/profile/SteProfile/${this.$props.ste?.id}`);
+      this.$router.push(`/profile/SteProfile/${this.ste?.id}`);
     },
     async getUser() {
       try {
@@ -82,12 +78,26 @@ export default {
         console.log(error);
       }
     },
+    async getStes() {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get("http://127.0.0.1:8000/api/societeMaintenances", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        this.imageUrl = response.data.data[0].logo;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     hasPermission(permission) {
       return this.permissions.includes(permission);
     },
   },
   mounted() {
     this.getUser();
+    this.getStes();
   },
 };
 </script>
