@@ -35,6 +35,8 @@
                 <hr class="mt-6 border-b-1 border-blueGray-300" />
               </div>
               <div  class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                
+                <!--test sur les champs-->
                 <form @submit.prevent="submit" >
                   <div class="relative w-full mb-3">
                     <label  style="color:#6e8b27;"
