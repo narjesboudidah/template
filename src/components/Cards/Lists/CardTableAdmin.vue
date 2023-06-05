@@ -89,10 +89,20 @@
             <td
               class="px-77 bg-white border-solid border-blueGray-50 align-middle py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap flex items-center"
             >
-              <img
+              <img v-if="admin.role[0].name === 'Admin Federation'"
                 :src="bootstrap"
                 class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
+                alt="Image"
+              />
+              <img v-if="admin.role[0].name === 'Admin Equipe'"
+                :src="admin.imageUrl"
+                class="h-12 w-12 bg-white rounded-full border"
+                alt="Image"
+              />
+              <img v-if="admin.role[0].name === 'Admin Ste'"
+                :src="admin.imageUrl1"
+                class="h-12 w-12 bg-white rounded-full border"
+                alt="Image"
               />
               <!--prendre le nom et le prenom du BD -->
               <span class="ml-3"> {{ admin.prenom + " " + admin.nom }} </span>
@@ -150,16 +160,20 @@
   </div>
 </template>
 <script>
-import bootstrap from "@/assets/img/bootstrap.jpg";
+import bootstrap from "@/assets/img/1200px-Logo_federation_tunisienne_de_football.svg.png";
 import axios from "axios";
 export default {
   props: {
-    type: [],
+    type: []
   },
   data() {
     return {
       bootstrap,
       admins: [],
+      imageUrl: '',
+      imageUrl1: '',
+      nom:'',
+      nom2:'',
     };
   },
 
@@ -201,9 +215,53 @@ export default {
           });
         });
     },
+    async getEquipes(nom) {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/equipeimage/${nom}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const image = response.data.data;
+        
+        // Trouver l'admin correspondant dans la liste et définir l'URL de l'image
+        const admin = this.admins.find((admin) => admin.nom_equipe === nom);
+        if (admin) {
+          admin.imageUrl = image.logo;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getStes(nom) {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/societeMaintenanceimage/${nom}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const image1 = response.data.data;
+        
+        // Trouver l'admin correspondant dans la liste et définir l'URL de l'image
+        const admin = this.admins.find((admin) => admin.nom_ste === nom);
+        if (admin) {
+          admin.imageUrl1 = image1.logo;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
-  mounted() {
-    this.getUsers();
+  async mounted() {
+    await this.getUsers();
+    for (const admin of this.admins) {
+      await this.getEquipes(admin.nom_equipe);
+    }
+    for (const admin of this.admins) {
+      await this.getStes(admin.nom_ste);
+    }
   },
 };
 </script>

@@ -156,7 +156,7 @@ export default {
     async getEvents() {
       try {
         const token = localStorage.getItem("userToken");
-        const response = await axios.get("http://127.0.0.1:8000/api/events", {
+        const response = await axios.get("http://127.0.0.1:8000/api/eventsL", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
