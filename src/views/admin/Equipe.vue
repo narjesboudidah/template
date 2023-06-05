@@ -33,11 +33,20 @@
     methods: {
     async getEquipes () {
       let token = localStorage.getItem("userToken");
-      await axios.get("http://127.0.0.1:8000/api/equipes",{headers: {
-        'Authorization': `Bearer ${token}`
-      }}).then((response) => {
-        this.equipes = response.data.data;
-      }).catch(err => console.log(err))
+      await axios
+        .get("http://127.0.0.1:8000/api/equipes", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          this.equipes = response.data.data.map((equipe) => ({
+            ...equipe,
+            imageUrl: equipe.logo, // Assign the logo URL to the imageUrl property
+          }));
+        })
+        .catch((err) => console.log(err));
+      console.log("equipes", this.equipes[0].tel);
     },
     async getUser() {
       try {

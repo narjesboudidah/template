@@ -5,8 +5,8 @@
         <div class="w-full px-4 flex justify-center">
           <div class="relative">
             <img 
-              alt="..."
-              :src="stadeimg"
+              alt="Image"
+              :src="stade.imageUrl"
               class="shadow-xl rounded-full h-auto align-middle absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" style="border: 0.5rem solid #fff;"
             />
           </div>
@@ -63,19 +63,19 @@
 </template>
 
 <script>
-import stadeimg from "@/assets/img/stade.jpg";
 import axios from "axios";
 
 export default {
   props: {
     stade: {
       type: Object,
+      required: true,
     }
   },
   data() {
     return {
-      stadeimg,
       permissions: [],
+      imageUrl: ''
     }
   },
   methods: {
@@ -126,12 +126,26 @@ export default {
         console.log(err);
       }
     },
+    async getStades() {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get("http://127.0.0.1:8000/api/stades", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        this.imageUrl = response.data.data[0].image;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     hasPermission(permission) {
       return this.permissions.includes(permission);
     },
   },
   mounted() {
     this.getUser();
+    this.getStades();
   },
 };
 </script>

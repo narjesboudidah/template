@@ -8,8 +8,8 @@
         <div class="w-full px-4 flex justify-center">
           <div class="relative">
             <img
-              alt="..."
-              :src="equipe.logo"
+              alt="Image"
+              :src="equipe.imageUrl"
               class="shadow-xl rounded-full h-auto align-middle absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
               style="border: 0.5rem solid #fff"
             />
@@ -68,24 +68,23 @@
     </div>
 </template>
 <script>
-import equipelogo from "@/assets/img/Real-Madrid.png";
 import axios from "axios";
 
 export default {
   props: {
     equipe: {
       type: Object,
+      required: true,
   }}, 
   data() {
     return {
-      equipelogo,
       permissions: [],
-      url: `/profile/EquipeProfile/${this.props?.equipe?.id}`
+      imageUrl: ''
     }
   },
   methods: {
     toEquipe() {
-      this.$router.push(`/profile/EquipeProfile/${this.$props.equipe?.id}`)
+      this.$router.push(`/profile/EquipeProfile/${this.equipe?.id}`)
     },
     async getUser() {
       try {
@@ -100,12 +99,26 @@ export default {
         console.log(error);
       }
     },
+    async getEquipes() {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get("http://127.0.0.1:8000/api/equipes", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        this.imageUrl = response.data.data[0].logo;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     hasPermission(permission) {
       return this.permissions.includes(permission);
     },
   },
   mounted() {
     this.getUser();
+    this.getEquipes();
   },
   
 };

@@ -31,17 +31,21 @@ export default {
   },
   methods: {
     async getStades() {
-      try {
-        const token = localStorage.getItem("userToken");
-        const response = await axios.get("http://127.0.0.1:8000/api/stades", {
+      let token = localStorage.getItem("userToken");
+      await axios
+        .get("http://127.0.0.1:8000/api/stades", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
-        this.stades = response.data.data;
-      } catch (error) {
-        console.log(error);
-      }
+        })
+        .then((response) => {
+          this.stades = response.data.data.map((stade) => ({
+            ...stade,
+            imageUrl: stade.image, // Assign the logo URL to the imageUrl property
+          }));
+        })
+        .catch((err) => console.log(err));
+      console.log("stades", this.stades[0].tel);
     },
     async getUser() {
       try {
