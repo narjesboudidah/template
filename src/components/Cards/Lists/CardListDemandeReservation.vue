@@ -93,10 +93,10 @@
             <td v-if="userRole === 'Admin Federation'"
               class="border-t-0 border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
-              <img
-                :src="bootstrap"
+            <img 
+                :src="admin.imageUrl"
                 class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
+                alt="Image"
               />
               <span class="ml-3" >{{ this.prenomuser }}</span>
             </td>
@@ -198,15 +198,14 @@
   </div>
 </template>
 <script>
-import bootstrap from "@/assets/img/bootstrap.jpg";
 import FiltreDropdown from "@/components/Dropdowns/FiltreDropdown.vue";
 import axios from "axios";
 export default {
   data() {
     return {
-      bootstrap,
       reservations: [],
       permissions: [],
+      imageUrl: '',
       userRole: '',
       prenomuser: '',
       id:1,
@@ -347,6 +346,25 @@ export default {
         this.prenomuser = ""; // Mettre prenomuser à une chaîne vide en cas d'erreur
       }
     },
+    async getEquipes(nom) {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/equipeimage/${nom}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const image = response.data.data;
+        
+        // Trouver l'admin correspondant dans la liste et définir l'URL de l'image
+        const admin = this.admins.find((admin) => admin.nom_equipe === nom);
+        if (admin) {
+          admin.imageUrl = image.logo;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   async mounted() {
     try {
@@ -355,6 +373,9 @@ export default {
     await this.getReservations();
     for (const reservation of this.reservations) {
       await this.getUsername(reservation.admin_equipe_id);
+    }
+    for (const admin of this.admins) {
+      await this.getEquipes(admin.nom_equipe);
     }
     console.log(this.userRole);
   } catch (error) {
