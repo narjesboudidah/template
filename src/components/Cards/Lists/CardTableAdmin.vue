@@ -173,7 +173,6 @@ export default {
       imageUrl: '',
       imageUrl1: '',
       nom:'',
-      nom2:'',
     };
   },
 

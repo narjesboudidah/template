@@ -86,8 +86,13 @@
             </div>
             <div class="w-full lg:w-6/12 px-4 mb-3">
             <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="id">Nom du Stade:</label>
-            <select v-model="this.form.stade_id" id="stade_id" name="stade_id" required class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow">
-              <option v-for="stade in stades" :key="stade.id" :value="stade.id">{{ stade.nom }}</option>
+            <select 
+            v-model="this.form.stade_id" 
+            id="stade_id" name="stade_id" 
+            required 
+            class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow">
+              <option v-for="stade in stades" :key="stade.id" :value="stade.id">
+                {{ stade.nom }}</option>
             </select>
           </div>
           

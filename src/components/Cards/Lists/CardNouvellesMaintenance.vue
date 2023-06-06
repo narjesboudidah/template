@@ -63,7 +63,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="maintenance in maintenances" :key="maintenance.id" :id="maintenance.admin_ste_id">
+          <tr v-for="maintenance in this.maintenances" :key="maintenance.id">
             <td v-if="userRole === 'Admin Federation'"
             class="px-6 align-middle  border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center" style="margin-top: 1.1rem; margin-right: 2rem">
             <img
@@ -117,7 +117,6 @@
 </template>
 
 <script>
-import AdminDropdown from "@/components/Dropdowns/AdminDropdown.vue";
 import axios from "axios";
 
 export default {
@@ -131,9 +130,6 @@ export default {
       imageUrl: "",
       id: 1,
     };
-  },
-  components: {
-    AdminDropdown,
   },
   methods: {
     async getMaintenances() {
@@ -299,7 +295,6 @@ export default {
           },
         });
         const image1 = response.data.data;
-          console.log(image1);
 
         // Trouver l'admin correspondant dans la liste et définir l'URL de l'image
         const maintenance = this.maintenances.find((maintenance) => maintenance.admin_ste_id === id);
@@ -310,26 +305,32 @@ export default {
         console.log(error);
       }
     },
-},
+  },
 
   async mounted() {
-    try {
-    await this.getUserPermission();
-    await this.getUser();
-    await this.getMaintenances();
-    for (const maintenance of this.maintenances) {
-        await this.getUsername(maintenance.admin_ste_id);
-      }
-      for (const maintenance of this.maintenances) {
-        await this.getStadename(maintenance.stade_id);
-      }
-      for (const maintenance of this.maintenances) {
-        await this.getStes(maintenance.admin_ste_id);
-      }
-    console.log(this.userRole);
-  } catch (error) {
-    console.error(error);
-  }
-  }
+  await this.getUserPermission();
+  await this.getUser();
+  await this.getMaintenances();
+
+  const adminSteIds = this.maintenances.map((maintenance) => maintenance.admin_ste_id);
+  const stadenameIds = this.maintenances.map((maintenance) => maintenance.stade_id);
+
+  const usernameRequests = adminSteIds.map(async (id) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000)); // Pause de 2 secondes
+    await this.getUsername(id);
+  });
+  const stadenameRequests = stadenameIds.map(async (id) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000)); // Pause de 2 secondes
+    await this.getStadename(id);
+  });
+  const stesRequests = adminSteIds.map(async (id) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000)); // Pause de 2 secondes
+    await this.getStes(id);
+  });
+
+  await Promise.all([...usernameRequests, ...stadenameRequests, ...stesRequests]);
+},
+
 };
 </script>
+

@@ -60,7 +60,7 @@
           </button>
           <button
             class="bg-white-500 text-black-200 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-            type="button"
+            type="button" @click="supprimerMatch(match.id)"
           >
             <i class="fa fa-ban"></i>
           </button>
@@ -72,7 +72,7 @@
 <script>
 import team2 from "@/assets/img/CA.jpg";
 import team3 from "@/assets/img/est.jpg";
-
+import axios from "axios";
 export default {
   props: {
     match: {
@@ -88,7 +88,35 @@ export default {
   methods: {
     toMatch() {
       this.$router.push(`/form/match/${this.$props.match?.id}`)
-    }
+    },
+    async supprimerMatch(id) {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/match/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        }).then(() => {
+          this.$swal({
+            icon: "succes",
+            title: " Match Supprimé ",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        })
+        .catch(() => {
+          this.$swal({
+            icon: "error",
+            title: "Erreur",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        });
+        console.log(response.data.message);
+      } catch (err) {
+        console.log(err);
+      }
+    },
   }
 };
 </script>

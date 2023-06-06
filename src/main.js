@@ -162,6 +162,10 @@ const routes = [
         component: CompetitionForm,
       },
       {
+        path: "/form/AjoutEquipe/:id",
+        component: EquipeForm
+      },
+      {
         path: "/form/AjoutEquipe",
         component: EquipeForm
       },

@@ -45,11 +45,22 @@
           </thead>
           <tbody>
             <tr v-for="historique in this.historiques" :key="historique.id">
-              <td
-                class="border-t-0  border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
-              >
-                <span class="ml-3"> {{ historique.admin_fed_id }} </span>
-              </td>
+             
+              <td v-if ="historique.admin_fed_id===1 " class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
+              Sirine
+            </td>
+              <td v-if ="historique.admin_fed_id===2 " class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
+             Narjes
+            </td>
+              <td v-if ="historique.admin_fed_id===3 " class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
+              Hamza
+            </td>
+              <td v-if ="historique.admin_fed_id===4 " class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
+             Zied
+            </td>
+              <td v-if ="historique.admin_fed_id===5 " class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
+              Jenayah
+            </td>
               <td
                 class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
               >

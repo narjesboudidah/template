@@ -120,7 +120,7 @@
                       <option value="">Choisissez une équipe</option>
                       <option
                         v-for="team in this.equipes"
-                        :key="team.id"
+                        :key="team.nom_equipe"
                         :value="team.nom_equipe"
                         :label="team.nom_equipe"
                       />
@@ -145,8 +145,8 @@
                       <option
                         v-for="team in this.societe_maintenances"
                         :key="team.id"
-                        :value="team.nom_ste"
-                        :label="team.nom_ste"
+                        :value="team.nom"
+                        :label="team.nom"
                       />
                     </select>
         </div>
@@ -247,7 +247,9 @@ export default {
         role: "",
         nom_equipe:"",
         nom_ste:"",
-      }
+      },
+        equipes:[],
+        societe_maintenances:[],
     }
   },
 
@@ -269,21 +271,21 @@ export default {
           icon: 'succes',
           title: 'Ajout avec succé',
           showConfirmButton: true,
-          timer: 360000
+          timer: 2000
         })
         console.log(result.data);
       }).catch(err => this.$swal({
         icon: 'warning',
         title: err.message,
         showConfirmButton: false,
-        timer: 1000
+        timer: 2000
       }));
       window.location.href = '/admin/users'; 
     },
     async annuler () {
       window.location.href = '/admin/users'; 
     },
-     async getEquipes () {
+    async getEquipes () {
       let token = localStorage.getItem("userToken");
       await axios.get("http://127.0.0.1:8000/api/equipes",{headers: {
         'Authorization': `Bearer ${token}`
@@ -297,8 +299,8 @@ export default {
       await axios.get("http://127.0.0.1:8000/api/societeMaintenances",{headers: {
         'Authorization': `Bearer ${token}`
       }}).then((response) => {
-        this.equipes = response.data.data;
-        console.log(this.equipes);
+        this.societe_maintenances = response.data.data;
+        console.log(this.societe_maintenances);
       }).catch(err => console.log(err))
     }
   },

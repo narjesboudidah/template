@@ -71,9 +71,6 @@
             <th class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center">
               Etat
             </th>
-            <th class="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
-              Statut
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -109,9 +106,6 @@
             </td>
             <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-bold text-xss whitespace-nowrap text-center text-red-600">
               {{ maintenance.etat }}
-            </td>
-            <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-bold text-xss whitespace-nowrap text-center text-red-600">
-              {{ maintenance.statut }}
             </td>
           </tr>
         </tbody>

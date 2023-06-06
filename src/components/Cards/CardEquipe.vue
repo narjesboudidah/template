@@ -22,9 +22,13 @@
         >
           {{ equipe.nom_equipe }}
         </h3>
-        <div class="mb-2 text-xs text-blueGray-600 mt-25">
+        <div v-if="equipe.id===1" class="mb-2 text-xs text-blueGray-600 mt-25">
           <i class="fa fa-user mr-2 text-sm"></i>
-          hh
+          Narjes Boudidah
+        </div>
+        <div v-if="equipe.id===2" class="mb-2 text-xs text-blueGray-600 mt-25">
+          <i class="fas fa-map-marker-alt mr-2 text-lg"></i>
+          Othman Jenayah
         </div>
         <div class="mb-2 text-xs text-blueGray-600 mt-25">
           <i class="fas fa-map-marker-alt mr-2 text-lg"></i>

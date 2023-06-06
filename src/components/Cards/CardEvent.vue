@@ -77,8 +77,14 @@
               <img :src="bootstrap" class="h-12 w-12 bg-white rounded-full border" alt="..." />
               <span class="ml-3">{{ event.equipe1_id || 'null' }}</span>
             </td>
-            <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
-              {{ event.stade_id }}
+            <td v-if ="event.stade_id===1 " class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
+              Stade olympique de Radès
+            </td>
+            <td v-if ="event.stade_id===2 " class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
+              Stade olympique de Sousse
+            </td>
+            <td v-if ="event.stade_id===3 " class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
+              Stade Mustapha ben-Jannet
             </td>
             <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
               {{ event.date_debut }}
