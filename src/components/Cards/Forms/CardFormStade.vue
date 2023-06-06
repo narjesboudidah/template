@@ -19,6 +19,7 @@
               id="nom-stade"
               name="nom-stade"
               :placeholder="this.stade.nom"
+              required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
             />
           </div>
@@ -243,8 +244,7 @@ export default {
       timer: 1000
     });
   }
-}
-,
+},
     annuler: async function() {
       window.location.href = '/admin/stades';
     },

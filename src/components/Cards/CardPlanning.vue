@@ -7,11 +7,11 @@
       padding: 1rem;
       width: 1110px;
       height: 550px;
-      margin-left: 7.5rem;
+      margin-left: 13rem;
     "
   >
   <div style="display: flex;">
-    <div class="px-4" style="width: 10rem;">
+    <div class="px-4" style="width: 17rem;">
       <select
         v-model="selectedStade"
         id="nom"
@@ -58,7 +58,7 @@
     </div>
         
         </div>
-          <div class="flex" style="margin-left: 9.5rem;margin-top: 1rem;">
+          <div class="flex" style="margin-left: 17rem;margin-top: 1rem;">
             <div style="margin: 0.5rem;">
               <div
             class="relative flex flex-col min-w-0 break-words bg-emerald-570 w-full mb-6 shadow-lg rounded"

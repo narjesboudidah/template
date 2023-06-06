@@ -23,11 +23,11 @@
                 Nom de la Société de maintenance :
               </label>
               <input 
-                v-model="this.form.nom"
+                v-model="form.nom"
                 type="text"
                 id="-nom-societe-maintenance"
                 name="nom-societe-maintenance"
-                placeholder="Nom de la Société de maintenance"
+                :placeholder="this.ste.nom"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               />
@@ -39,11 +39,11 @@
               >
                 Adresse de la Société de maintenance :
               </label>
-              <input  v-model="this.form.adresse"
+              <input  v-model="form.adresse"
                 type="text"
                 id="adresse-societe-maintenance"
                 name="adresse-societe-maintenance"
-                placeholder="Adresse de la Société de maintenance"
+                :placeholder="this.ste.adresse"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               />
@@ -55,11 +55,11 @@
               >
                 Téléphone :
               </label>
-              <input  v-model="this.form.tel"
+              <input  v-model="form.tel"
                 type="string"
                 id="telephone"
                 name="telephone"
-                placeholder="Téléphone"
+                :placeholder="this.ste.tel"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               />
@@ -78,6 +78,7 @@
                 id="logo"
                 name="logo"
                 accept="logo/*"
+                :placeholder="this.ste.logo"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               />
@@ -90,11 +91,11 @@
                 Email de la Société de maintenance :
               </label>
               <input 
-                v-model="this.form.email"
+                v-model="form.email"
                 type="email"
                 id="email-societe-maintenance"
                 name="email-societe-maintenance"
-                placeholder="Email de la Société de maintenance"
+                :placeholder="this.ste.email"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               />
@@ -106,10 +107,11 @@
               >
                 Description de Ste :
               </label>
-              <textarea  v-model="this.form.description"
+              <textarea  
+                v-model="form.description"
                 id="description-ste"
                 name="description-ste"
-                placeholder="Description de ste"
+                :placeholder="this.ste.description"
                 required
                 class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
               ></textarea>
@@ -123,18 +125,18 @@
             class=" boutton-click active:bg-blueGray-600 font-bold   text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear "
             type="button"
             style="padding-right: 0.7rem; padding-left: 0.7rem"
-            v-on:click="submit()"
+            @click="submit()"
            >
-          confirmer
+          Confirmer
         </button>
        
         <button
           class=" boutton-annuler bg-blueGray-500 text-blueGray-400 active:bg-red-600 font-bold text-xss shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear "
           type="button"  
           style="padding-right: 0.7rem; padding-left: 0.7rem"
-          v-on:click="annuler()"
+          @click="annuler()"
         >
-          annuler
+          Annuler
         </button>
          </div>
       </div>
@@ -142,6 +144,7 @@
   </template>
   <script>
   import axios from "axios";
+  const API_URL = 'http://127.0.0.1:8000/api/societeMaintenance';
   export default {
     data() {
         return{
@@ -151,29 +154,80 @@
             tel: "",
             email: "",
             description: "",
-          }
+            logo: "storage/images/fqHHRpLroSjOfhKfuGSY76nFNrhJVLYP9858mXJB.jpg",
+          },
+          ste: {}
       }},
       methods: {
-      submit: async function() {
-        let token = localStorage.getItem("userToken");
-        console.log(this.form);
-        await axios.post("http://127.0.0.1:8000/api/societeMaintenances",this.form,{headers: {
-          'Authorization': `Bearer ${token}`
-        }}).then((result) => {
-          if (result.status != 201){
-            console.log("error");
-            return;
+        submit: async function() {
+          let id = this.$route.params.id;
+          let token = localStorage.getItem('userToken');
+          console.log(this.form);
+          let response; // Déclaration de la variable response
+          try {
+            if (id >= 1) {
+              response = await axios.put(`${API_URL}/${id}`, this.form, {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+              });
+            } else {
+              response = await axios.post("http://127.0.0.1:8000/api/societeMaintenances", this.form, {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+              });
+            }
+            this.$swal({
+              icon: 'success',
+              title: 'Ajout avec succès',
+              showConfirmButton: false,
+              timer: 1000
+            });
+            console.log(response.data);
+          } catch (error) {
+            this.$swal({
+              icon: 'warning',
+              title: error.message,
+              showConfirmButton: false,
+              timer: 1000
+            });
           }
-          
-          console.log(result.data);
-        }).catch(err => console.log(err.message));
-      },
-      handleFileChange(event) {
-        this.form.logo = event.target.files[0];
+        },
+      
+      handleFileChange(ste) {
+        this.form.logo = ste.target.files[0];
       },
       async annuler () {
         window.location.href = '/admin/ste'; 
       },
-    } 
+      async getSte() {
+      let id = this.$route.params.id;
+      try {
+        const token = localStorage.getItem('userToken');
+        const headers = { Authorization: `Bearer ${token}` };
+
+        const response = await axios.get(`http://127.0.0.1:8000/api/societeMaintenance/${id}`, { headers });
+        this.ste = response.data.data;
+        console.log(this.ste);
+
+        // Assigner les valeurs récupérées à this.form
+        this.form = {
+          nom: this.ste.nom,
+          adresse: this.ste.adresse,
+          tel: this.ste.tel,
+          logo: this.ste.logo,
+          email: this.ste.email,
+          description: this.ste.description,
+        };
+      } catch (error) {
+        console.error(error);
+        // Afficher un message d'erreur approprié ici
+      }
+    }
+    } ,
+    mounted() {
+    this.getSte();
+  }
   }
   </script>

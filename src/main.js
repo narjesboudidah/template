@@ -175,6 +175,10 @@ const routes = [
         component: EquipeForm
       },
       {
+        path: "/form/AjoutSte/:id",
+        component: SteForm
+      },
+      {
         path: "/form/AjoutSte",
         component: SteForm
       },

@@ -28,10 +28,10 @@
       </div>
       <div class="mt-50 py-3 border-t border-blueGray-200 text-center">
         <div class="flex flex-wrap justify-center">
-          <button v-if="hasPermission('Modifier Ste')" class="bg-white-500 text-black-200 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+          <button v-if="hasPermission('Modifier Ste')" @click="toSte1()" class="bg-white-500 text-black-200 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
             <i class="fas fa-pen"></i>
           </button>
-          <button v-if="hasPermission('Supprimer Ste')" class="bg-white-500 text-black-200 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+          <button v-if="hasPermission('Supprimer Ste')" @click="supprimerSte(ste.id)" class="bg-white-500 text-black-200 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
             <i class="fa fa-ban"></i>
           </button>
           <button class="bg-white-500 text-black-200 active:bg-green-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
@@ -65,6 +65,9 @@ export default {
     toSte() {
       this.$router.push(`/profile/SteProfile/${this.ste?.id}`);
     },
+    toSte1() {
+      this.$router.push(`/form/AjoutSte/${this.ste?.id}`);
+    },
     async getUser() {
       try {
         const token = localStorage.getItem("userToken");
@@ -76,6 +79,34 @@ export default {
         this.permissions = response.data.permissions;
       } catch (error) {
         console.log(error);
+      }
+    },
+    async supprimerSte(id) {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/societeMaintenance/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        }).then(() => {
+          this.$swal({
+            icon: "succes",
+            title: " Ste Supprimé ",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        })
+        .catch(() => {
+          this.$swal({
+            icon: "error",
+            title: "Erreur",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        });
+        console.log(response.data.message);
+      } catch (err) {
+        console.log(err);
       }
     },
     async getStes() {
