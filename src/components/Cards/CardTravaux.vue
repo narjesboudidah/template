@@ -82,11 +82,15 @@
             <td v-if="userRole === 'Admin Federation'"
             style="margin-right: 2rem" 
             class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center">
-              <img :src="bootstrap" class="h-12 w-12 bg-white rounded-full border" alt="..." />
-              <span class="ml-3">{{ maintenance.admin_ste_id || 'null' }}</span>
+            <img
+                :src="maintenance.imageUrl"
+                class="h-12 w-12 bg-white rounded-full border"
+                alt="Image"
+              />
+              <span class="ml-3">{{ maintenance.prenomuser || 'null' }}</span>
             </td>
             <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
-              {{ maintenance.stade_id || 'null' }}
+              {{ maintenance.nomstade }}
             </td>
             <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center">
               {{ maintenance.date_debut }}
@@ -117,16 +121,18 @@
 </template>
 
 <script>
-import bootstrap from '@/assets/img/bootstrap.jpg';
 import AdminDropdown from "@/components/Dropdowns/AdminDropdown.vue";
 import axios from 'axios';
 
 export default {
   data() {
     return {
-      bootstrap,
       maintenances: [],
-      userRole: '',
+      userRole: "",
+      prenomuser: "",
+      nomstade: "",
+      imageUrl: "",
+      id: 1,
     };
   },
 
@@ -161,11 +167,80 @@ export default {
           console.log(err);
       })
     },
+    async getUsername(id) {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/usernom/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const nom = response.data.data;
+
+        const maintenance = this.maintenances.find((maintenance) => maintenance.admin_ste_id === id);
+        if (maintenance) {
+          maintenance.prenomuser = nom;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getStadename(id) {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/stadenom/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const nom_stade = response.data.data;
+
+        const maintenance = this.maintenances.find((maintenance) => maintenance.stade_id === id);
+        if (maintenance) {
+          maintenance.nomstade = nom_stade;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getStes(id) {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/Maintenancelogo/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const image1 = response.data.data;
+          console.log(image1);
+
+        // Trouver l'admin correspondant dans la liste et définir l'URL de l'image
+        const maintenance = this.maintenances.find((maintenance) => maintenance.admin_ste_id === id);
+        if (maintenance) {
+          maintenance.imageUrl = image1;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
-  mounted() {
-   this.getUser();
-   console.log(this.userRole);
-    this.getMaintenances();
+  async mounted() {
+    try {
+      await this.getUser();
+      await this.getMaintenances();
+      for (const maintenance of this.maintenances) {
+        await this.getUsername(maintenance.admin_ste_id);
+      }
+      for (const maintenance of this.maintenances) {
+        await this.getStadename(maintenance.stade_id);
+      }
+      for (const maintenance of this.maintenances) {
+        await this.getStes(maintenance.admin_ste_id);
+      }
+      console.log(this.userRole);
+    } catch (error) {
+      console.error(error);
+    }
   },
 };
 </script>

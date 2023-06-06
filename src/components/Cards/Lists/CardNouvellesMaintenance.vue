@@ -66,11 +66,15 @@
           <tr v-for="maintenance in maintenances" :key="maintenance.id" :id="maintenance.admin_ste_id">
             <td v-if="userRole === 'Admin Federation'"
             class="px-6 align-middle  border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center" style="margin-top: 1.1rem; margin-right: 2rem">
-              <img :src="bootstrap" class="h-12 w-12 bg-white rounded-full border" alt="..." />
-              <span class="ml-3" >{{ this.prenomuser }}</span>
+            <img
+                :src="maintenance.imageUrl"
+                class="h-12 w-12 bg-white rounded-full border"
+                alt="Image"
+              />
+              <span class="ml-3" >{{ maintenance.prenomuser }}</span>
             </td>
             <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
-              {{ maintenance.stade_id }}
+              {{ maintenance.nomstade }}
             </td>
             <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center">
               {{ maintenance.date_debut }}
@@ -91,7 +95,7 @@
               {{ maintenance.etat }}
             </td>
             <td class="border-t-0 border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <button v-if="hasPermission('Confirmer Maintenance')" class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="accepter(maintenance.id)">
+              <button v-if="userRole === 'Admin Federation'" class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="accepter(maintenance.id)">
                 <i class="fas fa-check"></i>
               </button>
               <button v-if="hasPermission('Annuler Maintenance')" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="refuser(maintenance.id)">
@@ -113,18 +117,18 @@
 </template>
 
 <script>
-import bootstrap from "@/assets/img/bootstrap.jpg";
 import AdminDropdown from "@/components/Dropdowns/AdminDropdown.vue";
 import axios from "axios";
 
 export default {
   data() {
     return {
-      bootstrap,
       maintenances: [],
       permissions: [],
       userRole: '',
+      admins: [],
       prenomuser: '',
+      imageUrl: "",
       id: 1,
     };
   },
@@ -158,7 +162,7 @@ export default {
         const token = localStorage.getItem("userToken");
         const response = await axios.get(`http://127.0.0.1:8000/api/maintenance/accepter/${id}`, {
           headers: {
-           'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         console.log(response.data.message);
@@ -211,8 +215,8 @@ export default {
         const token = localStorage.getItem("userToken");
         const response = await axios.put(`http://127.0.0.1:8000/api/maintenance/${id}`, null, {
           headers: {
-            'Authorization': `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
         console.log(response.data.message);
       } catch (err) {
@@ -250,22 +254,62 @@ export default {
       return this.permissions.includes(permission);
     },
     
-  async getUsername(id) {
+    async getUsername(id) {
       try {
-        const token = localStorage.getItem("userToken");
+        let token = localStorage.getItem("userToken");
         const response = await axios.get(`http://127.0.0.1:8000/api/usernom/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         const nom = response.data.data;
-        console.log(nom);
-        this.prenomuser = nom; // Mettre à jour la valeur de prenomuser avec le nom récupéré
+
+        const maintenance = this.maintenances.find((maintenance) => maintenance.admin_ste_id === id);
+        if (maintenance) {
+          maintenance.prenomuser = nom;
+        }
       } catch (error) {
         console.log(error);
-        this.prenomuser = ""; // Mettre prenomuser à une chaîne vide en cas d'erreur
       }
-  },
+    },
+    async getStadename(id) {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/stadenom/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const nom_stade = response.data.data;
+
+        const maintenance = this.maintenances.find((maintenance) => maintenance.stade_id === id);
+        if (maintenance) {
+          maintenance.nomstade = nom_stade;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getStes(id) {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/Maintenancelogo/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const image1 = response.data.data;
+          console.log(image1);
+
+        // Trouver l'admin correspondant dans la liste et définir l'URL de l'image
+        const maintenance = this.maintenances.find((maintenance) => maintenance.admin_ste_id === id);
+        if (maintenance) {
+          maintenance.imageUrl = image1;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
 },
 
   async mounted() {
@@ -274,8 +318,14 @@ export default {
     await this.getUser();
     await this.getMaintenances();
     for (const maintenance of this.maintenances) {
-      await this.getUsername(maintenance.admin_ste_id);
-    }
+        await this.getUsername(maintenance.admin_ste_id);
+      }
+      for (const maintenance of this.maintenances) {
+        await this.getStadename(maintenance.stade_id);
+      }
+      for (const maintenance of this.maintenances) {
+        await this.getStes(maintenance.admin_ste_id);
+      }
     console.log(this.userRole);
   } catch (error) {
     console.error(error);
