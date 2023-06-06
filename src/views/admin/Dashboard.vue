@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--Si le user a l'un de ces roles la liste de demande de maintenance de la date d'aujourd'hui va s'afficher -->
     <div v-if="userRole === 'Admin Federation' || userRole === 'Admin Ste'" class="flex flex-wrap mt-4">
       <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
         <card-nouvelles-maintenance />
@@ -8,6 +9,7 @@
         <card-stats-travaux />
       </div>
     </div>
+    <!--Si le user a l'un de ces roles la liste de demande de reservation de la date d'aujourd'hui va s'afficher -->
     <div v-if="userRole === 'Admin Federation' || userRole === 'Admin Equipe'" class="flex flex-wrap">
       <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
         <card-nouvelles-reservation />

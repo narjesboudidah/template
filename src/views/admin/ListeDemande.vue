@@ -1,8 +1,10 @@
 <template>
   <div class="flex flex-wrap mt-4">
+     <!--Si le user a l'un de ces roles card liste de demande de maintenance va s'afficher -->
     <div v-if="userRole === 'Admin Federation' || userRole === 'Admin Ste'" class="w-full mb-12 px-4">
       <card-list-demande-maintenance />
     </div>
+     <!--Si le user a l'un de ces roles card liste de demande de reservation va s'afficher -->
     <div v-if="userRole === 'Admin Federation' || userRole === 'Admin Equipe'" class="w-full mb-12 px-4">
       <card-list-demande-reservation />
     </div>
