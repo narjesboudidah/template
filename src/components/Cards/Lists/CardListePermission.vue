@@ -17,7 +17,7 @@
             style="padding-right: 0.7rem; padding-left: 0.7rem"
           >
             <router-link
-              to="/form/Permission"
+              to="/form/AjoutPermission"
               v-slot="{ href, navigate, isActive }"
             >
               <a

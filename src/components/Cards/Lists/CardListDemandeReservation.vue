@@ -89,31 +89,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="reservation in this.reservations" :key="reservation.id" :id="reservation.admin_equipe_id" >
+          <tr v-for="reservation in this.reservations" :key="reservation.id">
             <td v-if="userRole === 'Admin Federation'"
               class="border-t-0 border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
-              <img
-                :src="bootstrap"
+            <img 
+                :src="reservation.imageUrl"
                 class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
+                alt="Image"
               />
-              <span class="ml-3" >{{ this.prenomuser }}</span>
+              <span class="ml-3" >{{ reservation.prenomuser }}</span>
             </td>
-            <td v-if="reservation.stade_id === 1"
+            <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              Rades
-            </td>
-            <td v-if="reservation.stade_id === 2"
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              Stade Olympique
-            </td>
-            <td v-if="reservation.stade_id === 3"
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
-              Stade El Menzah
+              {{ reservation.nomstade }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
@@ -198,17 +188,17 @@
   </div>
 </template>
 <script>
-import bootstrap from "@/assets/img/bootstrap.jpg";
 import FiltreDropdown from "@/components/Dropdowns/FiltreDropdown.vue";
 import axios from "axios";
 export default {
   data() {
     return {
-      bootstrap,
       reservations: [],
       permissions: [],
       userRole: '',
-      prenomuser: '',
+      prenomuser: "",
+      nomstade: "",
+      imageUrl: "",
       id:1,
     };
   },
@@ -287,6 +277,20 @@ export default {
       }
       window.location.reload();
     },
+    async update(id) {
+      let token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.update(`http://127.0.0.1:8000/api/reservation/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        console.log(response.data.message);
+      } catch (err) {
+        console.log(err);
+      }
+      window.location.reload();
+    },
     async getUser() {
       try {
         const token = localStorage.getItem("userToken");
@@ -316,35 +320,60 @@ export default {
     hasPermission(permission) {
       return this.permissions.includes(permission);
     },
-    async update(id) {
-      let token = localStorage.getItem("userToken");
-      try {
-        const response = await axios.update(`http://127.0.0.1:8000/api/reservation/${id}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        console.log(response.data.message);
-      } catch (err) {
-        console.log(err);
-      }
-      window.location.reload();
-    },
 
     async getUsername(id) {
       try {
-        const token = localStorage.getItem("userToken");
+        let token = localStorage.getItem("userToken");
         const response = await axios.get(`http://127.0.0.1:8000/api/usernom/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         const nom = response.data.data;
-        console.log(nom);
-        this.prenomuser = nom; // Mettre à jour la valeur de prenomuser avec le nom récupéré
+
+        const reservation = this.reservations.find((reservation) => reservation.admin_equipe_id === id);
+        if (reservation) {
+          reservation.prenomuser = nom;
+        }
       } catch (error) {
         console.log(error);
-        this.prenomuser = ""; // Mettre prenomuser à une chaîne vide en cas d'erreur
+      }
+    },
+    async getStadename(id) {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/stadenom/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const nom_stade = response.data.data;
+
+        const reservation = this.reservations.find((reservation) => reservation.stade_id === id);
+        if (reservation) {
+          reservation.nomstade = nom_stade;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getEquipes(id) {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/Reservationlogo/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const image = response.data.data;
+        
+        // Trouver l'admin correspondant dans la liste et définir l'URL de l'image
+        const reservation = this.reservations.find((reservation) => reservation.admin_equipe_id === id);
+        if (reservation) {
+          reservation.imageUrl = image;
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
   },
@@ -354,11 +383,17 @@ export default {
     await this.getUserPermission();
     await this.getReservations();
     for (const reservation of this.reservations) {
-      await this.getUsername(reservation.admin_equipe_id);
-    }
+        await this.getUsername(reservation.admin_equipe_id);
+      }
+      for (const reservation of this.reservations) {
+        await this.getStadename(reservation.stade_id);
+      }
+      for (const reservation of this.reservations) {
+        await this.getEquipes(reservation.admin_equipe_id);
+      }
     console.log(this.userRole);
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
 };
