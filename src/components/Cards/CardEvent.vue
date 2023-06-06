@@ -108,7 +108,7 @@
               {{ event.type_event === 'Match' ? event.type_match : 'N/A' }}
             </td>
             <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center">
-              {{ event.type_event === 'Match' ? event.equipe1_id : 'N/A' }}
+              {{ event.type_event === 'Match' ? event.equipe1_id[0].nom : 'N/A' }}
             </td>
             <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center">
               {{ event.type_event === 'Match' ? event.equipe2_id : 'N/A' }}
@@ -116,9 +116,8 @@
             <td 
               class="border-t-0 border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
             >
-              <router-link v-if="userRole === 'Admin Federation' "
-              to="/form/AjoutAdmin" v-slot="{ href, navigate }">
-                <button 
+            <router-link to="/form/AjoutEvent" v-slot="{ href, navigate }">
+                <button
                   :href="href"
                   @click="navigate"
                   class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -153,6 +152,7 @@ export default {
       bootstrap,
       events: [],
       permissions: [],
+      nomstade:'',
     };
   },
   components: {
@@ -215,10 +215,30 @@ export default {
       return this.permissions.includes(permission);
     },
    
+    async getStadename(id) {
+      try {
+        const token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/stadenom/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const nom1 = response.data.data;
+        console.log(nom1);
+        this.nomstade = nom1; // Mettre à jour la valeur de  stadenom avec le nom récupéré
+      } catch (error) {
+        console.log(error);
+        this. nomstade = ""; // Mettre  stadenom à une chaîne vide en cas d'erreur
+      }
+    },
   },
-  mounted() {
+  async mounted() {
     this.getEvents();
     this.getUserPermission();
+    for (const event of this.events) {
+      await this.getStadename(event.stade_id);
+     
+    }
   },
 };
 </script>

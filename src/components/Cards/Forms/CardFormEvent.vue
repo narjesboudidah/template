@@ -208,18 +208,17 @@
                     >
                       Nom de l'équipe 
                     </label>
-                    <select v-model="this.form.equipe1_id"
-                      id="equipe1_id"
-                      name="equipe1_id"
-                      required
-                      class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
-                    >
-                      <option value="">Choisissez une équipe</option>
+
+                    <select v-model="this.form.nom_equipe1" 
+            id="nom_equipe1" name="nom_equipe1" 
+            required 
+            class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow">
+            <option value="">Choisissez une équipe</option>
                       <option
                         v-for="team in this.equipes"
                         :key="team.id"
-                        :value="team.equipe1_id"
-                        :label="team.equipe1_id"
+                        :value="team.nom_equipe"
+                        :label="team.nom_equipe"
                       />
                     </select>
                   </div>

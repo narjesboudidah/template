@@ -195,6 +195,7 @@ export default {
     return {
       reservations: [],
       permissions: [],
+      imageUrl: '',
       userRole: '',
       prenomuser: "",
       nomstade: "",
@@ -376,6 +377,25 @@ export default {
         console.log(error);
       }
     },
+    async getEquipes(nom) {
+      try {
+        let token = localStorage.getItem("userToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/equipeimage/${nom}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const image = response.data.data;
+        
+        // Trouver l'admin correspondant dans la liste et définir l'URL de l'image
+        const admin = this.admins.find((admin) => admin.nom_equipe === nom);
+        if (admin) {
+          admin.imageUrl = image.logo;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   async mounted() {
     try {
@@ -383,14 +403,8 @@ export default {
     await this.getUserPermission();
     await this.getReservations();
     for (const reservation of this.reservations) {
-        await this.getUsername(reservation.admin_equipe_id);
-      }
-      for (const reservation of this.reservations) {
-        await this.getStadename(reservation.stade_id);
-      }
-      for (const reservation of this.reservations) {
-        await this.getEquipes(reservation.admin_equipe_id);
-      }
+      await this.getUsername(reservation.admin_equipe_id);
+    }
     console.log(this.userRole);
   } catch (error) {
     console.log(error);
