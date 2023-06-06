@@ -199,7 +199,6 @@ export default {
       userRole: '',
       prenomuser: "",
       nomstade: "",
-      imageUrl: "",
       id:1,
     };
   },
@@ -358,7 +357,7 @@ export default {
         console.log(error);
       }
     },
-    async getEquipes(id) {
+    async getEquipeById(id) {
       try {
         let token = localStorage.getItem("userToken");
         const response = await axios.get(`http://127.0.0.1:8000/api/Reservationlogo/${id}`, {
@@ -377,7 +376,7 @@ export default {
         console.log(error);
       }
     },
-    async getEquipes(nom) {
+    async getEquipeByName(nom) {
       try {
         let token = localStorage.getItem("userToken");
         const response = await axios.get(`http://127.0.0.1:8000/api/equipeimage/${nom}`, {
