@@ -43,6 +43,7 @@ import HistoriqueDemande from "@/views/admin/Historiques/HistoriqueDemande.vue";
 import MaintenanceForm from "@/views/admin/Forms/MaintenanceForm.vue";
 import ReservationForm from "@/views/admin/Forms/ReservationForm.vue";
 import AdminForm from "@/views/admin/Forms/AdminForm.vue";
+import ModifierAdminForm from "@/views/admin/Forms/ModifierAdminForm.vue";
 import CompetitionForm from "@/views/admin/Forms/CompetitionForm.vue";
 import EquipeForm from "@/views/admin/Forms/EquipeForm.vue";
 import SteForm from "@/views/admin/Forms/SteForm.vue";
@@ -156,6 +157,10 @@ const routes = [
       {
         path: "/form/AjoutAdmin",
         component: AdminForm,
+      },
+      {
+        path: "/form/ModifierAdmin/:id",
+        component: ModifierAdminForm,
       },
       {
         path: "/form/AjoutCompetition",

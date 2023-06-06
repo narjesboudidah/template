@@ -199,34 +199,34 @@ export default {
   },
   methods: {
     async submit() {
-  try {
-    const token = localStorage.getItem("userToken");
-    console.log(this.form);
-    const response = await axios.put(
-      "http://127.0.0.1:8000/api/userUpdate",
-      this.form,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+      try {
+        const token = localStorage.getItem("userToken");
+        console.log(this.form);
+        const response = await axios.put(
+          "http://127.0.0.1:8000/api/userUpdate",
+          this.form,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
 
-    this.$swal({
-      icon: "success",
-      title: "Your work has been saved",
-      showConfirmButton: false,
-      timer: 5500,
-    });
+        this.$swal({
+          icon: "success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 5500,
+        });
 
-    console.log(response.data);
-  } catch (error) {
-    console.error(error);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
 
-    this.$swal({
-      icon: "warning",
-      title: error.message,
-      showConfirmButton: false,
-      timer: 5500,
-    });
-  }
-},
+        this.$swal({
+          icon: "warning",
+          title: error.message,
+          showConfirmButton: false,
+          timer: 5500,
+        });
+      }
+    },
 
     async getUser() {
       try {

@@ -135,16 +135,13 @@
             <td
               class="border-t-0 bg-white border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center"
             >
-              <router-link to="/form/AjoutAdmin" v-slot="{ href, navigate }">
-                <button
-                  :href="href"
-                  @click="navigate"
+              <button
+                  v-on:click="toAdmin(admin.id)"
                   class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                   type="button"
                 >
                   <i class="fas fa-pen"></i>
-                </button>
-              </router-link>
+              </button>
               <button
                 class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
@@ -164,6 +161,10 @@ import bootstrap from "@/assets/img/1200px-Logo_federation_tunisienne_de_footbal
 import axios from "axios";
 export default {
   props: {
+    admin: {
+      type: Object,
+      required: true,
+    },
     type: []
   },
   data() {
@@ -177,6 +178,9 @@ export default {
   },
 
   methods: {
+    toAdmin(id) {
+      this.$router.push(`/form/ModifierAdmin/${id}`);
+    },
     async getUsers() {
       let token = localStorage.getItem("userToken");
       await axios
