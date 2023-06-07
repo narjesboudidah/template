@@ -1,12 +1,14 @@
 <template>
   <div>
-    <div v-if="competitions.length" class="flex flex-wrap">
+    <div class="flex flex-wrap">
       <!--Si le user a cette permission -->
-      <div v-if="hasPermission('Ajout Competition')" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
+      <div v-if="this.hasPermission('Ajout Competition')" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
         <card-ajout-competition />
       </div>
-      <div v-for="competition in competitions" :key="competition.id" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
-        <card-competition :competition="competition" />
+      <div v-if="this.competitions?.length">
+        <div v-for="competition in competitions" :key="competition.id" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
+          <card-competition :competition="competition" />
+        </div>
       </div>
     </div>
   </div>
@@ -55,9 +57,9 @@ export default {
       return this.permissions.includes(permission);
     },
   },
-  mounted() {
-    this.getCompetitions();
-    this.getUser();
+  async mounted() {
+    await this.getCompetitions();
+    await this.getUser();
   }
 };
 </script>

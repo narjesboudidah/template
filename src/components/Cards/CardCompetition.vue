@@ -111,7 +111,7 @@ export default {
     return {
       team2,
       permissions: [],
-      url: `/form/competition/${this.props?.competition?.id}`
+      url: `/form/competition/${this.$props?.competition?.id}`
     };
   },
   methods: {

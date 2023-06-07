@@ -16,7 +16,7 @@
               Nom de l'équipe :
             </label>
             <input
-              v-model="form.nom_equipe"
+              v-model="this.form.nom_equipe"
               type="text"
               id="nom-equipe"
               name="nom-equipe"
@@ -30,7 +30,7 @@
               Pays de l'équipe :
             </label>
             <input
-              v-model="form.pays"
+              v-model="this.form.pays"
               type="text"
               id="pays-equipe"
               name="pays-equipe"
@@ -45,7 +45,7 @@
               Adresse de l'équipe :
             </label>
             <input
-              v-model="form.adresse"
+              v-model="this.form.adresse"
               type="text"
               id="adresse-equipe"
               name="adresse-equipe"
@@ -64,7 +64,6 @@
               name="logo"
               ref="file"
               @change="handleFileChange"
-              required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
             />
           </div>
@@ -73,7 +72,7 @@
               Description de l'équipe :
             </label>
             <textarea
-              v-model="form.description"
+              v-model="this.form.description"
               id="description-equipe"
               name="description-equipe"
               :placeholder="equipe.description"
@@ -86,7 +85,7 @@
               Type d'équipe :
             </label>
             <select
-              v-model="form.type_equipe"
+              v-model="this.form.type_equipe"
               id="type-equipe"
               name="type-equipe"
               :placeholder="equipe.type_equipe"
@@ -104,7 +103,7 @@
               Site Web de l'équipe :
             </label>
             <input
-              v-model="form.site_web"
+              v-model="this.form.site_web"
               type="text"
               id="site-web-equipe"
               name="site-web-equipe"
@@ -166,14 +165,14 @@ export default {
 
       try {
         let response;
-        if (id >= 1) {
+        if (id) {
           response = await axios.put(`${API_URL}/${id}`, this.getFormData(), {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
         } else {
-          response = await axios.post(API_URL, this.getFormData(), {
+          response = await axios.post(API_URL, this.form, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -207,24 +206,25 @@ export default {
       const id = this.$route.params.id;
       const token = localStorage.getItem("userToken");
       const headers = { Authorization: `Bearer ${token}` };
-
-      try {
-        const response = await axios.get(`${API_URL}/${id}`, { headers });
-        this.equipe = response.data.data;
-        console.log(this.equipe);
-
-        // Assigner les valeurs récupérées à this.form
-        this.form = {
-          nom_equipe: this.equipe.nom_equipe,
-          pays: this.equipe.pays,
-          adresse: this.equipe.adresse,
-          description: this.equipe.description,
-          type_equipe: this.equipe.type_equipe,
-          site_web: this.equipe.site_web,
-        };
-      } catch (error) {
-        console.error(error);
-        // Afficher un message d'erreur approprié ici
+      if (id) {
+        try {
+          const response = await axios.get(`${API_URL}/${id}`, { headers });
+          this.equipe = response.data.data;
+          console.log(this.equipe);
+  
+          // Assigner les valeurs récupérées à this.form
+          this.form = {
+            nom_equipe: this.equipe.nom_equipe,
+            pays: this.equipe.pays,
+            adresse: this.equipe.adresse,
+            description: this.equipe.description,
+            type_equipe: this.equipe.type_equipe,
+            site_web: this.equipe.site_web,
+          };
+        } catch (error) {
+          console.error(error);
+          // Afficher un message d'erreur approprié ici
+        }
       }
     },
     getFormData() {
