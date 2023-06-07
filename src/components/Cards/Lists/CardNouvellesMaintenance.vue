@@ -7,8 +7,8 @@
             Nouvelles demandes de maintenance
           </h3>
         </div>
-        <div v-if="userRole === 'Admin Federation'" class="relative w-full px-15 max-w-full flex-grow flex-1 text-right">
-        <admin-dropdown/>
+        <div v-if="this.userRole === 'Admin Federation'" class="relative w-full px-15 max-w-full flex-grow flex-1 text-right">
+        <!-- <admin-dropdown/> -->
         </div>
         <div class="text-right">
           
@@ -29,7 +29,7 @@
       <table class="items-center w-full bg-transparent border-collapse">
         <thead>
           <tr>
-            <th v-if="userRole === 'Admin Federation'"
+            <th v-if="this.userRole === 'Admin Federation'"
              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center">
               Nom
             </th>
@@ -54,17 +54,17 @@
             <th class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center">
               Etat
             </th>
-            <th v-if="userRole === 'Admin Federation'" class="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
+            <th v-if="this.userRole === 'Admin Federation'" class="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
               Action
             </th>
-            <th v-if="userRole === 'Admin Ste'" class="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
+            <th v-if="this.userRole === 'Admin Ste'" class="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
               Annuler
             </th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="maintenance in this.maintenances" :key="maintenance.id">
-            <td v-if="userRole === 'Admin Federation'"
+            <td v-if="this.userRole === 'Admin Federation'"
             class="px-6 align-middle  border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center" style="margin-top: 1.1rem; margin-right: 2rem">
             <img
                 :src="maintenance.imageUrl"
@@ -95,17 +95,17 @@
               {{ maintenance.etat }}
             </td>
             <td class="border-t-0 border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <button v-if="userRole === 'Admin Federation'" class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="accepter(maintenance.id)">
+              <button v-if="this.userRole === 'Admin Federation'" class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="accepter(maintenance.id)">
                 <i class="fas fa-check"></i>
               </button>
               <button v-if="hasPermission('Annuler Maintenance')" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="refuser(maintenance.id)">
                 <i class="fa fa-ban"></i>
               </button>
-              <button v-if="userRole === 'Admin Ste'" class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" 
+              <button v-if="this.userRole === 'Admin Ste'" class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" 
               type="button" @click="update(maintenance.id)">
                 <i class="fa fa-pen"></i>
               </button>
-              <button v-if="userRole === 'Admin Ste'" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="annuler(maintenance.id)">
+              <button v-if="this.userRole === 'Admin Ste'" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="annuler(maintenance.id)">
                 <i class="fa fa-ban"></i>
               </button>
             </td>
@@ -126,7 +126,7 @@ export default {
       permissions: [],
       userRole: '',
       admins: [],
-      prenomuser: '',
+      prenomuser: [],
       imageUrl: "",
       id: 1,
     };
@@ -262,10 +262,12 @@ export default {
 
         const maintenance = this.maintenances.find((maintenance) => maintenance.admin_ste_id === id);
         if (maintenance) {
-          maintenance.prenomuser = nom;
+          return nom;
         }
+        console.log('users', this.prenomuser);
       } catch (error) {
         console.log(error);
+        return;
       }
     },
     async getStadename(id) {
@@ -308,27 +310,28 @@ export default {
   },
 
   async mounted() {
-  await this.getUserPermission();
-  await this.getUser();
-  await this.getMaintenances();
+    console.log(this.prenomuser);
+    await this.getUserPermission();
+    await this.getUser();
+    await this.getMaintenances();
 
-  const adminSteIds = this.maintenances.map((maintenance) => maintenance.admin_ste_id);
-  const stadenameIds = this.maintenances.map((maintenance) => maintenance.stade_id);
+    const adminSteIds = this.maintenances.map((maintenance) => maintenance.admin_ste_id);
+    const stadenameIds = this.maintenances.map((maintenance) => maintenance.stade_id);
 
-  const usernameRequests = adminSteIds.map(async (id) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000)); // Pause de 2 secondes
-    await this.getUsername(id);
-  });
-  const stadenameRequests = stadenameIds.map(async (id) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000)); // Pause de 2 secondes
-    await this.getStadename(id);
-  });
-  const stesRequests = adminSteIds.map(async (id) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000)); // Pause de 2 secondes
-    await this.getStes(id);
-  });
+    const usernameRequests = adminSteIds.map(async (id) => {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      this.prenomuser = [...this.prenomuser,this.getUsername(id)]
+    });
+    const stadenameRequests = stadenameIds.map(async (id) => {
+      await new Promise((resolve) => setTimeout(resolve, 100)); 
+      await this.getStadename(id);
+    });
+    const stesRequests = adminSteIds.map(async (id) => {
+      await new Promise((resolve) => setTimeout(resolve, 100)); 
+      await this.getStes(id);
+    });
 
-  await Promise.all([...usernameRequests, ...stadenameRequests, ...stesRequests]);
+    await Promise.all([...usernameRequests, ...stadenameRequests, ...stesRequests]);
 },
 
 };

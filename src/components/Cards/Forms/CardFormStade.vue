@@ -14,7 +14,7 @@
               Nom du stade :
             </label>
             <input
-              v-model="form.nom"
+              v-model="this.form.nom"
               type="text"
               id="nom-stade"
               name="nom-stade"
@@ -28,7 +28,7 @@
               Pays du stade :
             </label>
             <input
-              v-model="form.pays"
+              v-model="this.form.pays"
               type="text"
               id="pays-stade"
               name="pays-stade"
@@ -42,7 +42,7 @@
               Adresse du stade :
             </label>
             <input
-              v-model="form.adresse"
+              v-model="this.form.adresse"
               type="text"
               id="adresse-stade"
               name="adresse-stade"
@@ -56,7 +56,7 @@
               Capacité du stade :
             </label>
             <input
-              v-model="form.capacite"
+              v-model="this.form.capacite"
               type="text"
               id="capacite-stade"
               name="capacite-stade"
@@ -71,7 +71,7 @@
               Surface du stade :
             </label>
             <input
-              v-model="form.surface"
+              v-model="this.form.surface"
               type="text"
               id="surface-stade"
               name="surface-stade"
@@ -86,7 +86,7 @@
               Propriétaire du stade :
             </label>
             <input
-              v-model="form.proprietaire"
+              v-model="this.form.proprietaire"
               type="text"
               id="proprietaire-stade"
               name="proprietaire-stade"
@@ -100,7 +100,7 @@
               Téléphone :
             </label>
             <input
-              v-model="form.telephone"
+              v-model="this.form.telephone"
               type="tel"
               id="telephone"
               name="telephone"
@@ -128,7 +128,7 @@
               Description du stade :
             </label>
             <textarea
-              v-model="form.description"
+              v-model="this.form.description"
               id="description-stade"
               name="description-stade"
               :placeholder="this.stade.description"
@@ -141,7 +141,7 @@
               Date dernier travaux :
             </label>
             <input
-              v-model="form.date_dernier_travaux"
+              v-model="this.form.date_dernier_travaux"
               type="date"
               id="date-dernier-travaux"
               name="date-dernier-travaux"
@@ -155,10 +155,10 @@
             <label class="block uppercase tracking-wide text-blueGray-600 text-xs font-bold mb-2" for="etat">
               État :
             </label>
-            <select v-model="form.etat" class="w-full">
-              <option value="disponible" :selected="form.etat === 'disponible'">disponible</option>
-              <option value="reserver" :selected="form.etat === 'reserver'">reserver</option>
-              <option value="en maintenance" :selected="form.etat === 'en maintenance'">en maintenance</option>
+            <select v-model="this.form.etat" class="w-full">
+              <option value="disponible" :selected="this.form.etat === 'disponible'">disponible</option>
+              <option value="reserver" :selected="this.form.etat === 'reserver'">reserver</option>
+              <option value="en maintenance" :selected="this.form.etat === 'en maintenance'">en maintenance</option>
             </select>
           </div>
         </div>
@@ -278,7 +278,9 @@ export default {
     }
   },
   mounted() {
-    this.getStade();
+    if (this.$route.params.id){
+      this.getStade();
+    }
   }
 };
 </script>

@@ -64,8 +64,8 @@
               required
               class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow"
             >
-              <option >moyen</option>
-              <option >urgent</option>
+              <option>moyen</option>
+              <option>urgent</option>
             </select>
           </div>
           <div class="w-full lg:w-6/12 px-4 mb-3">
@@ -91,8 +91,9 @@
             id="stade_id" name="stade_id" 
             required 
             class="border-2 border-blueGray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-3 rounded-md text-sm shadow">
-              <option v-for="stade in stades" :key="stade.id" :value="stade.id">
-                {{ stade.nom }}</option>
+              <option v-for="stade in this.stades" :key="stade.id" :value="stade.id">
+                {{ stade.nom }}
+              </option>
             </select>
           </div>
           
@@ -156,6 +157,7 @@ export default {
       await axios.get("http://127.0.0.1:8000/api/stades",{headers: {
         'Authorization': `Bearer ${token}`
       }}).then((response) => {
+        console.log(response.data);
         this.stades = response.data.data;
       }).catch(err => console.log(err))
     },
