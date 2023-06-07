@@ -249,10 +249,10 @@ export default {
           },
         });
         console.log(response.data.message);
+      this.updateData(); // Mettre à jour les données
       } catch (err) {
         console.log(err);
       }
-      window.location.reload();
     },
     async getUser() {
       try {
@@ -327,23 +327,21 @@ export default {
   },
 
   async mounted() {
-    try {
-      await this.getUser();
-      await this.getMaintenances();
-      for (const maintenance of this.maintenances) {
-        await this.getUsername(maintenance.admin_ste_id);
-      }
-      for (const maintenance of this.maintenances) {
-        await this.getStadename(maintenance.stade_id);
-      }
-      for (const maintenance of this.maintenances) {
-        await this.getStes(maintenance.admin_ste_id);
-      }
-      console.log(this.userRole);
-    } catch (error) {
-      console.error(error);
-    }
-  },
+  try {
+    await this.getUser();
+    await this.getMaintenances();
+
+    const usernamePromises = this.maintenances.map((maintenance) => this.getUsername(maintenance.admin_ste_id));
+    const stadenamePromises = this.maintenances.map((maintenance) => this.getStadename(maintenance.stade_id));
+    const stesPromises = this.maintenances.map((maintenance) => this.getStes(maintenance.admin_ste_id));
+
+    await Promise.all([...usernamePromises, ...stadenamePromises, ...stesPromises]);
+
+    console.log(this.userRole);
+  } catch (error) {
+    console.error(error);
+  }
+},
 };
 </script>
 

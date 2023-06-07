@@ -133,21 +133,21 @@ export default {
   },
   methods: {
     async getMaintenances() {
-      let token = localStorage.getItem("userToken");
-      const today = new Date().toISOString().split('T')[0];
-
       try {
+        const token = localStorage.getItem("userToken");
+        const today = new Date().toISOString().split('T')[0];
+
         const response = await axios.get("http://127.0.0.1:8000/api/maintenances/filter", {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
           params: {
-            date: today.substring(0, 10),
+            date: today,
           },
         });
 
         this.maintenances = response.data.data;
-        console.log(response.data.data);
+        console.log(this.maintenances);
       } catch (err) {
         console.log(err);
       }

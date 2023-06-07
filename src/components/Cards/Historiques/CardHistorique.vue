@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
-    style="border-radius: 1rem; max-height: 54.5rem"
-  >
+  <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded" style="border-radius: 1rem; max-height: 54.5rem">
     <div class="rounded-t mb-0 px-4 py-3 border-0">
       <div class="flex flex-wrap items-center">
         <div class="relative w-full px-4 max-w-full flex-grow flex-1">
@@ -24,19 +21,13 @@
       <table class="items-center w-full bg-transparent border-collapse">
         <thead>
           <tr>
-            <th
-              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-            >
+            <th class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center">
               Nom
             </th>
-            <th
-              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-            >
+            <th class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center">
               Action
             </th>
-            <th
-              class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
-            >
+            <th class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center">
               Date
             </th>
           </tr>
@@ -46,14 +37,10 @@
             <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
               {{ historique.prenomuser }}
             </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
-            >
+            <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4">
               {{ historique.action }}
             </td>
-            <td
-              class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
-            >
+            <td class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center">
               {{ historique.date }}
             </td>
           </tr>
@@ -83,7 +70,7 @@ export default {
           },
         });
         this.historiques = response.data.data;
-        console.log(response.data.data);
+        console.log(this.historiques);
       } catch (error) {
         console.error(error);
       }
@@ -103,13 +90,9 @@ export default {
       }
     },
 
-    hasPermission(permission) {
-      return this.permissions.includes(permission);
-    },
-
     async getUsername(id) {
       try {
-        let token = localStorage.getItem("userToken");
+        const token = localStorage.getItem("userToken");
         const response = await axios.get(`http://127.0.0.1:8000/api/usernom/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
