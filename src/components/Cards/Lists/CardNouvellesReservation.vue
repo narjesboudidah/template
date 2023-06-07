@@ -10,7 +10,7 @@
             Nouvelles demandes de réservation
           </h3>
         </div>
-        <div v-if="userRole === 'Admin Federation'"
+        <div v-if="this.userRole === 'Admin Federation'"
           class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
         >
         <filtre-dropdown/>
@@ -48,7 +48,7 @@
       <table class="items-center w-full bg-transparent border-collapse">
         <thead>
           <tr>
-            <th v-if="userRole === 'Admin Federation'"
+            <th v-if="this.userRole === 'Admin Federation'"
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
               Nom
@@ -101,7 +101,7 @@
         </thead>
         <tbody>
           <tr v-for="reservation in this.reservations" :key="reservation.id">
-            <td v-if="userRole === 'Admin Federation'"
+            <td v-if="this.userRole === 'Admin Federation'"
               style="margin-top: 0.1rem; margin-right: 2rem"
               class="px-6 align-middle  border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
@@ -177,14 +177,14 @@
               >
                 <i class="fa fa-ban"></i>
               </button>
-              <button v-if="userRole === 'Admin Equipe'"
+              <button v-if="this.userRole === 'Admin Equipe'"
                 class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 v-on:click="this.modifier(reservation.id)"
               >
                 <i class="fa fa-pen"></i>
               </button>
-              <button v-if="userRole === 'Admin Equipe'"
+              <button v-if="this.userRole === 'Admin Equipe'"
                 class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 v-on:click="this.annuler(reservation.id)"

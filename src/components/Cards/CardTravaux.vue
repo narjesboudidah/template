@@ -8,7 +8,7 @@
           </h3>
         </div>
         <div class="relative w-full px-15 max-w-full flex-grow flex-1 text-right ">
-        <admin-dropdown/>
+        <!-- <admin-dropdown/> -->
         </div>
         <div
           class="text-right"
@@ -46,7 +46,7 @@
       <table class="items-center w-full bg-transparent border-collapse">
         <thead>
           <tr>
-            <th v-if="userRole === 'Admin Federation'"
+            <th v-if="this.userRole === 'Admin Federation'"
             class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center">
               Nom Ste Maintenance
             </th>
@@ -75,8 +75,8 @@
         </thead>
         <tbody>
           <tr 
-          v-for="maintenance in maintenances" :key="maintenance.id">
-            <td v-if="userRole === 'Admin Federation'"
+          v-for="maintenance in this.maintenances" :key="maintenance.id">
+            <td v-if="this.userRole === 'Admin Federation'"
             style="margin-right: 2rem" 
             class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center">
             <img
@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import AdminDropdown from "@/components/Dropdowns/AdminDropdown.vue";
+// import AdminDropdown from "@/components/Dropdowns/AdminDropdown.vue";
 import axios from 'axios';
 
 export default {
@@ -131,7 +131,7 @@ export default {
   },
 
   components: {
-    AdminDropdown,
+    // AdminDropdown,
   },
   methods: {
     async getMaintenances() {
@@ -143,9 +143,10 @@ export default {
           },
         });
         this.maintenances = response.data.data;
+        
         console.log(response.data.data);
       } catch (error) {
-        console.log(error);
+        console.log(error); 
       }
     },
     async getUser() {
@@ -224,14 +225,9 @@ export default {
       await this.getMaintenances();
       for (const maintenance of this.maintenances) {
         await this.getUsername(maintenance.admin_ste_id);
-      }
-      for (const maintenance of this.maintenances) {
+        await this.getStes(maintenance.admin_ste_id);
         await this.getStadename(maintenance.stade_id);
       }
-      for (const maintenance of this.maintenances) {
-        await this.getStes(maintenance.admin_ste_id);
-      }
-      console.log(this.userRole);
     } catch (error) {
       console.error(error);
     }

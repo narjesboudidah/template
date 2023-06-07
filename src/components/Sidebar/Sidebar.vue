@@ -36,7 +36,7 @@
           <notification-dropdown />
         </li>
         <li class="inline-block relative">
-          <user-dropdown />
+          <!-- <user-dropdown /> -->
         </li>
       </ul>
       <!-- Collapse -->
@@ -425,7 +425,6 @@ export default {
   },
   mounted() {
    this.getUser();
-   console.log(this.userRole);
   },
 };
 
