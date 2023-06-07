@@ -89,21 +89,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="reservation in this.reservations" :key="reservation.id">
+          <tr v-for="reservation in this.reservationsstades" :key="reservation.id">
             <td v-if="userRole === 'Admin Federation'"
               class="border-t-0 border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
             <img 
-                :src="reservation.imageUrl"
+                :src="'http://127.0.0.1:8000/' + reservation.adminEquipe.equipes.image"
                 class="h-12 w-12 bg-white rounded-full border"
                 alt="Image"
               />
-              <span class="ml-3" >{{ reservation.prenomuser }}</span>
+              <span class="ml-3" >{{ reservation.adminEquipe.nom }}</span>
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss text-center p-4"
             >
-              {{ reservation.nomstade }}
+              {{ reservation.stade.nom }}
             </td>
             <td
               class="px-6 align-middle border border-solid border-blueGray-50 py-3 font-semibold text-blueGray-700 text-xss whitespace-nowrap text-center"
@@ -198,7 +198,7 @@ export default {
       imageUrl: '',
       userRole: '',
       prenomuser: "",
-      nomstade: "",
+      reservationsstades: [],
       id:1,
     };
   },
@@ -214,8 +214,8 @@ export default {
             'Authorization': `Bearer ${token}`
           }
         });
-        this.reservations = response.data.data;
-        console.log(response.data.data);
+        this.reservationsstades = response.data.data;
+        console.log(this.reservationsstades,'ffff');
       } catch (err) {
         console.log(err);
       }
@@ -339,20 +339,22 @@ export default {
         console.log(error);
       }
     },
-    async getStadename(id) {
+    async getStadename() {
       try {
         let token = localStorage.getItem("userToken");
-        const response = await axios.get(`http://127.0.0.1:8000/api/stadenom/${id}`, {
+        const response = await axios.get("http://127.0.0.1:8000/api/reservations", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        const nom_stade = response.data.data;
+        const nom_stade = response.data;
+        console.log(nom_stade,'test');
 
-        const reservation = this.reservations.find((reservation) => reservation.stade_id === id);
-        if (reservation) {
-          reservation.nomstade = nom_stade;
-        }
+      //  const reservation = this.reservations.find((reservation) => reservation.stade_id === id);
+       // if (reservation) {
+          //reservation.nomstade = nom_stade.nom;
+       // console.log(reservation.nomstade,'test');
+       // }
       } catch (error) {
         console.log(error);
       }
@@ -404,6 +406,9 @@ export default {
     for (const reservation of this.reservations) {
       await this.getUsername(reservation.admin_equipe_id);
     }
+    
+    await this.getStadename();
+    
     console.log(this.userRole);
   } catch (error) {
     console.log(error);

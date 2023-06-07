@@ -116,6 +116,7 @@
               Image du stade :
             </label>
             <input
+            :src=" this.form.image"
               type="file"
               id="image"
               name="image"
@@ -256,7 +257,7 @@ export default {
 
         const response = await axios.get(`${API_URL}/${id}`, { headers });
         this.stade = response.data.data;
-        console.log(this.stade);
+        console.log(response.data.data,'rrrrr');
 
         // Assigner les valeurs récupérées à this.form
         this.form = {
@@ -269,7 +270,8 @@ export default {
           description: this.stade.description,
           capacite: this.stade.capacite,
           surface: this.stade.surface,
-          date_dernier_travaux: this.stade.date_dernier_travaux
+          date_dernier_travaux: this.stade.date_dernier_travaux,
+          image: this.stade.image,
         };
       } catch (error) {
         console.error(error);

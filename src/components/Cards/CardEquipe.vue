@@ -1,8 +1,6 @@
 <template>
   <div
-    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16"
-    style="border-radius: 1rem"
-  >
+  class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16" style="border-radius: 1rem;">
     <div class="px-6">
       <div class="flex flex-wrap justify-center">
         <div class="w-full px-4 flex justify-center">
@@ -22,18 +20,6 @@
         >
           {{ equipe.nom_equipe }}
         </h3>
-        <div v-if="equipe.id===1" class="mb-2 text-xs text-blueGray-600 mt-25">
-          <i class="fa fa-user mr-2 text-sm"></i>
-          Narjes Boudidah
-        </div>
-        <div v-if="equipe.id===2" class="mb-2 text-xs text-blueGray-600 mt-25">
-          <i class="fa fa-user mr-2 text-sm"></i>
-          Othman Jenayah
-        </div>
-        <div v-if="equipe.id===3" class="mb-2 text-xs text-blueGray-600 mt-25">
-          <i class="fa fa-user mr-2 text-sm"></i>
-          Naciri Said
-        </div>
         <div class="mb-2 text-xs text-blueGray-600 mt-25">
           <i class="fas fa-map-marker-alt mr-2 text-lg"></i>
           {{ equipe.adresse }}
