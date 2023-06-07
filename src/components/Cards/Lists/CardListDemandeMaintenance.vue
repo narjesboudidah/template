@@ -15,7 +15,7 @@
         >
         <admin-dropdown/>
         </div>
-        <div v-if="userRole === 'Admin Ste'"
+        <div v-if="this.userRole === 'Admin Ste'"
          class="text-right">
           <button class="icon-sidebar-click" type="button" style="padding-right: 0.7rem; padding-left: 0.7rem">
             <router-link
@@ -36,7 +36,7 @@
       <table class="items-center w-full bg-transparent border-collapse">
         <thead>
           <tr>
-            <th v-if="userRole === 'Admin Federation'"
+            <th v-if="this.userRole === 'Admin Federation'"
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
               Nom
@@ -86,7 +86,7 @@
         
         <tbody>
           <tr v-for="maintenance in this.maintenances" :key="maintenance.id" >
-            <td v-if="userRole === 'Admin Federation'"
+            <td v-if="this.userRole === 'Admin Federation'"
               class="border-t-0   border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
               <img
@@ -132,17 +132,17 @@
             {{ maintenance.etat }}
             </td>
             <td class="border-t-0 border-solid border-blueGray-50 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <button v-if="userRole === 'Admin Federation'" class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="accepter(maintenance.id)">
+              <button v-if="this.userRole === 'Admin Federation' && hasPermission('Confirmer Maintenance')" class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="accepter(maintenance.id)">
                 <i class="fas fa-check"></i>
               </button>
-              <button v-if="userRole === 'Admin Federation'" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="refuser(maintenance.id)">
+              <button v-if="this.userRole === 'Admin Federation'&& hasPermission('Annuler Maintenance') " class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="refuser(maintenance.id)">
                 <i class="fa fa-ban"></i>
               </button>
-              <button v-if="userRole === 'Admin Ste'" class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" 
+              <button v-if="this.userRole === 'Admin Ste'" class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" 
               type="button" @click="update(maintenance.id)">
                 <i class="fa fa-pen"></i>
               </button>
-              <button v-if="userRole === 'Admin Ste'" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" 
+              <button v-if="this.userRole === 'Admin Ste'" class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" 
               @click="annuler(maintenance.id)">
                 <i class="fa fa-ban"></i>
               </button>
@@ -164,6 +164,7 @@ export default {
       userRole: "",
       prenomuser: "",
       nomstade: "",
+      permissions: [],
       imageUrl: "",
       id: 1,
     };
@@ -185,6 +186,9 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    hasPermission(permission) {
+      return this.permissions.includes(permission);
     },
     async accepter(id) {
       try {
@@ -262,6 +266,7 @@ export default {
             Authorization: `Bearer ${token}`,
           },
         });
+        this.permissions = result.data.permissions;
         this.userRole = result.data.role;
       } catch (err) {
         console.log(err);

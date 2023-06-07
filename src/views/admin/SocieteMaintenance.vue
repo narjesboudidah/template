@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="stes.length" class="flex flex-wrap">
-      <div v-if="hasPermission('Ajout Stade')" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
+      <div v-if="hasPermission('Ajout Ste')" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
         <card-ajout-ste/>
       </div>
       <div v-for="ste in stes" :key="ste.id" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">

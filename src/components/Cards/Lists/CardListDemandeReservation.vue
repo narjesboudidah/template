@@ -15,7 +15,7 @@
         >
         <filtre-dropdown/>
         </div>
-        <div v-if="userRole === 'Admin Equipe'"
+        <div v-if="this.userRole === 'Admin Equipe'"
          class="text-right">
           <button class="icon-sidebar-click" type="button" style="padding-right: 0.7rem; padding-left: 0.7rem">
             <router-link
@@ -36,7 +36,7 @@
       <table class="items-center w-full bg-transparent border-collapse">
         <thead>
           <tr>
-            <th v-if="userRole === 'Admin Federation'"
+            <th v-if="this.userRole === 'Admin Federation'"
               class="px-6 bg-blueGray-100 align-middle border border-solid border-blueGray-100 py-3 font-semibold text-blueGray-500 text-xss whitespace-nowrap text-center"
             >
               Nom
@@ -90,7 +90,7 @@
         </thead>
         <tbody>
           <tr v-for="reservation in this.reservationsstades" :key="reservation.id">
-            <td v-if="userRole === 'Admin Federation'"
+            <td v-if="this.userRole === 'Admin Federation'"
               class="border-t-0 border-solid border-blueGray-50 px-6 font-semibold align-middle border-l-0 border-r-0 text-blueGray-700 text-xss whitespace-nowrap p-4 text-center flex items-center"
             >
             <img 
@@ -165,14 +165,14 @@
               >
                 <i class="fa fa-ban"></i>
               </button>
-              <button v-if="userRole === 'Admin Equipe'"
+              <button v-if="this.userRole === 'Admin Equipe'"
                 class="bg-check-500 text-c active:bg-green-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 v-on:click="this.modifier(reservation.id)"
               >
                 <i class="fa fa-pen"></i>
               </button>
-              <button v-if="userRole === 'Admin Equipe'"
+              <button v-if="this.userRole === 'Admin Equipe'"
                 class="bg-check-500 text-red-600 active:bg-red-600 text-xs uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 v-on:click="this.annuler(reservation.id)"
@@ -298,23 +298,12 @@ export default {
           headers: {
             'Authorization': `Bearer ${token}`
           }
-      });this.userRole = result.data.role;
+      });
+      this.permissions = result.data.permissions;
+      this.userRole = result.data.role;
 
       } catch (err) {
           console.log(err);
-      }
-    },
-    async getUserPermission() {
-      try {
-        const token = localStorage.getItem("userToken");
-        const response = await axios.get("http://127.0.0.1:8000/api/user", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        this.permissions = response.data.permissions;
-      } catch (error) {
-        console.log(error);
       }
     },
     hasPermission(permission) {
