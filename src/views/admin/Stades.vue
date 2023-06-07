@@ -39,9 +39,13 @@ export default {
           },
         })
         .then((response) => {
-          this.stades = response.data.data;
+          this.stades = response.data.data.map((stade) => ({
+            ...stade,
+            imageUrl: stade.image, // Assign the logo URL to the imageUrl property
+          }));
         })
         .catch((err) => console.log(err));
+      console.log("stades", this.stades[0].tel);
     },
     async getUser() {
       try {

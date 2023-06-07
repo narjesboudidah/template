@@ -1,10 +1,10 @@
 <template>
     <div>
-      <div v-if="hasPermission('Ajout Equipe')" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
-        <card-ajout-equipe />
-      </div>
       <div v-if="equipes.length" class="flex flex-wrap">
-         <!--Si le user a cette permission -->
+        <!--Si le user a cette permission -->
+        <div v-if="hasPermission('Ajout Equipe')" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
+          <card-ajout-equipe />
+        </div>
         <div v-for="equipe in equipes" :key="equipe.id" class="w-full xl:w-4/12 mb-12 xl:mb-0 px-4">
           <card-equipe :equipe="equipe" />
         </div>  

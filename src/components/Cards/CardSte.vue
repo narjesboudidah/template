@@ -13,9 +13,13 @@
         <h3 class="text-xl font-arial leading-normal mb-2 text-blueGray-700 mb-2">
           {{ ste.nom }}
         </h3>
-        <div class="mb-2 text-xs text-blueGray-600 mt-25">
+        <div v-if="ste.id===1" class="mb-2 text-xs text-blueGray-600 mt-25">
           <i class="fa fa-user mr-2 text-sm"></i>
-          Paul Germen
+          Titech Zied
+        </div>
+        <div v-if="ste.id===2" class="mb-2 text-xs text-blueGray-600 mt-25">
+          <i class="fa fa-user mr-2 text-sm"></i>
+          Boudidah Hamza
         </div>
         <div class="mb-2 text-xs text-blueGray-600 mt-25">
           <i style="transform: rotate(90deg);" class="fa fa-phone mr-2 text-sm"></i>
