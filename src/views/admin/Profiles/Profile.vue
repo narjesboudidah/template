@@ -173,7 +173,7 @@
   </div>
 </template>
 <script>
-import team2 from "@/assets/img/Real-Madrid.png";
+import team2 from "@/assets/img/user.png";
 import axios from "axios";
 
 export default {
